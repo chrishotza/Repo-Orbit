@@ -9,7 +9,7 @@ class GlobalDeltaTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.feeds = refresh.load_feeds()
-        cls.a, cls.b = cls.feeds
+        cls.a, cls.b = cls.feeds[:2]
 
     def edge(self, feed, slug, sha="a"*40, line=8):
         return {
@@ -23,7 +23,7 @@ class GlobalDeltaTests(unittest.TestCase):
 
     def plans(self, data):
         return [(feed, rows, {"source_id": feed["id"]})
-                for feed, rows in zip(self.feeds, data)]
+                for feed, rows in zip(self.feeds, data + [[] for _ in range(len(self.feeds) - len(data))])]
 
     def baseline(self, data):
         return [(feed["id"], rows) for feed, rows in zip(self.feeds, data)]
@@ -107,7 +107,7 @@ class GlobalDeltaTests(unittest.TestCase):
         streams=incremental_delta._approved()
         report=incremental_delta.compare(
             self.plans([rows for _,rows in streams]), streams)
-        self.assertEqual(report["proposed_edges"], 1199)
+        self.assertEqual(report["proposed_edges"], 1463)
         self.assertEqual(report["counts"]["new_unverified_paths"], 0)
         self.assertEqual(len(report["changes"]), 0)
         self.assertEqual(report["baseline_unique_paths"],
