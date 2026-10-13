@@ -1,0 +1,56 @@
+{
+  "version": "0.2.0",
+  "purpose": "AI-first, evidence-aware GitHub project discovery",
+  "start": "AGENTS.md",
+  "transport": {
+    "mcp_stdio": {
+      "command": "python3",
+      "args": [
+        "-m",
+        "repoorbit.mcp"
+      ],
+      "cwd": "repository-root",
+      "dependencies": "python>=3.10 standard library only"
+    },
+    "python": {
+      "module": "repoorbit.agent",
+      "function": "call"
+    },
+    "static_lexical": {
+      "manifest": "ai/index.json",
+      "term_route": "ai/terms/{first_lowercase_letter}.json"
+    }
+  },
+  "tools": {
+    "search": {
+      "input": {
+        "q": "string",
+        "limit": "1..20 default 5",
+        "offset": "0..10000 default 0",
+        "role": "catalog|project|reference optional"
+      },
+      "output": "{q,n,offset,items,more,semantics}"
+    },
+    "resolve": {
+      "input": {
+        "repo": "owner/name"
+      },
+      "output": "exact record and provenance"
+    },
+    "stats": {
+      "input": {},
+      "output": "counts only"
+    }
+  },
+  "record_flags": {
+    "v=exists": "GitHub path verified at seed time, no runtime validation",
+    "v=not_checked": "link extracted, target not checked",
+    "role=reference": "not a confirmed repository"
+  },
+  "principles": [
+    "never infer cost, function or safety",
+    "lexical search only, not semantic",
+    "prefer small result sets",
+    "no GitHub API required for offline queries"
+  ]
+}
