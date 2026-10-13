@@ -1,4 +1,4 @@
-# RepoOrbit — minimal AI agent instructions (v0.12)
+# RepoOrbit — minimal AI agent instructions (v0.13)
 
 Primary contract: `agent.json`. **Do not read the full corpus, all READMEs or source snapshots to answer a query.**
 
@@ -17,7 +17,7 @@ Primary contract: `agent.json`. **Do not read the full corpus, all READMEs or so
 
 Without MCP: start at `ai/owners/index.json` -> one owner bucket -> one page (64 paths max). Or `ai/categories/index.json` -> **only** `ai/categories/{id}.json`. Other routes: `ai/intent.json`, `ai/index.json`, `ai/terms/{first_letter}.json`, `ai/status.json`, `ai/identities.json`, `ai/verified-targets.json`.
 
-Classification is an editorial or documentary subject label, a lexical **hint**, or explicit unknown; never a functional test. 30 seeds are editorial, 23 checked references have upstream README subject evidence pinned by Git blob SHA and exact line, and 178 remain lexical filename hints; 984 remain unclassified. Never promote a raw URL into a tested, secure or no-cost project. `v=exists` confirms only observed GitHub-path existence.
+Classification is an editorial or documentary subject label, a lexical **hint**, or explicit unknown; never a functional test. 34 seeds are editorial, 23 checked references have upstream README subject evidence pinned by Git blob SHA and exact line, and 252 remain lexical filename hints; 1,153 remain unclassified. Never promote a raw URL into a tested, secure or no-cost project. `v=exists` confirms only observed GitHub-path existence.
 
 Prefer 1–5 hits, request detailed evidence only for selected repositories. Preserve original catalog provenance and stable numeric IDs; source-repository license does not authorize reusing linked project code. No paid APIs, LLM or embeddings required for local lookup.
 
@@ -28,3 +28,5 @@ Automated `stage-readmes.yml` output is UNTRUSTED REVIEW DATA, not approved clas
 Scheduled checks rotate through approved pending pages based on UTC date, 25 numeric-ID metadata candidates and 5 README candidates per day. **Attempts are not approved observations.** Static historical date counts: `ai/evidence-dates.json`. Nothing here auto-promotes records. See `docs/COVERAGE_FRESHNESS.md`.
 
 Cross-feed staged reviews also include `data/snapshots/staged/global-delta.json`; duplicate slugs are deduplicated globally but source pointers stay separate. The future draft proposal independently checks that file before promotion. Never claim source delisting means repository deletion. See `docs/INCREMENTAL_SCALE.md`.
+
+Approved source coverage as of 2026-10-13: six independently reviewed CC0 catalogs, 1,463 source edges, 1,462 canonical owner/repo paths, 58 observed GitHub numeric identities, 309 subject labels (34 editorial / 23 README / 252 lexical) and 1,153 abstentions. **1,404 only exist as unverified catalog path references**. See `docs/FEED_EXPANSION.md` for exact upstream evidence, and `ai/status.json` for machine counts.

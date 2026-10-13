@@ -10,11 +10,11 @@ from repoorbit import agent, build_identity_index, identity, mcp
 class StableIdentityTests(unittest.TestCase):
     def test_verified_ids_cover_all_individually_checked_seeds(self):
         ids, aliases = identity.load()
-        self.assertEqual(len(ids), 30)
-        self.assertEqual(len(aliases), 30)
-        self.assertEqual(sum(row["role"] == "catalog" for row in ids.values()), 22)
+        self.assertEqual(len(ids), 34)
+        self.assertEqual(len(aliases), 34)
+        self.assertEqual(sum(row["role"] == "catalog" for row in ids.values()), 26)
         self.assertEqual(sum(row["role"] == "project" for row in ids.values()), 8)
-        self.assertEqual(len({row["github_id"] for row in ids.values()}), 30)
+        self.assertEqual(len({row["github_id"] for row in ids.values()}), 34)
 
     def test_all_registered_names_are_real_seed_references(self):
         sources = json.loads((agent.ROOT / "data/sources.json").read_text())["sources"]
@@ -69,7 +69,7 @@ class StableIdentityTests(unittest.TestCase):
         self.assertEqual(info["renamed"], 1)
         self.assertEqual(info["transferred"], 0)
         self.assertEqual(info["items"][0]["github_id"], 589831718)
-        self.assertEqual(info["not_checked_this_run"], 29)
+        self.assertEqual(info["not_checked_this_run"], 33)
 
     def test_transfer_requires_same_numeric_identity(self):
         info = identity.reconcile([{
@@ -102,9 +102,9 @@ class StableIdentityTests(unittest.TestCase):
     def test_manifest_is_exactly_reproducible(self):
         self.assertEqual(build_identity_index.main([]), 0)
         doc = build_identity_index.build()
-        self.assertEqual(doc["n"], 30)
+        self.assertEqual(doc["n"], 34)
         self.assertEqual(doc["r"][0][0], min(identity.load()[0]))
-        self.assertLess(len(json.dumps(doc)), 1700)
+        self.assertLess(len(json.dumps(doc)), 2000)
 
     def test_mcp_exact_resolution_uses_numeric_id(self):
         result = mcp.dispatch({

@@ -11,17 +11,17 @@ class OwnerRouterTests(unittest.TestCase):
     def test_approved_corpus_is_covered_once(self):
         docs = build_owner_index.build()
         self.assertEqual(build_owner_index.main([]), 0)
-        self.assertEqual(sum(group[1] for group in docs["index.json"]["groups"]), 1215)
+        self.assertEqual(sum(group[1] for group in docs["index.json"]["groups"]), 1462)
         self.assertEqual(len(docs["index.json"]["groups"]), 29)
         paths = [row[0].casefold() for key, obj in docs.items()
                  if key != "index.json" and not key.endswith("/index.json")
                  for row in obj["r"]]
-        self.assertEqual(len(paths), 1215)
-        self.assertEqual(len(set(paths)), 1215)
+        self.assertEqual(len(paths), 1462)
+        self.assertEqual(len(set(paths)), 1462)
         checked = sum(row[2] for key, obj in docs.items()
                       if key != "index.json" and not key.endswith("/index.json")
                       for row in obj["r"])
-        self.assertEqual(checked, 54)
+        self.assertEqual(checked, 58)
 
     def test_page_size_and_byte_bound_applies_to_every_page(self):
         docs = build_owner_index.build()

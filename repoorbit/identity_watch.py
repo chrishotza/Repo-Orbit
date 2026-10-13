@@ -115,7 +115,7 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Check GitHub seed identity drift without changing corpus")
     parser.add_argument("--check", action="store_true", help="Only validate identity registry offline")
     parser.add_argument("--delay", type=float, default=0.4)
-    parser.add_argument("--limit", type=int, default=0, help="0 = all 30, PR smoke checks 3")
+    parser.add_argument("--limit", type=int, default=0, help="0 = all checked seed IDs, PR smoke checks 3")
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUT)
     args = parser.parse_args(argv)
     try:

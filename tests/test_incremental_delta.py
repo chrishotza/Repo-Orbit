@@ -9,7 +9,7 @@ class GlobalDeltaTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.feeds = refresh.load_feeds()
-        cls.a, cls.b = cls.feeds
+        cls.a, cls.b = cls.feeds[:2]
 
     def edge(self, feed, slug, sha="a"*40, line=8):
         return {
@@ -23,13 +23,13 @@ class GlobalDeltaTests(unittest.TestCase):
 
     def plans(self, data):
         return [(feed, rows, {"source_id": feed["id"]})
-                for feed, rows in zip(self.feeds, data)]
+                for feed, rows in zip(self.feeds, data + [[] for _ in range(len(self.feeds) - len(data))])]
 
     def baseline(self, data):
-        return [(feed["id"], rows) for feed, rows in zip(self.feeds, data)]
+        return [(feed["id"], rows) for feed, rows in zip(self.feeds, data + [[] for _ in range(len(self.feeds) - len(data))])]
 
     def test_one_target_linked_twice_counts_once_globally(self):
-        a,b = self.feeds
+        a,b = self.feeds[:2]
         old = self.baseline([
             [self.edge(a, "hello/shared"), self.edge(a, "hello/removed")],
             [self.edge(b, "hello/shared")],
@@ -58,7 +58,7 @@ class GlobalDeltaTests(unittest.TestCase):
         self.assertIn("not_deleted", removed["change"])
 
     def test_same_slug_two_sources_is_not_two_new_repos(self):
-        a,b = self.feeds
+        a,b = self.feeds[:2]
         empty = self.baseline([[], []])
         report = incremental_delta.compare(self.plans([
             [self.edge(a, "One/Repo")], [self.edge(b, "one/repo")]
@@ -68,7 +68,7 @@ class GlobalDeltaTests(unittest.TestCase):
         self.assertEqual(report["proposed_unique_paths"], 1)
 
     def test_known_seed_link_does_not_count_as_new_unknown(self):
-        a,b = self.feeds
+        a,b = self.feeds[:2]
         report = incremental_delta.compare(self.plans([
             [self.edge(a, "Comfy-Org/ComfyUI")], []
         ]), self.baseline([[], []]))
@@ -76,7 +76,7 @@ class GlobalDeltaTests(unittest.TestCase):
         self.assertEqual(report["counts"]["new_unverified_paths"], 0)
 
     def test_bad_license_or_false_verification_fails(self):
-        a,b = self.feeds
+        a,b = self.feeds[:2]
         for field,value in [("source_license","MIT"),
                             ("target_verification","fully_working"),
                             ("source_line",True)]:
@@ -88,14 +88,14 @@ class GlobalDeltaTests(unittest.TestCase):
                                               self.baseline([[],[]]))
 
     def test_duplicate_slug_in_one_feed_blocks_even_with_case_variation(self):
-        a,b = self.feeds
+        a,b = self.feeds[:2]
         with self.assertRaisesRegex(incremental_delta.DeltaError, "duplicate"):
             incremental_delta.compare(self.plans([[
                 self.edge(a,"hello/world"),self.edge(a,"Hello/World")
             ],[]]),self.baseline([[],[]]))
 
     def test_missing_feed_or_unregistered_source_blocks(self):
-        a,b=self.feeds
+        a,b = self.feeds[:2]
         with self.assertRaises(incremental_delta.DeltaError):
             incremental_delta.compare([(a,[],{"source_id":a["id"]})],
                                       self.baseline([[],[]]))
@@ -107,7 +107,7 @@ class GlobalDeltaTests(unittest.TestCase):
         streams=incremental_delta._approved()
         report=incremental_delta.compare(
             self.plans([rows for _,rows in streams]), streams)
-        self.assertEqual(report["proposed_edges"], 1199)
+        self.assertEqual(report["proposed_edges"], 1463)
         self.assertEqual(report["counts"]["new_unverified_paths"], 0)
         self.assertEqual(len(report["changes"]), 0)
         self.assertEqual(report["baseline_unique_paths"],

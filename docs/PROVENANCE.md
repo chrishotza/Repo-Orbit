@@ -68,3 +68,16 @@ For the first discovery snapshot, the upstream repository `sindresorhus/awesome`
 The upstream `sindresorhus/awesome-nodejs` repository has a `license` file that explicitly declares CC0 1.0 Universal. RepoOrbit recorded only 527 GitHub path references from the README blob `329009f8d6a94007c3aa05a92b79317073b95001`, with their line numbers; none of the targets are assumed to exist, be free, or function. This permission review applies only to that directory's own material; linked repositories retain independent licenses.
 
 The two reviewed feeds can be **monitored read-only** using `.github/workflows/refresh-feeds.yml`; staged output is not automatically promoted to the public index.
+
+## Four additional upstream CC0 sources (2026-10-13)
+
+The GitHub repositories themselves returned SPDX `CC0-1.0`, and each contained a `license` file whose text begins with the CC0 1.0 Universal legal code. We read the original `readme.md` files through the GitHub connector, stored **only GitHub owner/repo link metadata and source line numbers**, and pinned each immutable Git blob SHA.
+
+| Directory | Observed numeric GitHub ID | README Git blob SHA | Distinct source links |
+|---|---:|---|---:|
+| `sindresorhus/awesome-npm` | 49596056 | `497964a13119c80967ba63cc674f0b797606e7e3` | 64 |
+| `sindresorhus/awesome-electron` | 34453060 | `a16961f2067a5950570ea8ca2b0ed48ce4029c65` | 145 |
+| `sindresorhus/awesome-observables` | 57965762 | `b1ecef932b4a73f7f9c44a5d5dc0ab32a5847375` | 13 |
+| `sindresorhus/awesome-tap` | 48281676 | `5d5ba058b8994af81288aa509be3fc0024add0e0` | 42 |
+
+All four observed GitHub repositories were not archived at observation time. Each licensing claim applies to the directory's own source material, **not** to the linked repositories. The new catalog snapshots are versioned JSONL reference edges; no linked code is imported. For exact methodology and counts, see [FEED_EXPANSION.md](FEED_EXPANSION.md).

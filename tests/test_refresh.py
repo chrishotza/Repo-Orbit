@@ -11,9 +11,11 @@ class RefreshTests(unittest.TestCase):
     def test_explicit_feed_allowlist_and_existing_baselines(self):
         feeds = refresh.load_feeds()
         self.assertEqual({x["repository"] for x in feeds}, {
-            "sindresorhus/awesome", "sindresorhus/awesome-nodejs"
+            "sindresorhus/awesome", "sindresorhus/awesome-nodejs",
+            "sindresorhus/awesome-npm", "sindresorhus/awesome-electron",
+            "sindresorhus/awesome-observables", "sindresorhus/awesome-tap"
         })
-        self.assertEqual(len(feeds), 2)
+        self.assertEqual(len(feeds), 6)
         self.assertGreaterEqual(sum(len(refresh._baseline_ids(x)) for x in feeds), 1000)
         self.assertTrue(all(x["license"] == "CC0-1.0" for x in feeds))
 
@@ -52,8 +54,8 @@ class RefreshTests(unittest.TestCase):
         results = refresh.plan_refresh(
             feeds, fake_fetch, datetime(2026, 10, 13, tzinfo=timezone.utc)
         )
-        self.assertEqual(len(results), 2)
-        self.assertEqual(len(requests), 4)
+        self.assertEqual(len(results), 6)
+        self.assertEqual(len(requests), 12)
         self.assertEqual([x[2]["baseline_count"] for x in results],
                          [len(refresh._baseline_ids(x)) for x in feeds])
         for feed, records, delta in results:

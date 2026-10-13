@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "editorial_policy": "Manual seed subject hints; all other classifications are lexical suggestions. They do not prove repository purpose, functionality, price or license.",
+  "editorial_policy": "34 independently GitHub-ID-checked seed subjects; other categories are versioned README self-descriptions or lower-trust lexical hints. No functional, cost or software-license claim.",
   "categories": [
     {
       "id": "ai-ml",
@@ -297,7 +297,11 @@
     "n8n-io/n8n": "automation",
     "langgenius/dify": "ai-ml",
     "gradio-app/gradio": "developer-tools",
-    "vllm-project/vllm": "ai-ml"
+    "vllm-project/vllm": "ai-ml",
+    "sindresorhus/awesome-npm": "developer-tools",
+    "sindresorhus/awesome-electron": "mobile-desktop",
+    "sindresorhus/awesome-observables": "developer-tools",
+    "sindresorhus/awesome-tap": "developer-tools"
   },
   "format_hints": {
     "catalog_like": [

@@ -18,7 +18,7 @@ class AgentTests(unittest.TestCase):
 
     def test_inventory_is_explicit_not_github_coverage(self):
         stats = agent.stats()
-        self.assertEqual(stats["catalogs"], 22)
+        self.assertEqual(stats["catalogs"], 26)
         self.assertEqual(stats["verified_project_seeds"], 8)
         self.assertGreaterEqual(stats["unverified_only"], 600)
         self.assertEqual(stats["working_verified"], 0)

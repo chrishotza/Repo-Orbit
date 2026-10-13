@@ -1,6 +1,6 @@
 {
-  "version": "0.12.0",
-  "purpose": "Bilingual AI-first GitHub repository atlas: lexical discovery, explicit subject hints and source-verifiable metadata with minimal context",
+  "version": "0.13.0",
+  "purpose": "Six individually CC0-reviewed discovery catalogs; 1462 indexed GitHub paths with bounded source-attributed offline AI navigation, candid uncertainty and no fabricated functional/free claims",
   "start": "AGENTS.md",
   "transport": {
     "mcp_stdio": {
@@ -26,20 +26,20 @@
     },
     "static_status": {
       "manifest": "ai/status.json",
-      "bytes_approx": 527
+      "bytes_approx": 925
     },
     "static_identity": {
       "manifest": "ai/identities.json",
-      "scope": "30 individually GitHub-verified seed repository IDs"
+      "scope": "34 individually observed seed GitHub numeric IDs"
     },
     "static_verified_targets": {
       "manifest": "ai/verified-targets.json",
-      "scope": "24 independently checked catalog references, only repository-existence claims"
+      "scope": "24 existence-checked reference GitHub numeric IDs, separate from 34 seeds"
     },
     "static_taxonomy": {
       "manifest": "ai/categories/index.json",
       "route": "ai/categories/{category_id}.json",
-      "scope": "14 domains + explicit unclassified, all 1215 paths, four subject evidence tiers"
+      "scope": "14 domains + unclassified, 1462 paths, evidence-separated editorial/README/lexical labels"
     },
     "static_topic_route_evaluation": {
       "manifest": "ai/topic-route-eval.json",
@@ -47,7 +47,7 @@
     },
     "static_evidence_dates": {
       "manifest": "ai/evidence-dates.json",
-      "scope": "historical observation dates for 54 IDs and 23 README topic descriptions"
+      "scope": "58 observed GitHub numeric identities and 23 pinned README subject observations"
     },
     "static_owners": {
       "manifest": "ai/owners/index.json",
@@ -55,7 +55,7 @@
       "page_route": "ai/owners/{lowercase_owner_initial}/{4_digit_page}.json",
       "row_max": 64,
       "byte_max": 16384,
-      "scope": "approved GitHub paths and historical existence only"
+      "scope": "1462 approved paths routed through 29 owner prefixes and 39 bounded pages"
     }
   },
   "tools": {
@@ -158,7 +158,8 @@
     "age of an observation is not current repository freshness, maintenance or quality",
     "daily cycling only attempts bounded source checks; staged candidates are not automatically verified or promoted",
     "deduplicate discovered paths across sources but preserve each source blob SHA and line",
-    "source link removals do not establish repository deletion or GitHub identity changes"
+    "source link removals do not establish repository deletion or GitHub identity changes",
+    "New catalog links remain unverified even when their upstream directory declares CC0; linked projects keep their own licenses"
   ],
   "provenance": {
     "approved_snapshot_registry": "data/feeds.json",
@@ -177,6 +178,7 @@
     "stage_readmes": "weekly_read_only_max_5_review_candidates_no_automatic_promotion",
     "daily_identity_check": "25_per_UTC_day_rotating_calendar_page_staged_only",
     "daily_readme_review": "5_per_UTC_day_rotating_calendar_page_staged_only",
-    "global_source_delta": "data/snapshots/staged/global-delta.json; CC0 source-reviewed, draft-only"
+    "global_source_delta": "data/snapshots/staged/global-delta.json; CC0 source-reviewed, draft-only",
+    "reviewed_catalogs": "data/feeds.json: six CC0-reviewed source repositories, license path, baseline source snapshot, observation date"
   }
 }

@@ -12,11 +12,11 @@ from repoorbit import coverage_plan, check_targets, stage_readmes
 class CalendarCoverageTests(unittest.TestCase):
     def test_first_two_days_visit_disjoint_pending_pages(self):
         q = check_targets.pending()
-        self.assertEqual(len(q), 1161)
+        self.assertEqual(len(q), 1404)
         a = coverage_plan.plan(q, 25, "2026-10-13")
         b = coverage_plan.plan(q, 25, "2026-10-14")
         self.assertEqual((a["page_index"], b["page_index"]), (0, 1))
-        self.assertEqual((a["pages"], a["queue_total"]), (47, 1161))
+        self.assertEqual((a["pages"], a["queue_total"]), (57, 1404))
         self.assertEqual(len(a["items"]), 25)
         self.assertEqual(len(b["items"]), 25)
         self.assertTrue(set(a["items"]).isdisjoint(b["items"]))
@@ -24,17 +24,17 @@ class CalendarCoverageTests(unittest.TestCase):
     def test_full_stable_cycle_covers_each_pending_once(self):
         q = check_targets.pending()
         selected = []
-        for i in range(47):
+        for i in range(57):
             day = (coverage_plan.BASE_DATE + timedelta(days=i)).isoformat()
             selected.extend(coverage_plan.plan(q, 25, day)["items"])
-        self.assertEqual(len(selected), 1161)
+        self.assertEqual(len(selected), 1404)
         self.assertEqual(set(selected), set(q))
         self.assertEqual(len(set(selected)), len(selected))
 
     def test_second_cycle_wraps_without_inventing_targets(self):
         q = check_targets.pending()
         start = coverage_plan.plan(q, 25, "2026-10-13")
-        wrapped = coverage_plan.plan(q, 25, (coverage_plan.BASE_DATE + timedelta(days=47)).isoformat())
+        wrapped = coverage_plan.plan(q, 25, (coverage_plan.BASE_DATE + timedelta(days=57)).isoformat())
         self.assertEqual(start["items"], wrapped["items"])
         self.assertEqual(wrapped["page_index"], 0)
 
@@ -42,7 +42,7 @@ class CalendarCoverageTests(unittest.TestCase):
         q = stage_readmes.pending_review()
         a = coverage_plan.plan(q, 5, "2026-10-13")
         b = coverage_plan.plan(q, 5, "2026-10-14")
-        self.assertEqual(a["pages"], 233)
+        self.assertEqual(a["pages"], 281)
         self.assertEqual(b["page_index"], 1)
         self.assertTrue(set(a["items"]).isdisjoint(b["items"]))
 

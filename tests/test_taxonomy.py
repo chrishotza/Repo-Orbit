@@ -11,13 +11,13 @@ class TaxonomyTests(unittest.TestCase):
     def test_registry_is_bilingual_and_editorial_seeds_are_bounded(self):
         rules = taxonomy.registry()
         self.assertEqual(len(rules["categories"]), 14)
-        self.assertEqual(len(rules["seed_subjects"]), 30)
+        self.assertEqual(len(rules["seed_subjects"]), 34)
         self.assertTrue(all(c["en"] and c["es"] for c in rules["categories"]))
 
     def test_every_known_repository_is_counted_exactly_once(self):
         overview = taxonomy.categories()
         self.assertEqual(overview["total"], agent.stats()["unique"])
-        self.assertEqual(sum(x["n"] for x in overview["categories"]), 1215)
+        self.assertEqual(sum(x["n"] for x in overview["categories"]), 1462)
         keys = [row["r"].casefold() for rows in taxonomy.index().values()
                 for row, _ in rows]
         self.assertEqual(len(keys), len(set(keys)))
@@ -94,8 +94,8 @@ class TaxonomyTests(unittest.TestCase):
         docs = build_taxonomy_index.build()
         self.assertEqual(len(docs), 16)
         self.assertEqual(sum(len(x["r"]) for key, x in docs.items()
-                             if key != "index.json"), 1215)
-        self.assertEqual(docs["index.json"]["total"], 1215)
+                             if key != "index.json"), 1462)
+        self.assertEqual(docs["index.json"]["total"], 1462)
 
     def test_zero_claims_about_free_or_running(self):
         results = taxonomy.browse("ai-ml", limit=20)

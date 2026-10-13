@@ -49,9 +49,9 @@ class FreshnessTests(unittest.TestCase):
 
     def test_manifest_exactly_rebuilds_54_and_23(self):
         data = freshness.snapshot()
-        self.assertEqual(data["checked_numeric_ids"], 54)
+        self.assertEqual(data["checked_numeric_ids"], 58)
         self.assertEqual(data["readme_subjects"], 23)
-        self.assertEqual(data["identity_observations_by_date"], [["2026-10-13", 54]])
+        self.assertEqual(data["identity_observations_by_date"], [["2026-10-13", 58]])
         self.assertEqual(data["documentary_subjects_by_date"], [["2026-10-13", 23]])
         self.assertIn("not_live_health", data["scope"])
         self.assertEqual(build_evidence_dates.main([]), 0)
