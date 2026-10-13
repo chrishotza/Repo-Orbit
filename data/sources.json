@@ -354,6 +354,70 @@
       "verified_at": "2026-10-12",
       "reuse_mode": "links_and_metadata_only",
       "catalog_ingestion_enabled": false
+    },
+    {
+      "id": "github:sindresorhus/awesome-npm",
+      "repository": "sindresorhus/awesome-npm",
+      "url": "https://github.com/sindresorhus/awesome-npm",
+      "type": "curated_catalog",
+      "topics": [
+        "npm",
+        "developer-tools"
+      ],
+      "scope": "Curated npm tooling and packages",
+      "source_class": "github_repository",
+      "verification": "repository_exists",
+      "verified_at": "2026-10-13",
+      "reuse_mode": "links_and_metadata_only",
+      "catalog_ingestion_enabled": false
+    },
+    {
+      "id": "github:sindresorhus/awesome-electron",
+      "repository": "sindresorhus/awesome-electron",
+      "url": "https://github.com/sindresorhus/awesome-electron",
+      "type": "curated_catalog",
+      "topics": [
+        "electron",
+        "desktop"
+      ],
+      "scope": "Curated Electron applications and development tools",
+      "source_class": "github_repository",
+      "verification": "repository_exists",
+      "verified_at": "2026-10-13",
+      "reuse_mode": "links_and_metadata_only",
+      "catalog_ingestion_enabled": false
+    },
+    {
+      "id": "github:sindresorhus/awesome-observables",
+      "repository": "sindresorhus/awesome-observables",
+      "url": "https://github.com/sindresorhus/awesome-observables",
+      "type": "curated_catalog",
+      "topics": [
+        "javascript",
+        "observables"
+      ],
+      "scope": "Curated observable libraries and resources",
+      "source_class": "github_repository",
+      "verification": "repository_exists",
+      "verified_at": "2026-10-13",
+      "reuse_mode": "links_and_metadata_only",
+      "catalog_ingestion_enabled": false
+    },
+    {
+      "id": "github:sindresorhus/awesome-tap",
+      "repository": "sindresorhus/awesome-tap",
+      "url": "https://github.com/sindresorhus/awesome-tap",
+      "type": "curated_catalog",
+      "topics": [
+        "testing",
+        "tap"
+      ],
+      "scope": "Curated Test Anything Protocol tools and resources",
+      "source_class": "github_repository",
+      "verification": "repository_exists",
+      "verified_at": "2026-10-13",
+      "reuse_mode": "links_and_metadata_only",
+      "catalog_ingestion_enabled": false
     }
   ]
 }
