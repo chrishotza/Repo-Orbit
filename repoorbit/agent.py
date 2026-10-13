@@ -220,6 +220,21 @@ def call(tool: str, args: dict | None = None) -> dict:
             raise ValueError("unrecognized recommendation arguments")
         from .recommend import recommend
         return recommend(**args)
+    if tool == "categories":
+        if args:
+            raise ValueError("categories takes no arguments")
+        from .taxonomy import categories
+        return categories()
+    if tool == "classify":
+        if set(args) != {"repo"}:
+            raise ValueError("classify requires repo")
+        from .taxonomy import classify
+        return classify(**args)
+    if tool == "browse":
+        if set(args) - {"category", "limit", "offset", "verified_only"}:
+            raise ValueError("unrecognized browse arguments")
+        from .taxonomy import browse
+        return browse(**args)
     if tool == "stats":
         if args:
             raise ValueError("stats does not take arguments")
