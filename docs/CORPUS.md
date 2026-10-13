@@ -146,3 +146,7 @@ This new upstream-documentation evidence layer does **not** upgrade the projects
 - Future promotion of staged snapshots must be explicit, reviewed and accompanied by regenerated indexes and tests. Scheduled execution success is not assumed until actual workflow results are observed.
 
 **Baseline-relative caveat:** Each unattended refresh compares its observed links to the currently pinned approved snapshot in `data/feeds.json`, not to the preceding scheduled execution. A real last-run incremental history will require persistent, reviewed state or promotion PRs. Do not report the same daily baseline difference as newly arrived links on each run.
+
+## Numeric identity sample (v0.6)
+
+On 2026-10-13, the 22 catalog and 8 project seed repositories were independently queried for their stable numeric GitHub IDs and current slugs. The new `data/identities.jsonl` file is an *evidence sidecar* and does not silently change the verification level of the 1,185 reference-only slugs. `ai/identities.json` provides the compact remote route, and `resolve({"repo":"id:589831718"})` accepts numeric IDs for checked seeds. A new read-only scheduled workflow compares GitHub results to the recorded IDs and stages possible rename/transfer evidence, but never modifies approved records. See [IDENTITIES.md](IDENTITIES.md).
