@@ -48,6 +48,14 @@ TOOLS = [
         },
     },
     {
+        "name": "route_topic",
+        "description": "Map supported English/Spanish topic phrases to one controlled category; abstains on unknown or ambiguous language. Not semantic search.",
+        "inputSchema": {
+            "type": "object", "required": ["q"], "additionalProperties": False,
+            "properties": {"q": {"type": "string", "minLength": 1, "maxLength": 200}},
+        },
+    },
+    {
         "name": "categories",
         "description": "List subject categories with exact corpus counts. Editorial/keyword hints, NOT validated capabilities.",
         "inputSchema": {"type": "object", "additionalProperties": False},
