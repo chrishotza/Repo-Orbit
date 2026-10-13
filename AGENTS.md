@@ -9,3 +9,5 @@ Evidence: intent matches are **documented upstream capabilities**, not execution
 Never infer zero-cost operation, security, availability or full GitHub coverage. Preserve source IDs, README blob hashes, line numbers, and observation dates. Do not mirror external README bodies by default.
 
 Daily refresh monitoring is staged only, with verified CC0 source licenses, Git blob checks and diff reports. Machine search covers 1,215 known slugs; only 30 seed repository paths were individually existence-checked. Never equate 1,199 references with 1,199 verified tools.
+
+When only corpus size or verification status is needed, fetch `ai/status.json` (about 527 bytes) instead of a large registry. Its counts are derived from the authoritative snapshots and checked in CI.
