@@ -14,7 +14,7 @@ A standard-library-only calendar planner now divides the **sorted, unique, appro
 - Every staged report includes the queue size, page size, page index, total pages and next page. No manual shell step is needed by an agent.
 - Both workflows have `contents: read` permission. Neither automatically commits or merges newly observed records.
 
-For today's baseline queue of **1,161 unverified links**, a stable queue has **47 identity pages** and **233 README pages**. If all daily runs succeed and the queue remains unchanged, those respective intervals attempt every pending link at least once. This is an **ideal coverage estimate**, not measured successful completion or a promise that every repository resolves. Missing runs, changed queues, rate limits and duplicate/redirect collisions can delay or repeat checks; unresolved cases remain explicitly uncertain.
+For the v0.13 approved queue of **1,404 unverified links**, a stable queue has **57 identity pages** and **281 README pages**. If all daily runs succeed and the queue remains unchanged, those respective intervals attempt every pending link at least once. This is an **ideal coverage estimate**, not measured successful completion or a promise that every repository resolves. Missing runs, changed queues, rate limits and duplicate/redirect collisions can delay or repeat checks; unresolved cases remain explicitly uncertain.
 
 A synthetic test constructs 250,000 distinct string slugs and validates that a single 25-item page is returned without losing scope information. It does **not** add fake repos to the corpus and is not a benchmark of GitHub throughput.
 
@@ -34,7 +34,7 @@ Checked results include their observed numeric ID, original observation date, cu
 
 ## Zero-runtime-network AI access
 
-`ai/evidence-dates.json` is a small, deterministic **historical observation histogram**, not a live clock: 54 checked numeric IDs and 23 independently reviewed self-descriptions in the baseline, all observed 2026-10-13. The runtime `evidence_age` tool computes age from the UTC clock without making network requests.
+`ai/evidence-dates.json` is a small, deterministic **historical observation histogram**, not a live clock: 58 checked numeric IDs and 23 independently reviewed self-descriptions in the baseline, all observed 2026-10-13. The runtime `evidence_age` tool computes age from the UTC clock without making network requests.
 
 Agents requesting tiny subject/identity results can continue using `ai/categories/index.json`, per-category shards, `ai/identities.json`, `ai/verified-targets.json`, `resolve` and `classify`.
 
