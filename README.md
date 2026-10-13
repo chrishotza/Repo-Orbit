@@ -110,7 +110,7 @@ We individually checked the upstream repositories and their CC0 1.0 license file
 
 ## 🌱 Coverage, not hype
 
-**1,463 catalog reference edges** come from six individually reviewed CC0-licensed discovery directories, and deduplicate into a corpus of 1,215 paths together with the seed references. Most discovered references are still unchecked against GitHub. Only 58 stable IDs have independent repository-existence observations. **Zero** repositories have been independently marked both functionally tested and free to run by RepoOrbit.
+**1,463 catalog reference edges** come from six individually reviewed CC0-licensed discovery directories, and deduplicate into a corpus of 1,462 unique paths together with the registered seed repositories. Most discovered references are still unchecked against GitHub. Only 58 stable IDs have independent repository-existence observations. **Zero** repositories have been independently marked both functionally tested and free to run by RepoOrbit.
 
 Daily, read-only rotating review jobs now inspect different **bounded** pages of pending GitHub references; no automatic approvals or free/functional claims. [Empirical coverage and evidence age](docs/COVERAGE_FRESHNESS.md).
 
