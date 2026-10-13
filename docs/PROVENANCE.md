@@ -58,3 +58,7 @@ A record must distinguish **observation**, **maintainer assertion**, **independe
 No \`LICENSE\` file is introduced in v0.1 because the repository owner has not chosen a license. Recommended review: an OSI-approved code license (often Apache-2.0 or MIT) **and**, if desired, a suitable dedication/license for *original* metadata compilations. A RepoOrbit license cannot relicense third-party material. Do not mark anyone else's work CC0 without authority.
 
 This is a working engineering policy, not legal advice.
+
+## Current permitted reuse example
+
+For the first discovery snapshot, the upstream repository `sindresorhus/awesome` explicitly publishes a `CC0 1.0 Universal` license. We saved a *minimal index of repository URL references* (not README prose), together with the source repository identity, README line and blob SHA. The resulting 672 targets are **unverified**. Do not extend the same permission assumption to other sources without reviewing each source's terms and license independently.
