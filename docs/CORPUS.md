@@ -113,3 +113,17 @@ For each measurement define a denominator, sampling method, benchmark date and u
 ## Explicit non-goals for v0.1
 
 Not a complete scrape of GitHub, a semantic search engine, a hosted UI, an automated software installer, a security auditor, a guarantee of free execution, or an upstream-license compliance certification.
+
+## First provenanced discovery snapshot (2026-10-12)
+
+- Dataset: `data/discoveries/awesome-2026-10-12.jsonl`
+- Origin: https://github.com/sindresorhus/awesome (`readme.md`)
+- Origin content blob SHA: `0acaa99d5f45582ecf70f987213f59ae1855226f`
+- Origin license: `CC0-1.0`, confirmed from upstream `license` file
+- Extraction: `github_link_regex_v0.1`; canonical owner/repo matching, known GitHub navigation paths excluded, case-insensitive duplicate URLs merged.
+- Output: **672 unique GitHub-path references**. All explicitly marked `target_verification: not_checked`.
+- Semantics: a URL referenced in a source on that date; **not** proof the target repository exists today, and not proof of executability, license or cost.
+- Reproducibility: `python3 scripts/discoveries.py validate`; to repeat extraction provide an independently retrieved upstream README, its blob SHA, review its license, and run `python3 scripts/discoveries.py extract --input path/to/readme.md --source-repo sindresorhus/awesome --source-sha <40-hex-blob> --source-license CC0-1.0 --date 2026-10-12 --output path/to/output.jsonl`.
+- Registry flag `catalog_ingestion_enabled: false` still means **no scheduled upstream crawling is enabled**. This is a one-time provenance-preserving snapshot.
+
+The discovery snapshot is not counted in the verified project inventory and must not be used as an exhaustive repository count.
