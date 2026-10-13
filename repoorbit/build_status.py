@@ -8,11 +8,11 @@ from pathlib import Path
 import sys
 
 from .agent import ROOT, _load
+from .snapshots import approved_discoveries
 
 DEST = ROOT / "ai" / "status.json"
 SOURCES = ROOT / "data" / "sources.json"
 PROJECTS = ROOT / "data" / "repositories.jsonl"
-DISCOVERIES = ROOT / "data" / "discoveries"
 FEEDS = ROOT / "data" / "feeds.json"
 
 
@@ -23,7 +23,7 @@ def build() -> dict:
     counts: Counter[str] = Counter()
     by_target: defaultdict[str, set[str]] = defaultdict(set)
     observed_dates = []
-    for path in sorted(DISCOVERIES.glob("*.jsonl")):
+    for path in approved_discoveries():
         for line in path.read_text(encoding="utf-8").splitlines():
             if not line.strip():
                 continue
