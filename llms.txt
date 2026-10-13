@@ -9,3 +9,5 @@
 - [Compact lexical index](ai/index.json)
 - [Evidence and MCP protocol](docs/AI_PROTOCOL.md)
 - [Approved snapshot and bot PR safeguards](docs/PROMOTION.md)
+- [Checked numeric GitHub IDs](ai/identities.json)
+- [Stable identity and rename policy](docs/IDENTITIES.md)
