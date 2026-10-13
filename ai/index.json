@@ -40,5 +40,16 @@
     "shards generated from seed and licensed links, not all GitHub"
   ],
   "alternative": "agent.json points to MCP search and resolve for bounded JSON results",
-  "corpus_snapshot_date": "2026-10-12"
+  "corpus_snapshot_date": "2026-10-13",
+  "corpus_counts": {
+    "unique_github_paths": 1215,
+    "discovery_edges": 1199,
+    "verified_catalog_seeds": 22,
+    "existence_checked_project_seeds": 8,
+    "unverified_references": 1185
+  },
+  "provenance_sources": [
+    "sindresorhus/awesome",
+    "sindresorhus/awesome-nodejs"
+  ]
 }
