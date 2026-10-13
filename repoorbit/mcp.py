@@ -48,6 +48,14 @@ TOOLS = [
         },
     },
     {
+        "name": "evidence_age",
+        "description": "Show UTC age of recorded GitHub-ID observation; stale means old metadata, NOT a broken project. Unverified catalog links abstain.",
+        "inputSchema": {
+            "type": "object", "required": ["repo"], "additionalProperties": False,
+            "properties": {"repo": {"type": "string", "minLength": 3, "maxLength": 240}},
+        },
+    },
+    {
         "name": "route_topic",
         "description": "Map supported English/Spanish topic phrases to one controlled category; abstains on unknown or ambiguous language. Not semantic search.",
         "inputSchema": {
@@ -108,7 +116,7 @@ def dispatch(message: dict) -> dict | None:
                 "protocolVersion": PROTOCOL_VERSION,
                 "capabilities": {"tools": {"listChanged": False}},
                 "serverInfo": {"name": "repoorbit", "version": __version__},
-                "instructions": "Use categories/browse for topical navigation, classify for one slug, recommend for documented tasks, and resolve for exact evidence. Lexical subject hints are NOT working software. No free execution claims.",
+                "instructions": "Use categories/browse for topical navigation, classify for one slug, recommend for documented tasks, resolve for exact evidence, and evidence_age for observation staleness. Lexical subject hints are NOT working software. No free execution claims.",
             }
         }
     if method == "ping":
