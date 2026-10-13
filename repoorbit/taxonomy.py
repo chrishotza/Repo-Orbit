@@ -1,6 +1,6 @@
 """Evidence-aware subject classification for AI agents; offline, no models/APIs.
 
-The taxonomy is an editorial map for 30 manually reviewed seed subjects, plus
+The taxonomy is an editorial map for 34 individually checked editorial seed subjects, plus
 conservative slug-keyword *hints* for discovered references. An unclassified
 record is a valid outcome; keyword matching is never a software capability test.
 """
@@ -60,8 +60,8 @@ def registry() -> dict:
         if (name not in names or key != key.casefold() or
                 seed is None or seed["role"] not in ("catalog", "project")):
             raise ValueError("untrusted editorial label or non-seed target")
-    if len(data["seed_subjects"]) != 30:
-        raise ValueError("only the 30 reviewed seed subjects are editorial")
+    if len(data["seed_subjects"]) != 34:
+        raise ValueError("only the 34 checked seed subjects are editorial")
     formats = data.get("format_hints")
     if not isinstance(formats, dict):
         raise ValueError("missing format hints")
