@@ -156,12 +156,14 @@ def classify(repo: str) -> dict:
     result = classify_record(row)
     return {
         "found": True, "r": row["r"], "role": row["role"], "v": row["v"],
-        **result, "notice": "subject_label_not_functional_or_cost_verification",
+        **result,
+        "source_catalogs": sorted({x["s"] for x in (row.get("source") or [])}),
+        "notice": "subject_label_not_functional_or_cost_verification",
     }
 
 
 def browse(category: str, limit: int = 5, offset: int = 0,
-           verified_only: bool = False) -> dict:
+           verified_only: bool = False, source: str | None = None) -> dict:
     if not isinstance(category, str) or category not in index():
         raise ValueError("unknown category")
     if type(limit) is not int or not 1 <= limit <= MAX_RESULTS:
@@ -170,12 +172,23 @@ def browse(category: str, limit: int = 5, offset: int = 0,
         raise ValueError("offset must be 0..10000")
     if type(verified_only) is not bool:
         raise ValueError("verified_only must be boolean")
+    if source is not None:
+        approved = json.loads((ROOT / "data" / "feeds.json").read_text(encoding="utf-8"))
+        ids = {item["id"] for item in approved["sources"] if item["enabled"] is True}
+        if not isinstance(source, str) or source not in ids:
+            raise ValueError("source must be a currently approved discovery feed ID")
     records = index()[category]
+    if source is not None:
+        records = [
+            (row, cat) for row, cat in records
+            if any(pointer["s"] == source for pointer in (row.get("source") or []))
+        ]
     if verified_only:
         records = [x for x in records if x[0]["v"] == "exists"]
     selected = records[offset:offset + limit]
     return {
         "category": category, "n": len(records), "offset": offset,
+        "source": source,
         "items": [
             {"r": row["r"], "role": row["role"], "v": row["v"],
              "basis": cat["basis"]}
