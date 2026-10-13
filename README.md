@@ -39,24 +39,23 @@ See [AI protocol specification](docs/AI_PROTOCOL.md) and [static shard format](a
 - **Explain costs honestly**: unknown is not free. APIs, hardware, hosting, models, and licenses are separate dimensions.
 - **Zero mandatory paid services** for the core corpus maintenance scripts.
 
-## Maintainer-only corpus utilities
+## Maintenance (automated)
 
-Requires **Python 3.10+**, with no third-party Python packages.
-
-```bash
-python3 scripts/corpus.py validate
-python3 scripts/corpus.py stats
-python3 scripts/discoveries.py validate
-python3 scripts/discoveries.py stats
-python3 scripts/corpus.py sync --limit 5 --output data/snapshots/latest.jsonl
-python3 -m unittest discover -s tests -v
-```
-
-Validation, statistics and unit tests run offline. `sync` accesses the **GitHub REST API**; set `GITHUB_TOKEN` to increase available request limits. The synchronizer refreshes repository metadata only; it does **not** copy the contents of third-party catalogs or verify that their projects work.
+GitHub Actions checks the corpus, discovery references, MCP protocol, and deterministic static index on every change. Developers can find optional reproducibility procedures in [CORPUS.md](docs/CORPUS.md), [AI_PROTOCOL.md](docs/AI_PROTOCOL.md), and [CONTRIBUTING.md](CONTRIBUTING.md). End users and agents do not need a shell or API credentials to read the static index.
 
 ## Layout
 
 ```text
+AGENTS.md                    Minimal context instructions for agent runtimes
+SKILL.md                     Agent skill entry point
+agent.json                   Machine-readable tool and route manifest
+ai/
+  index.json                 Static shard format and routing
+  terms/[a-z].json           Small self-contained lexical lookup shards
+repoorbit/
+  agent.py                   Deterministic offline tools (bounded JSON)
+  mcp.py                     MCP stdio server
+  build_index.py             Reproducible static index generator
 data/
   sources.json               Verified catalog and discovery-source registry
   repositories.jsonl         Small, traceable starting set of project references
