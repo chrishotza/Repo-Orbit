@@ -2,7 +2,7 @@
 
 ## Evidence boundaries
 
-The approved baseline still contains **1,215 GitHub paths**, **1,199 catalog edges from two individually rights-reviewed CC0 sources**, **54 separately checked numeric IDs** and **23 documentary README subject observations**. This release improves infrastructure; it does **not** add invented repository volume, functional tests or zero-cost certifications.
+At v0.12, the baseline contained **1,215 GitHub paths**, **1,199 catalog edges from two rights-reviewed CC0 sources**, **54 checked numeric IDs** and **23 documentary README subject observations**. As of v0.13, the approved corpus has grown to **1,462 paths**, **1,463 edges**, **six reviewed CC0 sources** and **58 checked numeric IDs**. This release improves infrastructure; it does **not** add invented repository volume, functional tests or zero-cost certifications.
 
 ## Global cross-source delta
 
@@ -23,12 +23,12 @@ The refresh job stays read-only. The draft-only promotion pipeline independently
 
 ## Agent-first owner sharding
 
-- `ai/owners/index.json`: 622-byte root with bucket counts.
+- `ai/owners/index.json`: 624-byte root with bucket counts.
 - `ai/owners/{initial}/index.json`: page boundaries, number of entries and file names.
 - `ai/owners/{initial}/{0000}.json`: <=64 repository paths and <=16 KiB per page, with role and previously observed GitHub-existence flag.
 - `owner_repos({owner,limit,offset,verified_only})`: bounded local MCP response (at most 20 rows).
 
-At the current 1,215-path baseline: 29 owner buckets, 35 leaves and exactly 54 historical existence-checked paths. Any unchecked reference remains explicitly unchecked. A synthetic stress regression generates 40,000 **fake test names** to check bounded pagination; this is NOT a 40,000-project corpus, GitHub ingestion throughput, or proof of 250,000 real repositories.
+At the v0.13 approved baseline: 29 owner buckets, 39 leaves and exactly 58 historical existence-checked paths. Any unchecked reference remains explicitly unchecked. A synthetic stress regression generates 40,000 **fake test names** to check bounded pagination; this is NOT a 40,000-project corpus, GitHub ingestion throughput, or proof of 250,000 real repositories.
 
 ## Honest limits
 

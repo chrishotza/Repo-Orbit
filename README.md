@@ -56,7 +56,7 @@ Most repository lists tell you **where a link points**. RepoOrbit also tracks **
 | [`ai/identities.json`](ai/identities.json) | 34 verified seed numeric IDs |
 | [`ai/verified-targets.json`](ai/verified-targets.json) | 24 additional checked reference IDs |
 | [`ai/status.json`](ai/status.json) | Tiny, reproducible coverage summary |
-| [`ai/owners/index.json`](ai/owners/index.json) | 622-byte owner router; fetch just one bucket and up to 64 slugs per page |
+| [`ai/owners/index.json`](ai/owners/index.json) | 624-byte owner router; fetch just one bucket and up to 64 slugs per page |
 | [`ai/topic-route-eval.json`](ai/topic-route-eval.json) | 32 explicit EN/ES routing regression cases, *not* semantic accuracy |
 | [`ai/evidence-dates.json`](ai/evidence-dates.json) | Historical numeric-ID and README evidence dates (not live project activity) |
 | [`data/topic_evidence.jsonl`](data/topic_evidence.jsonl) | 23 original short subject statements, SHA and line pointers |
@@ -71,7 +71,7 @@ An agent can pass `source: "github:sindresorhus/awesome-nodejs"` to `browse` whi
 
 ## 📦 Owner pages that scale without giant prompts
 
-From the [622-byte routing manifest](ai/owners/index.json), a remote-only agent opens the owner's first-letter bucket and selects a page of at most 64 paths using explicit slug boundaries. Today's 1,215 approved paths occupy 29 buckets and 35 pages. All previously checked IDs keep their distinct existence flags.
+From the [624-byte routing manifest](ai/owners/index.json), a remote-only agent opens the owner's first-letter bucket and selects a page of at most 64 paths using explicit slug boundaries. The current 1,462 approved paths occupy 29 buckets and 39 pages. All previously checked IDs keep their distinct existence flags.
 
 Global licensed-source delta reports count a repo linked by two catalogs **once**, with two exact source/line/hash pointers. Removed links never imply a deleted repository. [Incremental scale contract](docs/INCREMENTAL_SCALE.md).
 
