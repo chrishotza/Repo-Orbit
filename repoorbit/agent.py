@@ -29,7 +29,9 @@ def tokenize(text: str) -> tuple[str, ...]:
 
 def _canonical(text: str) -> str:
     value = text.strip().removeprefix("https://github.com/").rstrip("/")
-    if not re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", value):
+    if not re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", value) or any(
+        part in (".", "..") for part in value.split("/")
+    ):
         raise ValueError("expected a GitHub owner/repository path or URL")
     return value.casefold()
 
