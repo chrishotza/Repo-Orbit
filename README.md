@@ -38,6 +38,7 @@ Most repository lists tell you **where a link points**. RepoOrbit also tracks **
 | Ask why a repository has a subject label | `classify({"repo":"Comfy-Org/ComfyUI"})` |
 | Search names and limited topic tags | `search({"q":"python","limit":3})` |
 | Resolve exact evidence or numeric ID | `resolve({"repo":"id:589831718"})` |
+| Inspect the age of a real GitHub observation | `evidence_age({"repo":"id:23088740"})` |
 | Inspect coverage and uncertainty | `stats({})` |
 
 **No hosted service, paid API, embedding model or LLM is needed for these offline queries.** A host can launch the bundled Python MCP stdio server or an agent can read only the small static index it needs. LLM response tokens are not literally zero: bounded JSON simply avoids putting the corpus into context.
@@ -55,6 +56,7 @@ Most repository lists tell you **where a link points**. RepoOrbit also tracks **
 | [`ai/verified-targets.json`](ai/verified-targets.json) | 24 additional checked reference IDs |
 | [`ai/status.json`](ai/status.json) | Tiny, reproducible coverage summary |
 | [`ai/topic-route-eval.json`](ai/topic-route-eval.json) | 32 explicit EN/ES routing regression cases, *not* semantic accuracy |
+| [`ai/evidence-dates.json`](ai/evidence-dates.json) | Historical numeric-ID and README evidence dates (not live project activity) |
 | [`data/topic_evidence.jsonl`](data/topic_evidence.jsonl) | 23 original short subject statements, SHA and line pointers |
 
 
@@ -97,6 +99,8 @@ Source links are preserved with their original Git blob SHA, catalog identifier 
 ## 🌱 Coverage, not hype
 
 **1,199 catalog reference edges** come from two explicitly reviewed CC0-licensed discovery directories, and deduplicate into a corpus of 1,215 paths together with the seed references. Most discovered references are still unchecked against GitHub. Only 54 stable IDs have independent repository-existence observations. **Zero** repositories have been independently marked both functionally tested and free to run by RepoOrbit.
+
+Daily, read-only rotating review jobs now inspect different **bounded** pages of pending GitHub references; no automatic approvals or free/functional claims. [Empirical coverage and evidence age](docs/COVERAGE_FRESHNESS.md).
 
 Track engineering gates in [Roadmap](docs/ROADMAP.md), [Source provenance](docs/PROVENANCE.md), [ID verification](docs/TARGET_VERIFICATION.md), and [CI results](https://github.com/chrishotza/Repo-Orbit/actions).
 
