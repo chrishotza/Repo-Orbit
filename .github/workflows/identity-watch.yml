@@ -39,7 +39,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
           if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
-            python -m repoorbit.identity_watch --limit 3 --delay 0.1
+            python -m repoorbit.identity_watch --delay 0.1
           else
             python -m repoorbit.identity_watch --delay 0.4
           fi
