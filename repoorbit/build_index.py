@@ -14,7 +14,7 @@ import sys
 
 from .agent import ROOT, STOP, _load, tokenize
 
-LETTERS = string.ascii_lowercase + string.digits
+LETTERS = string.ascii_lowercase
 SKIP = STOP | {"awesome", "list", "lists", "project", "projects", "code", "tool", "tools"}
 DEST = ROOT / "ai" / "terms"
 
