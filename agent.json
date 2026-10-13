@@ -1,5 +1,5 @@
 {
-  "version": "0.4.0",
+  "version": "0.5.0",
   "purpose": "AI-first, evidence-aware GitHub discovery with bilingual task routing and minimal context",
   "start": "AGENTS.md",
   "transport": {
@@ -71,5 +71,11 @@
     "never infer cost, execution, safety or exhaustive coverage",
     "no GitHub API or paid service required to answer offline",
     "read ai/status.json instead of traversing discovery snapshots for counts"
-  ]
+  ],
+  "provenance": {
+    "approved_snapshot_registry": "data/feeds.json",
+    "refresh_policy": "read_only_daily_monitoring",
+    "promotion": "guarded_weekly_draft_pr_only",
+    "history": "previous snapshots remain committed but are not indexed twice"
+  }
 }
