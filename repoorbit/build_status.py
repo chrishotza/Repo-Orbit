@@ -9,6 +9,7 @@ import sys
 
 from .agent import ROOT, _load
 from .identity import load as load_verified_identities
+from .verified import status as checked_reference_status
 from .snapshots import approved_discoveries
 
 DEST = ROOT / "ai" / "status.json"
@@ -41,6 +42,8 @@ def build() -> dict:
         "catalog_seeds": len(sources),
         "project_seeds_existence_checked": len(projects),
         "numeric_seed_ids_checked": len(load_verified_identities()[0]),
+        "numeric_reference_ids_checked": checked_reference_status()["numeric_references_checked"],
+        "checked_references_archived": checked_reference_status()["checked_archived"],
         "unverified_only": sum(x["v"] == "not_checked" for x in records.values()),
         "discovery_edges": sum(counts.values()),
         "shared_targets_across_feeds": sum(len(v) > 1 for v in by_target.values()),
