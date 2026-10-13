@@ -11,10 +11,11 @@ RepoOrbit is an open, evidence-first index for discovering GitHub projects and t
 
 **Agents: read [AGENTS.md](AGENTS.md) (short) or [agent.json](agent.json) (machine-readable). Do not ingest this README, 672-link discovery file, or upstream catalogs into context just to answer a query.**
 
-Two token-efficient access modes are shipped:
+Three token-efficient access modes are shipped:
 
 | Mode | Entry point | What is returned |
 |---|---|---|
+| **Task intent (EN/ES, no LLM)** | `recommend` via MCP or `ai/intent.json` without a runtime | Short suggestions grounded in 8 reviewed README snapshots; costs and execution remain unknown |
 | **MCP, no network required** | \`python3 -m repoorbit.mcp\` as a configured stdio tool, not an interactive human workflow | Bounded \`search\`, exact \`resolve\`, compact \`stats\` |
 | **Static, remote-readable** | \`ai/index.json\` then only \`ai/terms/{letter}.json\` | One small per-letter lexical reference shard |
 
@@ -26,7 +27,7 @@ Two token-efficient access modes are shipped:
 
 \`search({"q":"python","limit":3})\` gives only up to 3 terse records rather than loading the underlying corpus. \`resolve({"repo":"Comfy-Org/ComfyUI"})\` returns an exact project record with provenance, uncertainty and existence date. Lexical search **is not semantic understanding** and does not verify execution, pricing, or source-code safety.
 
-The standalone static index represents **692 unique GitHub paths across all roles** in its current seed and discovery data, with 26 independently addressable alphabetic shards. It is a partial corpus, not a crawl of GitHub. It includes unverified references: a linked URL must not be promoted to a tested project.
+The bilingual matcher currently supports **8 curated task intents**, not general semantic understanding. Unknown requests return no invented matches and can fall back to lexical search. The standalone static index represents **692 unique GitHub paths across all roles** in its current seed and discovery data, with 26 independently addressable alphabetic shards. It is a partial corpus, not a crawl of GitHub. It includes unverified references: a linked URL must not be promoted to a tested project.
 
 See [AI protocol specification](docs/AI_PROTOCOL.md) and [static shard format](ai/index.json).
 
