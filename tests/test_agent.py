@@ -2,10 +2,19 @@
 import json
 import unittest
 
-from repoorbit import agent, build_index, mcp
+from repoorbit import agent, build_index, build_status, mcp
 
 
 class AgentTests(unittest.TestCase):
+    def test_status_json_matches_loaded_two_source_corpus(self):
+        self.assertEqual(build_status.main([]), 0)
+        status = build_status.build()
+        self.assertEqual(status["unique_slugs"], 1215)
+        self.assertEqual(status["discovery_edges"], 1199)
+        self.assertEqual(status["shared_targets_across_feeds"], 4)
+        self.assertEqual(status["unverified_only"], 1185)
+        self.assertEqual(status["functional_tests_passed"], 0)
+
     def test_inventory_is_explicit_not_github_coverage(self):
         stats = agent.stats()
         self.assertEqual(stats["catalogs"], 22)
