@@ -154,3 +154,7 @@ On 2026-10-13, the 22 catalog and 8 project seed repositories were independently
 ## Checked reference sidecar (v0.7)
 
 `data/verified_targets.jsonl` holds 24 independently queried GitHub repository IDs from approved discovery snapshots. For each, it preserves requested and canonical slugs, archived/default-branch metadata, observation date and the exact approved source IDs. This is distinct from `data/identities.jsonl` (30 seed IDs). The total path count remains 1,215. The 24 checked references move from `not_checked` to repository-existence verified, leaving 1,161 unchecked. The separate weekly batch worker stages additional evidence only; it must not automatically upgrade targets or modify the original upstream references. See [TARGET_VERIFICATION.md](TARGET_VERIFICATION.md).
+
+## v0.9 documentary topical claims
+
+`data/topic_evidence.jsonl` contains 12 manual reviews of self-descriptions in exact upstream README Git blobs. Each row has a checked GitHub numeric ID, a controlled category, the README path, 40-hex Git blob SHA, exact line and a short text anchor, plus `cost=unknown` and `execution_test=not_run`. The category renderer gives this `basis=readme_topic_evidence`, different from a lexical filename guess. A read-only scheduled audit re-fetches original Git blobs, validates the hash and line anchor, and publishes evidence artifacts. This is documentary provenance, **not** runtime, security, legal, pricing or maintenance verification. [Details](README_EVIDENCE.md).
