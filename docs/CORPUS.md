@@ -150,3 +150,7 @@ This new upstream-documentation evidence layer does **not** upgrade the projects
 ## Numeric identity sample (v0.6)
 
 On 2026-10-13, the 22 catalog and 8 project seed repositories were independently queried for their stable numeric GitHub IDs and current slugs. The new `data/identities.jsonl` file is an *evidence sidecar* and does not silently change the verification level of the 1,185 reference-only slugs. `ai/identities.json` provides the compact remote route, and `resolve({"repo":"id:589831718"})` accepts numeric IDs for checked seeds. A new read-only scheduled workflow compares GitHub results to the recorded IDs and stages possible rename/transfer evidence, but never modifies approved records. See [IDENTITIES.md](IDENTITIES.md).
+
+## Checked reference sidecar (v0.7)
+
+`data/verified_targets.jsonl` holds 24 independently queried GitHub repository IDs from approved discovery snapshots. For each, it preserves requested and canonical slugs, archived/default-branch metadata, observation date and the exact approved source IDs. This is distinct from `data/identities.jsonl` (30 seed IDs). The total path count remains 1,215. The 24 checked references move from `not_checked` to repository-existence verified, leaving 1,161 unchecked. The separate weekly batch worker stages additional evidence only; it must not automatically upgrade targets or modify the original upstream references. See [TARGET_VERIFICATION.md](TARGET_VERIFICATION.md).
