@@ -69,6 +69,20 @@ Index shards are deterministically built from \`data/sources.json\`, \`data/repo
 
 For each representative test query, record the complete incoming + outgoing MCP payload size in bytes and, where available, model-token count. Compare against a baseline that injects the full 672-reference JSONL. Benchmark single-hit, 5-hit, 20-hit, multiword, missing-result and typo cases separately. Report model, tokenizer, date, cache state and corpus version. Never generalize a one-query byte saving to all tokenizers or queries.
 
+## First measured payload comparison (2026-10-12 corpus snapshot)
+
+These are **UTF-8 file sizes**, not model token counts or end-to-end network measurements:
+
+| Fetched data | Bytes | Reduction versus full discovery snapshot |
+|---|---:|---:|
+| Entire 672-link discovery JSONL | 299,786 | baseline |
+| One static index shard for letter \`v\` | 1,758 | 99.41% fewer bytes |
+| One static index shard for letter \`m\` | 5,868 | 98.04% fewer bytes |
+
+The one-time orientation files \`AGENTS.md\` and \`agent.json\` together are 2,348 bytes, and the static routing manifest \`ai/index.json\` is another 1,300 bytes. A model with a cached agent contract does not have to reread them for every query. Results and metadata checks are still necessary; smaller transfer size is not proof of search relevance, execution, or lower cost for every LLM host.
+
+Verification performed: all 26 published static shards were checked against a fresh deterministic regeneration of their seed/source/discovery inputs with zero mismatches. The MCP and Python test suite is included in CI; this measurement alone is **not** an assertion that a remote CI run succeeded.
+
 ## Future evolution
 
 Semantic aliases, curated capability evidence and incremental catalog ingestion can be added as **additional evidence-bearing layers**, never silently to the lexical field. Any hosted HTTP/MCP endpoint would require deployment and security review; **no hosted endpoint is claimed in v0.2**.
