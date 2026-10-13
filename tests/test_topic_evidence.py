@@ -62,8 +62,8 @@ class TopicEvidenceTests(unittest.TestCase):
             self.assertIn((fact["category"] + ".json",
                            next(row for row in docs[fact["category"] + ".json"]["r"]
                                 if row[0].casefold() == slug)), reviewed)
-        self.assertEqual(len(docs["unclassified.json"]["r"]), 984)
-        self.assertEqual(sum(len(v["r"]) for k,v in docs.items() if k != "index.json"), 1215)
+        self.assertEqual(len(docs["unclassified.json"]["r"]), 1153)
+        self.assertEqual(sum(len(v["r"]) for k,v in docs.items() if k != "index.json"), 1462)
 
     def test_readme_labels_have_no_faked_security_or_cost(self):
         result = taxonomy.classify("ai/nanoid")
