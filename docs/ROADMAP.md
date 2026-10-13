@@ -12,6 +12,23 @@ Goal: **the simplest trustworthy interface for discovering useful repositories**
 | 5. Accessible website | One natural-language search field and clear result comparisons | Keyboard and screen-reader accessible; visible source, date, license and cost uncertainty |
 | 6. Sustainable scale | Contributor workflows, scheduled checks, quality dashboards | Monitored freshness and coverage with no misleading total-GitHub claims |
 
+## Shipped AI-first layer (v0.2)
+
+- \`AGENTS.md\`, \`SKILL.md\` and \`agent.json\` give concise machine-first navigation, without making a human walkthrough the entrypoint.
+- \`repoorbit.agent\` provides bounded, deterministic offline \`search\`, \`resolve\` and \`stats\` functions.
+- \`repoorbit.mcp\` exposes those functions as local MCP stdio tools; **not** a hosted MCP endpoint.
+- \`ai/index.json\` and \`ai/terms/[a-z].json\` are 26 self-contained remote-readable lexical shards, generated from the 692 unique paths currently known across all roles.
+- \`repoorbit.build_index\` supports deterministic regeneration and CI staleness checking.
+- Automated Python tests cover MCP shape, provenance, bounded output, and generated index integrity. Remote CI success has not yet been independently confirmed.
+
+### Next acceptance gate
+
+1. Observe green GitHub Actions results on both configured Python versions, repairing any failures.
+2. Benchmark more than one natural-language request, including Spanish, zero-result and synonyms, with relevance evaluation rather than token/byte savings alone.
+3. Introduce evidence-based capabilities; only then add query-expansion or semantic retrieval without falsely implying support.
+4. Make upstream discovery incremental and rights-aware, with stable GitHub numeric IDs and cached rate-limited refresh.
+5. Keep the machine manifest compact, stable and versioned as the corpus grows.
+
 ## Immediate engineering priorities
 
 1. Run offline unit tests and create a CI job that enforces them.
