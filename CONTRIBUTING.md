@@ -32,3 +32,7 @@ python3 -m unittest discover -s tests -v
 Changes must demonstrate real provenance, valid identity, non-duplication and no fabricated claims. Document license/usage restrictions for upstream content extraction. PRs that introduce scrapers must include conservative rate limits, terms review, fixture-based tests, and graceful failure.
 
 Open an issue for corrections or removal requests, identifying the exact source record and supporting evidence. Maintainers should preserve a dated audit trail for corrections.
+
+## Discovery reference snapshots
+
+Source URL parsing is permitted only after checking the source's license and applicable terms. Add explicit source identity, original file path, content blob SHA, observation date and target-check status. Never convert `target_verification: not_checked` to a validated or functional status merely because a reference appears in an Awesome list. Run `python3 scripts/discoveries.py validate` before submitting.
