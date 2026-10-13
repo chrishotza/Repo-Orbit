@@ -1,0 +1,32 @@
+{"id":"ai-es","lang":"es","q":"Estoy buscando herramientas de inteligencia artificial para un proyecto","expected":"ai-ml","scope":"curated_phrase_contract_regression"}
+{"id":"ai-en","lang":"en","q":"I need an overview of machine learning repositories","expected":"ai-ml","scope":"curated_phrase_contract_regression"}
+{"id":"dev-es","lang":"es","q":"Busco herramientas de desarrollo que funcionen localmente","expected":"developer-tools","scope":"curated_phrase_contract_regression"}
+{"id":"dev-en","lang":"en","q":"Please show development libraries for my app","expected":"developer-tools","scope":"curated_phrase_contract_regression"}
+{"id":"web-es","lang":"es","q":"Quiero crear aplicaciones web modernas","expected":"web-apps","scope":"curated_phrase_contract_regression"}
+{"id":"web-en","lang":"en","q":"I am comparing different web frameworks","expected":"web-apps","scope":"curated_phrase_contract_regression"}
+{"id":"data-es","lang":"es","q":"Quiero estudiar bases de datos y sus herramientas","expected":"data-storage","scope":"curated_phrase_contract_regression"}
+{"id":"data-en","lang":"en","q":"Where are the data storage projects?","expected":"data-storage","scope":"curated_phrase_contract_regression"}
+{"id":"sec-es","lang":"es","q":"Necesito recursos de ciberseguridad","expected":"security","scope":"curated_phrase_contract_regression"}
+{"id":"sec-en","lang":"en","q":"Show me computer security projects","expected":"security","scope":"curated_phrase_contract_regression"}
+{"id":"cloud-es","lang":"es","q":"Quiero aprender administracion de servidores","expected":"cloud-devops","scope":"curated_phrase_contract_regression"}
+{"id":"cloud-en","lang":"en","q":"I'm deploying cloud infrastructure","expected":"cloud-devops","scope":"curated_phrase_contract_regression"}
+{"id":"auto-es","lang":"es","q":"Busco automatización de tareas repetitivas","expected":"automation","scope":"curated_phrase_contract_regression"}
+{"id":"auto-en","lang":"en","q":"Need job scheduling libraries and examples","expected":"automation","scope":"curated_phrase_contract_regression"}
+{"id":"edu-es","lang":"es","q":"Quiero cursos sobre tecnologia","expected":"education","scope":"curated_phrase_contract_regression"}
+{"id":"edu-en","lang":"en","q":"Find learning resources for developers","expected":"education","scope":"curated_phrase_contract_regression"}
+{"id":"media-es","lang":"es","q":"Necesito software de creación de video","expected":"creative-media","scope":"curated_phrase_contract_regression"}
+{"id":"media-en","lang":"en","q":"I need image editing utilities","expected":"creative-media","scope":"curated_phrase_contract_regression"}
+{"id":"sci-es","lang":"es","q":"Quiero ver proyectos de investigación científica","expected":"science","scope":"curated_phrase_contract_regression"}
+{"id":"sci-en","lang":"en","q":"Search scientific research code","expected":"science","scope":"curated_phrase_contract_regression"}
+{"id":"mobile-es","lang":"es","q":"Busco aplicaciones móviles para Android","expected":"mobile-desktop","scope":"curated_phrase_contract_regression"}
+{"id":"mobile-en","lang":"en","q":"I want desktop apps","expected":"mobile-desktop","scope":"curated_phrase_contract_regression"}
+{"id":"chain-es","lang":"es","q":"Estoy aprendiendo contratos inteligentes","expected":"blockchain","scope":"curated_phrase_contract_regression"}
+{"id":"chain-en","lang":"en","q":"Look for smart contracts and tools","expected":"blockchain","scope":"curated_phrase_contract_regression"}
+{"id":"game-es","lang":"es","q":"Me gustaría explorar desarrollo de videojuegos","expected":"games","scope":"curated_phrase_contract_regression"}
+{"id":"game-en","lang":"en","q":"Help me find game development libraries","expected":"games","scope":"curated_phrase_contract_regression"}
+{"id":"iot-es","lang":"es","q":"Busco recursos de electrónica","expected":"iot-hardware","scope":"curated_phrase_contract_regression"}
+{"id":"iot-en","lang":"en","q":"What embedded systems examples exist?","expected":"iot-hardware","scope":"curated_phrase_contract_regression"}
+{"id":"unknown-es","lang":"es","q":"¿Qué herramientas raras hay para pasar el rato?","expected":null,"scope":"curated_phrase_contract_regression"}
+{"id":"unknown-en","lang":"en","q":"What repositories have bright blue logos?","expected":null,"scope":"curated_phrase_contract_regression"}
+{"id":"ambiguous-es","lang":"es","q":"Busco automatizacion de tareas y bases de datos","expected":null,"scope":"curated_phrase_contract_regression"}
+{"id":"ambiguous-en","lang":"en","q":"Compare development libraries and web frameworks","expected":null,"scope":"curated_phrase_contract_regression"}
