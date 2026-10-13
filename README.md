@@ -54,6 +54,14 @@ Most repository lists tell you **where a link points**. RepoOrbit also tracks **
 | [`ai/verified-targets.json`](ai/verified-targets.json) | 24 additional checked reference IDs |
 | [`ai/status.json`](ai/status.json) | Tiny, reproducible coverage summary |
 
+
+<details>
+<summary><strong>Advanced agent filter: browse by verified source context</strong></summary>
+
+An agent can pass `source: "github:sindresorhus/awesome-nodejs"` to `browse` while selecting any subject, including `unclassified`. That indicates a repository was **linked by that approved catalog**; it is not a verified Node.js-compatibility or execution claim. `classify` also exposes source IDs separately from topical hints.
+
+</details>
+
 ## 🧭 Our classification system
 
 RepoOrbit uses an original controlled vocabulary with 14 domains, such as **AI/ML**, **developer tools**, **security**, **cloud infrastructure**, **creative media**, **education**, **science** and **automation**. Every subject result includes the method used to derive it.
