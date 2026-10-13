@@ -60,7 +60,7 @@ def route_topic(q: str) -> dict:
         matched = [phrase for phrase in phrases if " " + phrase + " " in normalized]
         if matched:
             best = max(matched, key=lambda s: (len(s.split()), len(s)))
-            hits[category] = {"phrase": best, "score": (len(best.split()), len(best))}
+            hits[category] = {"phrase": best, "score": len(best.split())}
     if not hits:
         return {"found": False, "status": "no_supported_phrase",
                 "category": None, "semantics": "controlled_phrase_only"}
