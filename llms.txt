@@ -11,3 +11,5 @@
 - [Approved snapshot and bot PR safeguards](docs/PROMOTION.md)
 - [Checked numeric GitHub IDs](ai/identities.json)
 - [Stable identity and rename policy](docs/IDENTITIES.md)
+- [Checked discovered repository IDs](ai/verified-targets.json)
+- [Batch verification evidence policy](docs/TARGET_VERIFICATION.md)
