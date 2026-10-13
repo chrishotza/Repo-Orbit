@@ -104,3 +104,7 @@ The search corpus now contains 1,215 unique GitHub slugs drawn from 1,199 discov
 ## Stable ID exact resolution (v0.6)
 
 The existing `resolve` MCP tool also accepts `id:<positive_integer>`, such as `id:589831718` for the individually checked ComfyUI seed. The result preserves the seed record and separately adds the numeric ID and identity observation date. This is a metadata verification, **not** a working-software, cost, or security test. A remote-only agent can look up any of 30 verified seed IDs in the 1.4 KB `ai/identities.json` table. All unchecked references still lack numeric identity verification. Renames/transfers are recognized **only** after the same numeric ID is re-observed by GitHub; slug reuse under a different ID fails closed. See [IDENTITIES.md](IDENTITIES.md).
+
+## v0.7 checked catalog references
+
+The separate `ai/verified-targets.json` file contains 24 checked discovery references and is deliberately distinct from 30 seed ID entries in `ai/identities.json`. `resolve({"repo":"id:23088740"})` retrieves a previously unchecked catalog reference that now has independent GitHub-ID evidence; it keeps its `role=reference` and its original source pointers. `v=exists` means existence metadata only, not an executable or free result. The 26 lexical shards contain updated existence flags with no increase in repository count. See [TARGET_VERIFICATION.md](TARGET_VERIFICATION.md).
