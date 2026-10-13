@@ -2,7 +2,7 @@ name: Stage README review candidates
 
 on:
   schedule:
-    - cron: '31 7 * * 2'
+    - cron: '31 7 * * *'
   workflow_dispatch:
   pull_request:
     paths:
@@ -30,6 +30,7 @@ jobs:
       - name: Offline validation of the deterministic pending queue
         run: |
           python -m repoorbit.stage_readmes --check --limit 2
+          python -m repoorbit.stage_readmes --check --limit 5 --cycle-date "$(date -u +%F)"
           python -m unittest discover -s tests -p 'test_stage_readmes.py' -v
       - name: Check untrusted READMEs against immutable blobs (read-only)
         env:
@@ -38,7 +39,7 @@ jobs:
           if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
             python -m repoorbit.stage_readmes --limit 2
           else
-            python -m repoorbit.stage_readmes --limit 5
+            python -m repoorbit.stage_readmes --limit 5 --cycle-date "$(date -u +%F)"
           fi
       - name: Upload candidates separately for human/AI review
         uses: actions/upload-artifact@v4
