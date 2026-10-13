@@ -226,6 +226,8 @@ def main(argv: list[str] | None = None) -> int:
         def fetch(repository: str, path: str) -> tuple[bytes, str]:
             return _github_contents(repository, path, token)
         plans = plan_refresh(feeds, fetch)
+        from .incremental_delta import compare, encode
+        global_delta = compare(plans)
         out = args.output_dir.resolve()
         # Prevent a scheduled job from overwriting authoritative tracked data.
         if not out.is_relative_to(STAGING.resolve()):
@@ -238,10 +240,17 @@ def main(argv: list[str] | None = None) -> int:
             _write_atomic(snapshot, text)
             result["staged_snapshot"] = str(snapshot.relative_to(ROOT))
             summaries.append(result)
+        _write_atomic(out / "global-delta.json", encode(global_delta))
         _write_atomic(out / "report.json", json.dumps({
-            "schema_version": "0.1.0",
+            "schema_version": "0.2.0",
             "status": "staged_unreviewed_no_auto_commit",
             "results": summaries,
+            "global_delta": {
+                "report": "global-delta.json",
+                "counts": global_delta["counts"],
+                "baseline_unique_paths": global_delta["baseline_unique_paths"],
+                "proposed_unique_paths": global_delta["proposed_unique_paths"],
+            },
         }, indent=2) + "\n")
         print(json.dumps({"status": "staged", "results": summaries}, separators=(",", ":")))
         return 0
