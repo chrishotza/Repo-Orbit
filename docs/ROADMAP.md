@@ -4,7 +4,7 @@ Goal: **the simplest trustworthy interface for discovering useful repositories**
 
 | Stage | Deliverable | Acceptance criteria |
 |---|---|---|
-| 0. Corpus foundation | Verified discovery roots, project seeds, 672 licensed index references, schemas, provenance policy, CLI and offline tests | Seeds linked to canonical URLs; dedup and validation; unknown costs remain unknown |
+| 0. Corpus foundation | Verified discovery roots, project seeds, 1,199 licensed discovery edges from two sources, schemas, provenance policy, CLI and offline tests | Seeds linked to canonical URLs; dedup and validation; unknown costs remain unknown |
 | 1. Reliable metadata | Incremental GitHub API ingestion with rate-aware retry, caching, rename detection and snapshots | Deterministic, resumable sync; no lost provenance; age and error metrics reported |
 | 2. Catalog adapters | Explicitly permitted adapters for selected discovery directories | Per-source license/terms review, attribution, URL-level references, parser tests, extraction counts |
 | 3. Search | Keyword search, taxonomy and human-reviewed evaluation set | Search works without an account, measurable query success; transparent filters |
@@ -17,7 +17,7 @@ Goal: **the simplest trustworthy interface for discovering useful repositories**
 - \`AGENTS.md\`, \`SKILL.md\` and \`agent.json\` give concise machine-first navigation, without making a human walkthrough the entrypoint.
 - \`repoorbit.agent\` provides bounded, deterministic offline \`search\`, \`resolve\` and \`stats\` functions.
 - \`repoorbit.mcp\` exposes those functions as local MCP stdio tools; **not** a hosted MCP endpoint.
-- \`ai/index.json\` and \`ai/terms/[a-z].json\` are 26 self-contained remote-readable lexical shards, generated from the 692 unique paths currently known across all roles.
+- \`ai/index.json\` and \`ai/terms/[a-z].json\` are 26 self-contained remote-readable lexical shards, generated from the 1,215 unique paths currently known across all roles.
 - \`repoorbit.build_index\` supports deterministic regeneration and CI staleness checking.
 - Automated Python tests cover MCP shape, provenance, bounded output, and generated index integrity. Remote CI success has not yet been independently confirmed.
 
@@ -59,3 +59,12 @@ Goal: **the simplest trustworthy interface for discovering useful repositories**
 ## Definition of done for a feature
 
 A feature requires documented inputs/outputs, tests, provenance preservation, failure behavior, measured limitations, and an example that actually runs. UI polish alone is not completion.
+
+## v0.4 staged source refresh
+
+- Added a second verified CC0 discovery source (527 Node.js links).
+- Published 1,199 total discovery edges and reindexed 1,215 unique GitHub slugs.
+- Added two-source CC0 allowlist, exact Git blob hash validation, license rechecking and per-source incremental differences.
+- Added a read-only scheduled GitHub Actions workflow that emits artifacts. It does **not** auto-push unreviewed data.
+- Added offline regression cases for deduplication, license rejection, empty-source rejection and delta arithmetic.
+- Next gate: obtain/inspect real green CI, perform an actual scheduled/dispatch refresh and review deltas; then build a safe promotion PR mechanism with numeric GitHub-ID reconciliation.
