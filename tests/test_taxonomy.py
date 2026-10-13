@@ -42,6 +42,20 @@ class TaxonomyTests(unittest.TestCase):
         self.assertEqual(example["category"], "unclassified")
         self.assertGreaterEqual(len(example["matched"]), 2)
 
+    def test_catalog_source_is_an_independent_grounded_facet(self):
+        record = taxonomy.classify("axios/axios")
+        self.assertEqual(record["category"], "unclassified")
+        self.assertIn("github:sindresorhus/awesome-nodejs", record["source_catalogs"])
+        result = taxonomy.browse("unclassified", limit=3,
+                                 source="github:sindresorhus/awesome-nodejs")
+        self.assertGreater(result["n"], 0)
+        self.assertEqual(result["source"], "github:sindresorhus/awesome-nodejs")
+
+    def test_source_filter_never_accepts_unapproved_feeds(self):
+        with self.assertRaises(ValueError):
+            taxonomy.browse("ai-ml", source="github:invented/unreviewed")
+        with self.assertRaises(ValueError):
+            taxonomy.browse("ai-ml", source=123)
     def test_no_topic_evidence_must_abstain(self):
         example = taxonomy.classify("axios/axios")
         self.assertTrue(example["found"])
