@@ -2,7 +2,7 @@
 
 A GitHub Actions job can invoke this tool. It only contacts two explicitly
 allowlisted CC0 sources, verifies each Git blob SHA and current CC0 license,
-calculates deltas, and writes an auditable staging report. Standard lib only.
+calculates deltas against its pinned approved baseline, and writes a staged report. Standard lib only.
 """
 from __future__ import annotations
 
@@ -187,12 +187,13 @@ def plan_refresh(
             "source_license": "CC0-1.0",
             "observed_at": now.astimezone(timezone.utc).isoformat(),
             "baseline": feed["baseline"],
+            "comparison": "approved_pinned_baseline_not_previous_daily_run",
             "baseline_count": len(old),
             "current_count": len(new),
             "added": len(new - old),
             "removed": len(old - new),
             "unchanged": len(new & old),
-            "note": "references only; target existence/cost/function unverified; staging-only",
+            "note": "references only; target existence/cost/function unverified; staging-only; changes measured against pinned baseline",
         }
         plans.append((feed, current, info))
     return plans
