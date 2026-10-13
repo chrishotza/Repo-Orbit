@@ -1,0 +1,44 @@
+{
+  "v": 1,
+  "purpose": "token-efficient static lexical navigation for AI agents",
+  "route": "ai/terms/{first_ascii_letter_of_term}.json",
+  "examples": {
+    "video": "ai/terms/v.json",
+    "python": "ai/terms/p.json",
+    "mcp": "ai/terms/m.json"
+  },
+  "format": {
+    "r": "local table of [owner/repo,role,verified]",
+    "role": "c=catalog p=project u=unverified-reference",
+    "verified": "1=GitHub path existed when seeded; 0=unverified reference",
+    "t": "term -> zero-based row positions in same shard"
+  },
+  "algorithm": "split camel-case, punctuation; lowercase ASCII alphanumeric tokens; use distinct terms; intersect r names for multiple words",
+  "discarded_tokens": [
+    "github",
+    "com",
+    "repo",
+    "repository",
+    "repositories",
+    "the",
+    "for",
+    "and",
+    "with",
+    "awesome",
+    "list",
+    "lists",
+    "project",
+    "projects",
+    "code",
+    "tool",
+    "tools"
+  ],
+  "limitations": [
+    "lexical only; no semantic capability inference",
+    "numeric-leading terms need MCP search",
+    "reference is not tested or even confirmed to exist",
+    "shards generated from seed and licensed links, not all GitHub"
+  ],
+  "alternative": "agent.json points to MCP search and resolve for bounded JSON results",
+  "corpus_snapshot_date": "2026-10-12"
+}
