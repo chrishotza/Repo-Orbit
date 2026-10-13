@@ -179,6 +179,11 @@ def call(tool: str, args: dict | None = None) -> dict:
         if set(args) != {"repo"}:
             raise ValueError("resolve requires repo")
         return resolve(**args)
+    if tool == "recommend":
+        if set(args) - {"q", "limit", "strict_free"}:
+            raise ValueError("unrecognized recommendation arguments")
+        from .recommend import recommend
+        return recommend(**args)
     if tool == "stats":
         if args:
             raise ValueError("stats does not take arguments")
