@@ -64,8 +64,8 @@ class VerifiedReferencesTests(unittest.TestCase):
         self.assertEqual(stats["checked_reference_ids"], 24)
         self.assertEqual(stats["working_verified"], 0)
         self.assertEqual(stats["cost_free_verified"], 0)
-        self.assertEqual(stats["unique"], 1215)
-        self.assertEqual(stats["unverified_only"], 1161)
+        self.assertEqual(stats["unique"], 1462)
+        self.assertEqual(stats["unverified_only"], 1404)
 
     def test_remote_index_is_exactly_reproducible(self):
         self.assertEqual(build_verified_index.main([]), 0)
@@ -77,7 +77,7 @@ class VerifiedReferencesTests(unittest.TestCase):
 class TargetBatchTests(unittest.TestCase):
     def test_pending_excludes_all_54_checked_ids(self):
         q = check_targets.pending()
-        self.assertEqual(len(q), 1161)
+        self.assertEqual(len(q), 1404)
         self.assertEqual(q, sorted(set(q)))
         self.assertNotIn("axios/axios", q)
         self.assertNotIn("comfy-org/comfyui", q)
