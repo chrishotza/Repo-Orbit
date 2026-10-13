@@ -47,6 +47,11 @@ def inspect(repo: str, as_of: str | None = None) -> dict:
         result.update({"identity_status": "not_individually_checked",
                        "note": "Catalog link only; no GitHub ID or current functionality evidence."})
         return result
+    evidence = seed_lookup(repo)
+    if not evidence["found"]:
+        evidence = target_lookup(repo)
+    if not evidence["found"] or evidence["github_id"] != known["github_id"]:
+        raise ValueError("checked numeric identity has missing/conflicting evidence")
     observed = date.fromisoformat(known["identity_observed_on"])
     age = (day - observed).days
     if age < 0:
@@ -60,7 +65,7 @@ def inspect(repo: str, as_of: str | None = None) -> dict:
     result.update({
         "identity_status": status, "github_id": known["github_id"],
         "observed_on": observed.isoformat(), "age_days": age,
-        "archived_when_checked": known.get("archived", False),
+        "archived_when_checked": evidence["archived"],
         "note": "This is the age of a past GitHub metadata check, not live health or functionality.",
     })
     subject = topics_load().get(known["r"].casefold())
