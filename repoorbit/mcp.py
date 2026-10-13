@@ -36,6 +36,18 @@ TOOLS = [
         },
     },
     {
+        "name": "recommend",
+        "description": "EN/ES task-to-repository suggestions backed by upstream README snapshots. Cost and execution UNVERIFIED. strict_free=True returns no results without independent free evidence.",
+        "inputSchema": {
+            "type": "object", "required": ["q"], "additionalProperties": False,
+            "properties": {
+                "q": {"type": "string", "minLength": 1, "maxLength": 200},
+                "limit": {"type": "integer", "minimum": 1, "maximum": 10, "default": 5},
+                "strict_free": {"type": "boolean", "default": False}
+            },
+        },
+    },
+    {
         "name": "stats",
         "description": "Compact inventory counts; never implies complete coverage of GitHub.",
         "inputSchema": {"type": "object", "additionalProperties": False},
