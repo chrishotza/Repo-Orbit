@@ -103,3 +103,11 @@ A feature requires documented inputs/outputs, tests, provenance preservation, fa
 - Reworked GitHub README into an agent-first atlas with visible trust definitions and current audit counts.
 - Acceptance: official CI on Python 3.10 and 3.12; no model-token or semantic-understanding claims from byte savings.
 - Next gate: review upstream README evidence and improve actual topical coverage/precision without asserting untested capabilities.
+
+## v0.9 traceable README topics
+
+- Reviewed original upstream README files for 12 existence-checked catalog references, pinned exact Git blob SHA, source line and a short self-description fingerprint per category.
+- Moved only those 12 from unclassified into categories. Corpus remains 1,215 unique GitHub paths, 220 subject-labeled and 995 unclassified (30 editorial, 12 README-backed, 178 lexical).
+- Added `readme_topic_evidence` as an explicit trust tier, static shard code `d`, source pointers in `classify`, a deterministic count and anti-tamper tests.
+- Added a read-only GitHub Git Blob SHA/line audit: PR checks 3 pinned blobs; weekly checks all 12. Run results must be observed before claiming end-to-end success.
+- Next priority: repeat with independently reviewed evidence for more unclassified references, measure held-out topic accuracy, improve multidimensional capability facets.
