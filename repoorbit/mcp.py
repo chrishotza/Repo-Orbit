@@ -70,6 +70,7 @@ TOOLS = [
                 "limit": {"type": "integer", "minimum": 1, "maximum": 20, "default": 5},
                 "offset": {"type": "integer", "minimum": 0, "maximum": 10000, "default": 0},
                 "verified_only": {"type": "boolean", "default": False},
+                "source": {"type": "string", "maxLength": 120},
             },
         },
     },
