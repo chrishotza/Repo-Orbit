@@ -42,7 +42,7 @@ See [AI protocol specification](docs/AI_PROTOCOL.md) and [static shard format](a
 
 ## Maintenance (automated)
 
-GitHub Actions checks the corpus, discovery references, MCP protocol, and deterministic static index on every change. A second scheduled workflow checks two explicitly authorized CC0 feeds daily, validates their current license and Git blob SHA, and stages an auditable diff report **without pushing it automatically**. Developers can find optional reproducibility procedures in [CORPUS.md](docs/CORPUS.md), [AI_PROTOCOL.md](docs/AI_PROTOCOL.md), and [CONTRIBUTING.md](CONTRIBUTING.md). End users and agents do not need a shell or API credentials to read the static index.
+GitHub Actions checks the corpus, discovery references, MCP protocol, and deterministic static index on every change. A second scheduled workflow checks two explicitly authorized CC0 feeds daily, validates their current license and Git blob SHA, and stages an auditable diff report against the **last pinned approved baseline**, **without pushing it automatically**. It does not yet compare with the previous scheduled run. Developers can find optional reproducibility procedures in [CORPUS.md](docs/CORPUS.md), [AI_PROTOCOL.md](docs/AI_PROTOCOL.md), and [CONTRIBUTING.md](CONTRIBUTING.md). End users and agents do not need a shell or API credentials to read the static index.
 
 ## Layout
 
