@@ -135,3 +135,12 @@ The `data/intent_map.json` registry adds **eight explicitly curated task intents
 `repoorbit.recommend` only matches explicit normalized aliases. It deliberately abstains when it cannot identify a supported task, and it cannot infer verified free execution from a README. With `strict_free=true`, all unverified cost candidates are excluded. `ai/intent.json` is a deterministic, compact **derived routing manifest** that works for remote-only agents, not a separate source of truth.
 
 This new upstream-documentation evidence layer does **not** upgrade the projects' original `functional_test` fields. Reviewers must independently test installation and operating costs before assigning stronger status. Eight hand-selected task examples do not establish general natural-language recall.
+
+## Second source and staged monitoring (2026-10-13)
+
+- Added `sindresorhus/awesome-nodejs`, independently confirmed to have a CC0 1.0 license and extracted 527 unique referenced GitHub paths from README blob `329009f8d6a94007c3aa05a92b79317073b95001`.
+- Original Awesome discovery snapshot remains 672 references. Together there are **1,199 provenance edges**, including **4 cross-snapshot target overlaps**; the consolidated seeded/searchable inventory has **1,215 unique GitHub slugs** (22 catalog, 8 project, 1,185 unverified-reference only).
+- The derived 26 alphabetical shards have been regenerated to cover all sources. They remain **lexical** and contain no verified feature/cost claims for newly discovered links.
+- `data/feeds.json` allowlists exactly two manually rights-reviewed CC0 source repositories. `repoorbit.refresh` stages point-in-time GitHub API snapshots and a per-source added/removed/unchanged report. It verifies *current* upstream CC0 license text and exact Git blob SHA before extraction.
+- `.github/workflows/refresh-feeds.yml` requests this report on a daily GitHub Actions schedule (nominally 04:17 UTC). It has **contents: read** permission and publishes artifacts only; it cannot update `main` or certify newly discovered tools.
+- Future promotion of staged snapshots must be explicit, reviewed and accompanied by regenerated indexes and tests. Scheduled execution success is not assumed until actual workflow results are observed.
