@@ -100,3 +100,7 @@ Semantic aliases, curated capability evidence and incremental catalog ingestion 
 ## Multi-source index growth
 
 The search corpus now contains 1,215 unique GitHub slugs drawn from 1,199 discovery edges plus 30 individually checked catalog/project seeds. The 26 lexical shards were rebuilt from both CC0 snapshots. A separate rights-gated scheduled workflow stages upstream changes but does not publish unreviewed data to search or silently mark references as functional software. The 299,786-byte comparison above is **historical measurement of the first 672-link snapshot**, not the combined two-source corpus size.
+
+## Stable ID exact resolution (v0.6)
+
+The existing `resolve` MCP tool also accepts `id:<positive_integer>`, such as `id:589831718` for the individually checked ComfyUI seed. The result preserves the seed record and separately adds the numeric ID and identity observation date. This is a metadata verification, **not** a working-software, cost, or security test. A remote-only agent can look up any of 30 verified seed IDs in the 1.4 KB `ai/identities.json` table. All unchecked references still lack numeric identity verification. Renames/transfers are recognized **only** after the same numeric ID is re-observed by GitHub; slug reuse under a different ID fails closed. See [IDENTITIES.md](IDENTITIES.md).
