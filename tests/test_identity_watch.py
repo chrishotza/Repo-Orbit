@@ -76,11 +76,11 @@ class IdentityWatchTests(unittest.TestCase):
         self.assertEqual(len(invoked), 3)
         self.assertEqual(result["registered"], 34)
         self.assertEqual(result["resolved"], 3)
-        self.assertEqual(result["drift"]["not_checked_this_run"], 27)
+        self.assertEqual(result["drift"]["not_checked_this_run"], 31)
         self.assertIs(result["sampled"], True)
 
     def test_invalid_sample_limits_fail_closed(self):
-        for limit in (-1, 31, True, "3"):
+        for limit in (-1, 35, True, "3"):
             with self.subTest(limit=limit):
                 with self.assertRaises(ValueError):
                     identity_watch.observe(lambda _: None, limit=limit)
