@@ -43,3 +43,7 @@ Static shard row: `[repository_slug, role(c/p/r), exists(0/1), basis(e/h/a/u)]`.
 - CI regenerates all 16 derived JSON files and rejects stale or mismatched copies.
 
 **Next evidence layer:** independent README-based claims with exact source blob SHA, observation date, reviewer notes, and held-out Spanish/English relevance benchmarks. Keep that evidence independent from lexical guesses.
+
+## Source-context facet
+
+An agent can request `classify({"repo":"axios/axios"})` and see `source_catalogs` containing the approved Awesome Node.js catalog even when `category=unclassified`. This is an **evidenced catalog membership**, not proof of Node.js compatibility or technical function. To combine provenance with subjects, use `browse({"category":"unclassified","source":"github:sindresorhus/awesome-nodejs","limit":5})`. Only source IDs in the current rights-reviewed feed registry are accepted.
