@@ -111,16 +111,19 @@ def compare(plans: list[tuple[dict, list[dict], dict]],
     changes = []
     counts = {"new_unverified_paths": 0, "new_links_to_known_paths": 0,
               "removed_from_sources_not_deleted": 0, "source_membership_changes": 0,
-              "unchanged_paths": 0}
+              "source_evidence_refreshed": 0, "unchanged_paths": 0}
     for slug in sorted(set(old) | set(new)):
         before = old.get(slug)
         after = new.get(slug)
         before_sources = set(before["sources"]) if before else set()
         after_sources = set(after["sources"]) if after else set()
         if before_sources == after_sources:
-            counts["unchanged_paths"] += 1
-            continue
-        if not before:
+            if before and after and before["sources"] != after["sources"]:
+                category = "source_evidence_refreshed"
+            else:
+                counts["unchanged_paths"] += 1
+                continue
+        elif not before:
             category = ("new_links_to_known_paths" if slug in seed_aliases
                         or slug in checked_aliases else "new_unverified_paths")
         elif not after:
@@ -134,6 +137,7 @@ def compare(plans: list[tuple[dict, list[dict], dict]],
             "previous_sources": sorted(before_sources),
             "proposed_sources": sorted(after_sources),
             "new_evidence": [provenance[s] for s in sorted(provenance)],
+            "previous_evidence": [before["sources"][s] for s in sorted(before_sources)] if before else [],
             "identity": "not_individually_checked" if category == "new_unverified_paths"
                         else "not_derived_from_feed_change",
         })
