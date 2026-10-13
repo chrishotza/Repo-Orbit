@@ -4,7 +4,7 @@ Goal: **the simplest trustworthy interface for discovering useful repositories**
 
 | Stage | Deliverable | Acceptance criteria |
 |---|---|---|
-| 0. Corpus foundation | Verified discovery roots, project seeds, schemas, provenance policy, CLI and offline tests | Seeds linked to canonical URLs; dedup and validation; unknown costs remain unknown |
+| 0. Corpus foundation | Verified discovery roots, project seeds, 672 licensed index references, schemas, provenance policy, CLI and offline tests | Seeds linked to canonical URLs; dedup and validation; unknown costs remain unknown |
 | 1. Reliable metadata | Incremental GitHub API ingestion with rate-aware retry, caching, rename detection and snapshots | Deterministic, resumable sync; no lost provenance; age and error metrics reported |
 | 2. Catalog adapters | Explicitly permitted adapters for selected discovery directories | Per-source license/terms review, attribution, URL-level references, parser tests, extraction counts |
 | 3. Search | Keyword search, taxonomy and human-reviewed evaluation set | Search works without an account, measurable query success; transparent filters |
