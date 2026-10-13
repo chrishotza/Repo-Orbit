@@ -73,14 +73,17 @@ def fetch_by_slug(slug: str, token: str | None = None) -> dict | None:
     }
 
 
-def observe(fetch=fetch_by_slug, delay: float = 0) -> dict:
+def observe(fetch=fetch_by_slug, delay: float = 0, limit: int = 0) -> dict:
     """Compare each current seed with GitHub; never mutate approved records."""
     if delay < 0:
         raise ValueError("delay cannot be negative")
     records, _ = identity.load()
+    if type(limit) is not int or limit < 0 or limit > len(records):
+        raise ValueError("limit must be 0..verified ID count (0 = all)")
+    selected = list(records.values())[:limit] if limit else list(records.values())
     checks = []
     unresolved = []
-    for index, row in enumerate(records.values()):
+    for index, row in enumerate(selected):
         try:
             fresh = fetch(row["slug"])
         except IdentityWatchError:
@@ -93,7 +96,7 @@ def observe(fetch=fetch_by_slug, delay: float = 0) -> dict:
                     f"slug-to-ID collision for {row['slug']}; manual review before any index update"
                 )
             checks.append(fresh)
-        if delay and index < len(records) - 1:
+        if delay and index < len(selected) - 1:
             time.sleep(delay)
     analysis = identity.reconcile(checks)
     return {
@@ -101,6 +104,7 @@ def observe(fetch=fetch_by_slug, delay: float = 0) -> dict:
         "checked_at": datetime.now(timezone.utc).isoformat(),
         "registered": len(records),
         "resolved": len(checks),
+        "sampled": bool(limit),
         "unresolved": unresolved,
         "drift": analysis,
         "policy": "read_only_no_automatic_alias_or_seed_changes",
@@ -111,6 +115,7 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Check GitHub seed identity drift without changing corpus")
     parser.add_argument("--check", action="store_true", help="Only validate identity registry offline")
     parser.add_argument("--delay", type=float, default=0.4)
+    parser.add_argument("--limit", type=int, default=0, help="0 = all 30, PR smoke checks 3")
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUT)
     args = parser.parse_args(argv)
     try:
@@ -123,7 +128,7 @@ def main(argv: list[str] | None = None) -> int:
         if args.delay < 0:
             raise IdentityWatchError("delay must not be negative")
         token = os.environ.get("GITHUB_TOKEN")
-        report = observe(lambda slug: fetch_by_slug(slug, token), args.delay)
+        report = observe(lambda slug: fetch_by_slug(slug, token), args.delay, args.limit)
         output = args.output_dir.resolve()
         output.mkdir(parents=True, exist_ok=True)
         _write_atomic(output / "report.json", json.dumps(report, indent=2) + "\n")
@@ -131,6 +136,7 @@ def main(argv: list[str] | None = None) -> int:
             "registered": report["registered"],
             "resolved": report["resolved"],
             "unresolved": len(report["unresolved"]),
+            "sampled": report["sampled"],
             "renamed": report["drift"]["renamed"],
             "transferred": report["drift"]["transferred"],
             "status": "read_only_staged",
