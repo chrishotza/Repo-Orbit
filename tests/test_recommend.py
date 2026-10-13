@@ -2,11 +2,18 @@
 import json
 import unittest
 
-from repoorbit import agent, mcp
+from repoorbit import agent, mcp, build_intent_index
 from repoorbit.recommend import normalize, recommend, _registry
 
 
 class IntentTests(unittest.TestCase):
+    def test_static_manifest_matches_verified_registry(self):
+        self.assertEqual(build_intent_index.main([]), 0)
+        from pathlib import Path
+        manifest = json.loads((Path(agent.ROOT) / "ai" / "intent.json").read_text(encoding="utf-8"))
+        self.assertEqual(len(manifest["a"]), 8)
+        self.assertIs(manifest["cost_verified"], False)
+
     def test_eight_manual_tasks_have_traced_sources(self):
         data = _registry()
         self.assertEqual(len(data["intents"]), 8)
