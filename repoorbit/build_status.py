@@ -12,6 +12,7 @@ from .identity import load as load_verified_identities
 from .verified import status as checked_reference_status
 from .snapshots import approved_discoveries
 from .taxonomy import categories as taxonomy_categories
+from .topic_evidence import stats as reviewed_topic_stats
 
 DEST = ROOT / "ai" / "status.json"
 SOURCES = ROOT / "data" / "sources.json"
@@ -45,6 +46,7 @@ def build() -> dict:
         "taxonomy_domains": len(taxonomy["categories"]) - 1,
         "subject_labeled": len(records) - unclassified,
         "subject_unclassified": unclassified,
+        "readme_subjects_reviewed": reviewed_topic_stats()["readme_subjects_reviewed"],
         "catalog_seeds": len(sources),
         "project_seeds_existence_checked": len(projects),
         "numeric_seed_ids_checked": len(load_verified_identities()[0]),

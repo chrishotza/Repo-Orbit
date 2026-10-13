@@ -15,3 +15,4 @@
 - [Batch verification evidence policy](docs/TARGET_VERIFICATION.md)
 - [Bilingual subject categories](ai/categories/index.json)
 - [Category evidence policy](docs/TAXONOMY.md)
+- [Versioned README subject evidence](docs/README_EVIDENCE.md)

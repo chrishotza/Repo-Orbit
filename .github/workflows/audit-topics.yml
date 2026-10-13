@@ -1,0 +1,50 @@
+name: Audit versioned README topic evidence
+
+on:
+  schedule:
+    - cron: '11 6 * * 5'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'data/topic_evidence.jsonl'
+      - 'repoorbit/topic_evidence.py'
+      - 'repoorbit/audit_topics.py'
+      - 'repoorbit/taxonomy.py'
+      - 'repoorbit/build_taxonomy_index.py'
+      - 'ai/categories/**'
+      - '.github/workflows/audit-topics.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: repoorbit-readme-topic-audit
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    name: Confirm pinned README blob and line fingerprints
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate documentary registry and derived category shards offline
+        run: |
+          python -m repoorbit.audit_topics --check
+          python -m repoorbit.build_taxonomy_index
+      - name: Independently re-read exact Git blob hashes and cited lines
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          # Fail review if any source anchor/hash is invalid, not just the sample.
+          python -m repoorbit.audit_topics
+      - name: Archive read-only historical evidence audit
+        uses: actions/upload-artifact@v4
+        with:
+          name: repoorbit-versioned-readme-evidence
+          path: data/snapshots/topic_audit/
+          retention-days: 14
+          if-no-files-found: error

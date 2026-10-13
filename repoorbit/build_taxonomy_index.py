@@ -12,6 +12,7 @@ DEST = ROOT / "ai" / "categories"
 ROLES = {"catalog": "c", "project": "p", "reference": "r"}
 METHODS = {
     "editorial_seed_subject": "e",
+    "readme_topic_evidence": "d",
     "slug_keyword_hint": "h",
     "ambiguous_slug_keywords": "a",
     "no_subject_evidence": "u",
@@ -30,8 +31,8 @@ def build() -> dict[str, dict]:
         "scope": "subject_hints_not_capability_verification",
         "total": descriptor["total"],
         "cats": [[x["id"], x["en"], x["es"], x["n"]] for x in descriptor["categories"]],
-        "row_format": "[repository_slug,role(c/p/r),exists(0/1),basis(e/h/a/u)]",
-        "note": "Editorial seed topics and slug hints are not proof of purpose, function, license or cost.",
+        "row_format": "[repository_slug,role(c/p/r),exists(0/1),basis(e/d/h/a/u)]",
+        "note": "README self-descriptions, editorial labels and slug hints are not tests of behavior, license or cost.",
     }}
     for cat in descriptor["categories"]:
         name = cat["id"]

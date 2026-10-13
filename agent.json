@@ -1,5 +1,5 @@
 {
-  "version": "0.8.0",
+  "version": "0.9.0",
   "purpose": "Bilingual AI-first GitHub repository atlas: lexical discovery, explicit subject hints and source-verifiable metadata with minimal context",
   "start": "AGENTS.md",
   "transport": {
@@ -39,7 +39,7 @@
     "static_taxonomy": {
       "manifest": "ai/categories/index.json",
       "route": "ai/categories/{category_id}.json",
-      "scope": "14 domains + explicit unclassified, all 1215 paths, no functional promises"
+      "scope": "14 domains + explicit unclassified, all 1215 paths, four subject evidence tiers"
     }
   },
   "tools": {
@@ -80,8 +80,8 @@
       "input": {
         "repo": "owner/name or GitHub URL"
       },
-      "output": "{found,r,role,v,category,basis,matched,format_hint,notice}",
-      "semantics": "editorial seed label, lexical hint or unclassified"
+      "output": "{found,r,role,v,category,basis,matched,format_hint,readme_evidence?,source_catalogs,notice}",
+      "semantics": "versioned README self-description is stronger than name keywords but does not prove runtime behavior"
     },
     "browse": {
       "input": {
@@ -111,7 +111,8 @@
     "a checked catalog reference keeps its original role and provenance; checked numeric ID is not functional validation",
     "use categories and browse for topical exploration; unclassified is an honest valid result",
     "editorial_seed_subject differs from slug_keyword_hint; subject labels are never capability tests",
-    "source catalog membership is directly traceable context, not a proven topical capability"
+    "source catalog membership is directly traceable context, not a proven topical capability",
+    "readme_topic_evidence includes Git blob SHA and exact historical line; author self-descriptions are never independent behavioral tests"
   ],
   "provenance": {
     "approved_snapshot_registry": "data/feeds.json",
@@ -122,6 +123,8 @@
     "identity_watch": "weekly_read_only_artifact_no_auto_promotion",
     "reference_id_registry": "data/verified_targets.jsonl",
     "reference_check": "weekly_read_only_staging_max_12_per_run",
-    "subject_taxonomy": "data/taxonomy.json"
+    "subject_taxonomy": "data/taxonomy.json",
+    "topic_readmes": "data/topic_evidence.jsonl",
+    "topic_audit": "weekly_read_only_git_blob_sha_and_line_evidence"
   }
 }

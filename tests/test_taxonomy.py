@@ -44,7 +44,8 @@ class TaxonomyTests(unittest.TestCase):
 
     def test_catalog_source_is_an_independent_grounded_facet(self):
         record = taxonomy.classify("axios/axios")
-        self.assertEqual(record["category"], "unclassified")
+        self.assertEqual(record["category"], "developer-tools")
+        self.assertEqual(record["basis"], "readme_topic_evidence")
         self.assertIn("github:sindresorhus/awesome-nodejs", record["source_catalogs"])
         result = taxonomy.browse("unclassified", limit=3,
                                  source="github:sindresorhus/awesome-nodejs")
@@ -57,7 +58,7 @@ class TaxonomyTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             taxonomy.browse("ai-ml", source=123)
     def test_no_topic_evidence_must_abstain(self):
-        example = taxonomy.classify("axios/axios")
+        example = taxonomy.classify("bestiejs/benchmark.js")
         self.assertTrue(example["found"])
         self.assertEqual(example["category"], "unclassified")
         self.assertEqual(example["basis"], "no_subject_evidence")

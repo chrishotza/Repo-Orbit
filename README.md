@@ -23,9 +23,9 @@ Most repository lists tell you **where a link points**. RepoOrbit also tracks **
 
 | Indexed paths | GitHub IDs checked | Topical domains | Subjects assigned | Subjects unknown |
 |:---:|:---:|:---:|:---:|:---:|
-| **1,215** | **54** | **14** | **208** | **1,007** |
+| **1,215** | **54** | **14** | **220** | **995** |
 
-<sub>Snapshot: 2026-10-13. Of the 208 subject labels, 30 are explicit editorial labels and 178 are lower-confidence repository-name hints. Counts are not claims of running/free software. The current machine-readable values are in [ai/status.json](ai/status.json).</sub>
+<sub>Snapshot: 2026-10-13. Of the 220 subject labels, 30 are editorial, 12 are supported by versioned README self-descriptions, and 178 remain lower-confidence filename hints. Counts are not claims of running/free software. The current machine-readable values are in [ai/status.json](ai/status.json).</sub>
 
 ## ⚡ Built for agents, not long prompts
 
@@ -53,6 +53,7 @@ Most repository lists tell you **where a link points**. RepoOrbit also tracks **
 | [`ai/identities.json`](ai/identities.json) | 30 verified seed numeric IDs |
 | [`ai/verified-targets.json`](ai/verified-targets.json) | 24 additional checked reference IDs |
 | [`ai/status.json`](ai/status.json) | Tiny, reproducible coverage summary |
+| [`data/topic_evidence.jsonl`](data/topic_evidence.jsonl) | 12 original short subject statements, SHA and line pointers |
 
 
 <details>
@@ -68,12 +69,13 @@ RepoOrbit uses an original controlled vocabulary with 14 domains, such as **AI/M
 
 | Evidence tier | Source of label | Interpretation |
 |---|---|---|
-| **Editorial** (`e`) | 30 individually checked seed repositories | A reviewable subject choice, not proof of functionality |
+| **Editorial** (`e`) | 30 individually checked seed repositories | An editorial subject, not proof of functionality |
+| **README-backed** (`d`) | 12 versioned upstream README lines | Auditable self-description, not an execution test |
 | **Lexical hint** (`h`) | Whole words in a discovered repository's name | A suggestion, never a verified capability |
 | **Ambiguous** (`a`) | Competing equally specific keywords | Remains unclassified |
 | **Unknown** (`u`) | No defensible topical clue | Remains unclassified |
 
-**We prefer abstaining over hallucinating.** A GitHub link existing is not a benchmark, installation test, safety audit, license clearance or proof of free operation. [Read the classification methodology](docs/TAXONOMY.md).
+**We prefer abstaining over hallucinating.** The 12 README-backed labels link to exact historical Git blobs and line numbers, not just names. [See audited evidence](docs/README_EVIDENCE.md). A GitHub link existing is not a benchmark, installation test, safety audit, license clearance or proof of free operation. [Read the classification methodology](docs/TAXONOMY.md).
 
 ## 🔎 Traceable from discovery to agent result
 
