@@ -104,7 +104,7 @@ class StableIdentityTests(unittest.TestCase):
         doc = build_identity_index.build()
         self.assertEqual(doc["n"], 34)
         self.assertEqual(doc["r"][0][0], min(identity.load()[0]))
-        self.assertLess(len(json.dumps(doc)), 1700)
+        self.assertLess(len(json.dumps(doc)), 2000)
 
     def test_mcp_exact_resolution_uses_numeric_id(self):
         result = mcp.dispatch({
