@@ -1,0 +1,324 @@
+{
+  "schema_version": "1.0.0",
+  "editorial_policy": "Manual seed subject hints; all other classifications are lexical suggestions. They do not prove repository purpose, functionality, price or license.",
+  "categories": [
+    {
+      "id": "ai-ml",
+      "en": "AI & Machine Learning",
+      "es": "IA y aprendizaje automático",
+      "triggers": [
+        "llm",
+        "mcp",
+        "ai",
+        "ml",
+        "machine learning",
+        "deep learning",
+        "neural",
+        "tensorflow",
+        "pytorch",
+        "rag",
+        "transformers",
+        "chatbot",
+        "generative ai",
+        "language model",
+        "agents"
+      ]
+    },
+    {
+      "id": "developer-tools",
+      "en": "Development & Libraries",
+      "es": "Desarrollo y bibliotecas",
+      "triggers": [
+        "python",
+        "javascript",
+        "typescript",
+        "nodejs",
+        "golang",
+        "rust",
+        "cpp",
+        "programming",
+        "developer",
+        "compiler",
+        "library",
+        "libraries",
+        "sdk",
+        "cli",
+        "git",
+        "npm",
+        "code editor"
+      ]
+    },
+    {
+      "id": "web-apps",
+      "en": "Web & Frontend",
+      "es": "Web y frontend",
+      "triggers": [
+        "frontend",
+        "web",
+        "css",
+        "html",
+        "react",
+        "vue",
+        "angular",
+        "svelte",
+        "nextjs",
+        "browser",
+        "webgl",
+        "graphql",
+        "tailwindcss",
+        "wordpress"
+      ]
+    },
+    {
+      "id": "data-storage",
+      "en": "Data & Databases",
+      "es": "Datos y bases de datos",
+      "triggers": [
+        "database",
+        "databases",
+        "data science",
+        "analytics",
+        "dataframe",
+        "postgres",
+        "postgresql",
+        "sqlite",
+        "sql",
+        "mongodb",
+        "redis",
+        "mysql",
+        "vector database"
+      ]
+    },
+    {
+      "id": "security",
+      "en": "Security & Privacy",
+      "es": "Seguridad y privacidad",
+      "triggers": [
+        "security",
+        "privacy",
+        "pentest",
+        "hacking",
+        "vulnerability",
+        "malware",
+        "cryptography",
+        "authentication",
+        "ctf",
+        "infosec",
+        "forensics"
+      ]
+    },
+    {
+      "id": "cloud-devops",
+      "en": "Cloud & DevOps",
+      "es": "Infraestructura y DevOps",
+      "triggers": [
+        "devops",
+        "docker",
+        "kubernetes",
+        "terraform",
+        "container",
+        "containers",
+        "self hosted",
+        "selfhosted",
+        "sysadmin",
+        "cloud",
+        "infrastructure",
+        "serverless"
+      ]
+    },
+    {
+      "id": "automation",
+      "en": "Automation & Workflows",
+      "es": "Automatización y flujos",
+      "triggers": [
+        "automation",
+        "automate",
+        "workflow",
+        "workflows",
+        "orchestration",
+        "scheduler",
+        "n8n",
+        "zapier"
+      ]
+    },
+    {
+      "id": "education",
+      "en": "Learning & Education",
+      "es": "Educación y aprendizaje",
+      "triggers": [
+        "education",
+        "educational",
+        "course",
+        "courses",
+        "tutorial",
+        "tutorials",
+        "learning",
+        "learn",
+        "beginners",
+        "books",
+        "textbooks",
+        "study",
+        "interview"
+      ]
+    },
+    {
+      "id": "creative-media",
+      "en": "Creative & Media",
+      "es": "Creatividad y multimedia",
+      "triggers": [
+        "video",
+        "image",
+        "images",
+        "audio",
+        "music",
+        "art",
+        "animation",
+        "graphics",
+        "ffmpeg",
+        "design",
+        "photography",
+        "illustration"
+      ]
+    },
+    {
+      "id": "science",
+      "en": "Science & Research",
+      "es": "Ciencia e investigación",
+      "triggers": [
+        "science",
+        "scientific",
+        "research",
+        "papers",
+        "paper",
+        "biology",
+        "bioinformatics",
+        "physics",
+        "chemistry",
+        "astronomy",
+        "neuroscience",
+        "medicine"
+      ]
+    },
+    {
+      "id": "mobile-desktop",
+      "en": "Mobile & Desktop",
+      "es": "Móviles y escritorio",
+      "triggers": [
+        "android",
+        "ios",
+        "macos",
+        "windows",
+        "desktop",
+        "mobile",
+        "flutter",
+        "electron",
+        "swiftui",
+        "ipad",
+        "iphone"
+      ]
+    },
+    {
+      "id": "blockchain",
+      "en": "Blockchain & Web3",
+      "es": "Blockchain y Web3",
+      "triggers": [
+        "blockchain",
+        "ethereum",
+        "bitcoin",
+        "web3",
+        "solidity",
+        "defi",
+        "cryptocurrency",
+        "nft"
+      ]
+    },
+    {
+      "id": "games",
+      "en": "Games & Simulation",
+      "es": "Videojuegos y simulación",
+      "triggers": [
+        "games",
+        "game",
+        "gaming",
+        "gamedev",
+        "unity",
+        "unreal",
+        "pokemon",
+        "minecraft",
+        "godot",
+        "simulation"
+      ]
+    },
+    {
+      "id": "iot-hardware",
+      "en": "Hardware & IoT",
+      "es": "Hardware e IoT",
+      "triggers": [
+        "iot",
+        "hardware",
+        "embedded",
+        "arduino",
+        "raspberry",
+        "robotics",
+        "robot",
+        "electronics",
+        "microcontroller",
+        "fpga"
+      ]
+    }
+  ],
+  "seed_subjects": {
+    "sindresorhus/awesome": "education",
+    "jnv/lists": "education",
+    "awesome-selfhosted/awesome-selfhosted": "cloud-devops",
+    "vinta/awesome-python": "developer-tools",
+    "public-apis/public-apis": "developer-tools",
+    "punkpeye/awesome-mcp-servers": "ai-ml",
+    "avelino/awesome-go": "developer-tools",
+    "rust-unofficial/awesome-rust": "developer-tools",
+    "fffaraz/awesome-cpp": "developer-tools",
+    "trimstray/the-book-of-secret-knowledge": "education",
+    "ebookfoundation/free-programming-books": "education",
+    "practical-tutorials/project-based-learning": "education",
+    "ripienaar/free-for-dev": "developer-tools",
+    "docker/awesome-compose": "cloud-devops",
+    "codecrafters-io/build-your-own-x": "education",
+    "thealgorithms/python": "education",
+    "jaywcjlove/awesome-mac": "mobile-desktop",
+    "microsoft/ai-for-beginners": "ai-ml",
+    "mlabonne/llm-course": "ai-ml",
+    "sindresorhus/awesome-nodejs": "developer-tools",
+    "awesome-foss/awesome-sysadmin": "cloud-devops",
+    "papers-we-love/papers-we-love": "science",
+    "comfy-org/comfyui": "creative-media",
+    "ollama/ollama": "ai-ml",
+    "open-webui/open-webui": "ai-ml",
+    "ggml-org/llama.cpp": "ai-ml",
+    "n8n-io/n8n": "automation",
+    "langgenius/dify": "ai-ml",
+    "gradio-app/gradio": "developer-tools",
+    "vllm-project/vllm": "ai-ml"
+  },
+  "format_hints": {
+    "catalog_like": [
+      "awesome",
+      "curated",
+      "list",
+      "collection"
+    ],
+    "learning_like": [
+      "tutorial",
+      "course",
+      "books",
+      "beginners"
+    ],
+    "software_like": [
+      "lib",
+      "sdk",
+      "cli",
+      "server",
+      "client"
+    ]
+  },
+  "unknown_id": "unclassified"
+}
