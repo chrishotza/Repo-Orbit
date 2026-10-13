@@ -82,6 +82,18 @@ def _load() -> dict[str, dict[str, Any]]:
             }
             if pointer not in existing["source"]:
                 existing["source"].append(pointer)
+    # Upgrade only independently checked references, retaining their catalog
+    # provenance and role. No assertion about installation, cost or safety.
+    from .verified import load as load_checked_targets
+    checked, _ = load_checked_targets()
+    for entry in checked.values():
+        key = _canonical(entry["requested_slug"])
+        if key not in table or table[key]["role"] != "reference":
+            raise ValueError("checked target is missing from approved reference index")
+        table[key]["v"] = "exists"
+        table[key]["github_id"] = entry["github_id"]
+        table[key]["archived"] = entry["archived"]
+        table[key]["identity_observed_on"] = entry["observed_on"]
     return table
 
 
@@ -140,18 +152,20 @@ def search(q: str, limit: int = 5, offset: int = 0, role: str | None = None) -> 
 
 
 def resolve(repo: str) -> dict:
-    """Exact seed lookup by slug, URL or verified numeric GitHub ID."""
+    """Exact lookup by owner/repo, URL or checked numeric ID; no network."""
     if not isinstance(repo, str):
         raise ValueError("repo must be a string")
-    from .identity import lookup as stable_lookup
+    from .identity import lookup as seed_lookup
+    from .verified import lookup as target_lookup
 
-    ident = stable_lookup(repo)
-    if ident["found"]:
-        # The original approved seed slug survives a GitHub rename/transfer.
-        key = _canonical(ident["slug"])
+    primary = seed_lookup(repo)
+    secondary = target_lookup(repo) if not primary["found"] else {"found": False}
+    evidence = primary if primary["found"] else secondary
+    if evidence["found"]:
+        key = _canonical(evidence["slug"])
+    elif repo.strip().startswith("id:") or repo.strip().isdecimal():
+        return {"found": False, "note": "numeric_id_not_in_verified_registry"}
     else:
-        if repo.strip().startswith("id:") or repo.strip().isdecimal():
-            return {"found": False, "note": "numeric_id_not_in_verified_registry"}
         key = _canonical(repo)
     row = _load().get(key)
     if row is None:
@@ -159,16 +173,18 @@ def resolve(repo: str) -> dict:
     result = dict(row)
     result["found"] = True
     result["url"] = "https://github.com/" + row["r"]
-    if ident["found"]:
-        result["github_id"] = ident["github_id"]
-        result["identity_observed_on"] = ident["observed_on"]
-        if ident["canonical_slug"].casefold() != row["r"].casefold():
-            result["current_slug_when_checked"] = ident["canonical_slug"]
+    if evidence["found"]:
+        result["github_id"] = evidence["github_id"]
+        result["identity_observed_on"] = evidence["observed_on"]
+        if evidence["canonical_slug"].casefold() != row["r"].casefold():
+            result["current_slug_when_checked"] = evidence["canonical_slug"]
             result["warning"] = "recorded_slug_may_have_been_renamed"
     if row["v"] == "not_checked":
         result["warning"] = "upstream_link_only_not_validated"
     elif row["role"] == "project":
         result.setdefault("warning", "existence_verified_not_function_or_cost")
+    else:
+        result.setdefault("warning", "existence_only_function_cost_unverified")
     return result
 
 
@@ -178,6 +194,7 @@ def stats() -> dict:
         "unique": len(records),
         "catalogs": sum(x["role"] == "catalog" for x in records),
         "verified_project_seeds": sum(x["role"] == "project" for x in records),
+        "checked_reference_ids": sum(x["role"] == "reference" and x["v"] == "exists" for x in records),
         "unverified_only": sum(x["v"] == "not_checked" for x in records),
         "working_verified": sum(x.get("working") == "passed" for x in records),
         "cost_free_verified": sum(x.get("cost") == "free_verified" for x in records),

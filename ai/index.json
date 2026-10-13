@@ -46,10 +46,13 @@
     "discovery_edges": 1199,
     "verified_catalog_seeds": 22,
     "existence_checked_project_seeds": 8,
-    "unverified_references": 1185
+    "unverified_references": 1161,
+    "numeric_seed_ids_checked": 30,
+    "numeric_reference_ids_checked": 24
   },
   "provenance_sources": [
     "sindresorhus/awesome",
     "sindresorhus/awesome-nodejs"
-  ]
+  ],
+  "routing_note": "Read ai/verified-targets.json for 24 checked discovery IDs, ai/identities.json for 30 seed IDs."
 }

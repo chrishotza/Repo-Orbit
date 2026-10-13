@@ -87,3 +87,11 @@ A feature requires documented inputs/outputs, tests, provenance preservation, fa
 - Added read-only GitHub identity drift monitoring, distinguishing name changes, ownership transfers, unresolved URLs and ID collisions. Identity changes are **not** automatically merged.
 - Added negative tests and CI gates for the numeric registry, remote index and exact MCP lookup.
 - Still pending: verified IDs for reference-only paths, meaningful corpus-wide rename cases, actual successful scheduled identity-watch run, persistent reviewed alias promotion, and semantic task quality benchmarking.
+
+## v0.7 verified discovery targets
+
+- Checked 24 real referenced GitHub repos, recording numeric IDs and original catalog provenance without creating new paths or verified-cost claims.
+- 30 seed IDs plus 24 checked reference IDs; 1,161 references remain unchecked out of 1,215 unique slugs.
+- Read-only GitHub verification worker selects up to 25 unverified links in deterministic batches. Scheduled GitHub Actions checks up to 12 and stages evidence without modifying main.
+- Checked-target status is surfaced via exact MCP resolve, token-compact static index, and corpus status; original discovery roles and source hashes remain available.
+- Next acceptance gates: observe real live GitHub Actions check; review and promote staged batches without manual JSON handcrafting; introduce stable alias state and paginated progression for all references.
