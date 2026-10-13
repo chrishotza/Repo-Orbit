@@ -6,6 +6,30 @@ RepoOrbit is an open, evidence-first index for discovering GitHub projects and t
 
 > **Project status: foundation / corpus v0.1.** This repository currently contains a manually verified seed set and a local command-line corpus synchronizer. It is not yet a comprehensive GitHub index, hosted search engine, or functional software testing service.
 
+
+## AI-first access (the primary interface)
+
+**Agents: read [AGENTS.md](AGENTS.md) (short) or [agent.json](agent.json) (machine-readable). Do not ingest this README, 672-link discovery file, or upstream catalogs into context just to answer a query.**
+
+Two token-efficient access modes are shipped:
+
+| Mode | Entry point | What is returned |
+|---|---|---|
+| **MCP, no network required** | \`python3 -m repoorbit.mcp\` as a configured stdio tool, not an interactive human workflow | Bounded \`search\`, exact \`resolve\`, compact \`stats\` |
+| **Static, remote-readable** | \`ai/index.json\` then only \`ai/terms/{letter}.json\` | One small per-letter lexical reference shard |
+
+**MCP host configuration** (set \`cwd\` to a checkout of this repository; the agent host starts this, not the human):
+
+\`\`\`json
+{"mcpServers":{"repoorbit":{"command":"python3","args":["-m","repoorbit.mcp"],"cwd":"/path/to/Repo-Orbit"}}}
+\`\`\`
+
+\`search({"q":"python","limit":3})\` gives only up to 3 terse records rather than loading the underlying corpus. \`resolve({"repo":"Comfy-Org/ComfyUI"})\` returns an exact project record with provenance, uncertainty and existence date. Lexical search **is not semantic understanding** and does not verify execution, pricing, or source-code safety.
+
+The standalone static index represents **692 unique GitHub paths across all roles** in its current seed and discovery data, with 26 independently addressable alphabetic shards. It is a partial corpus, not a crawl of GitHub. It includes unverified references: a linked URL must not be promoted to a tested project.
+
+See [AI protocol specification](docs/AI_PROTOCOL.md) and [static shard format](ai/index.json).
+
 ## What makes it different
 
 - **Find things by purpose**, not just by repository name (planned).
@@ -15,7 +39,7 @@ RepoOrbit is an open, evidence-first index for discovering GitHub projects and t
 - **Explain costs honestly**: unknown is not free. APIs, hardware, hosting, models, and licenses are separate dimensions.
 - **Zero mandatory paid services** for the core corpus maintenance scripts.
 
-## Corpus quick start
+## Maintainer-only corpus utilities
 
 Requires **Python 3.10+**, with no third-party Python packages.
 
