@@ -99,7 +99,7 @@ Semantic aliases, curated capability evidence and incremental catalog ingestion 
 
 ## Multi-source index growth
 
-The search corpus now contains 1,215 unique GitHub slugs drawn from 1,199 discovery edges plus 30 individually checked catalog/project seeds. The 26 lexical shards were rebuilt from both CC0 snapshots. A separate rights-gated scheduled workflow stages upstream changes but does not publish unreviewed data to search or silently mark references as functional software. The 299,786-byte comparison above is **historical measurement of the first 672-link snapshot**, not the combined two-source corpus size.
+At the v0.7 snapshot, the search corpus contained 1,215 unique GitHub slugs drawn from 1,199 discovery edges plus 30 checked seeds. The v0.13 snapshot contains **1,462 unique paths, 1,463 edges and 34 checked seed IDs**. The 26 lexical shards are regenerated from all six approved CC0 snapshots. A separate rights-gated scheduled workflow stages upstream changes but does not publish unreviewed data to search or silently mark references as functional software. The 299,786-byte comparison above is **historical measurement of the first 672-link snapshot**, not the combined two-source corpus size.
 
 ## Stable ID exact resolution (v0.6)
 
@@ -111,4 +111,4 @@ The separate `ai/verified-targets.json` file contains 24 checked discovery refer
 
 ## v0.12 owner-route precision and global source deduplication
 
-`owner_repos({"owner":"sindresorhus","limit":5})` lists only approved paths for that owner, not everything live on GitHub. Remote-only clients use `ai/owners/index.json` (622 bytes), then `ai/owners/{initial}/index.json` and select a bounded page by first/last slug ranges. Current corpus: 29 buckets, 35 pages, each <=64 paths and <=16 KiB. Cross-feed duplicates retain each source/hash/line in a staged global delta. See [INCREMENTAL_SCALE.md](INCREMENTAL_SCALE.md).
+`owner_repos({"owner":"sindresorhus","limit":5})` lists only approved paths for that owner, not everything live on GitHub. Remote-only clients use `ai/owners/index.json` (624 bytes), then `ai/owners/{initial}/index.json` and select a bounded page by first/last slug ranges. v0.13 corpus: 29 buckets, 39 pages, each <=64 paths and <=16 KiB. Cross-feed duplicates retain each source/hash/line in a staged global delta. See [INCREMENTAL_SCALE.md](INCREMENTAL_SCALE.md).
