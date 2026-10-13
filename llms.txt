@@ -20,3 +20,5 @@
 - [Bilingual routing contract and limits](docs/TOPIC_ROUTING_EVAL.md)
 - [Evidence observation dates](ai/evidence-dates.json)
 - [Daily coverage and evidence freshness](docs/COVERAGE_FRESHNESS.md)
+- [Owner-sharded static lookup](ai/owners/index.json)
+- [Global incremental ingestion contract](docs/INCREMENTAL_SCALE.md)

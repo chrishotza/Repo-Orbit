@@ -38,6 +38,7 @@ Most repository lists tell you **where a link points**. RepoOrbit also tracks **
 | Ask why a repository has a subject label | `classify({"repo":"Comfy-Org/ComfyUI"})` |
 | Search names and limited topic tags | `search({"q":"python","limit":3})` |
 | Resolve exact evidence or numeric ID | `resolve({"repo":"id:589831718"})` |
+| Explore a specific GitHub owner | `owner_repos({"owner":"sindresorhus","limit":5})` |
 | Inspect the age of a real GitHub observation | `evidence_age({"repo":"id:23088740"})` |
 | Inspect coverage and uncertainty | `stats({})` |
 
@@ -55,6 +56,7 @@ Most repository lists tell you **where a link points**. RepoOrbit also tracks **
 | [`ai/identities.json`](ai/identities.json) | 30 verified seed numeric IDs |
 | [`ai/verified-targets.json`](ai/verified-targets.json) | 24 additional checked reference IDs |
 | [`ai/status.json`](ai/status.json) | Tiny, reproducible coverage summary |
+| [`ai/owners/index.json`](ai/owners/index.json) | 622-byte owner router; fetch just one bucket and up to 64 slugs per page |
 | [`ai/topic-route-eval.json`](ai/topic-route-eval.json) | 32 explicit EN/ES routing regression cases, *not* semantic accuracy |
 | [`ai/evidence-dates.json`](ai/evidence-dates.json) | Historical numeric-ID and README evidence dates (not live project activity) |
 | [`data/topic_evidence.jsonl`](data/topic_evidence.jsonl) | 23 original short subject statements, SHA and line pointers |
@@ -66,6 +68,12 @@ Most repository lists tell you **where a link points**. RepoOrbit also tracks **
 An agent can pass `source: "github:sindresorhus/awesome-nodejs"` to `browse` while selecting any subject, including `unclassified`. That indicates a repository was **linked by that approved catalog**; it is not a verified Node.js-compatibility or execution claim. `classify` also exposes source IDs separately from topical hints.
 
 </details>
+
+## 📦 Owner pages that scale without giant prompts
+
+From the [622-byte routing manifest](ai/owners/index.json), a remote-only agent opens the owner's first-letter bucket and selects a page of at most 64 paths using explicit slug boundaries. Today's 1,215 approved paths occupy 29 buckets and 35 pages. All previously checked IDs keep their distinct existence flags.
+
+Global licensed-source delta reports count a repo linked by two catalogs **once**, with two exact source/line/hash pointers. Removed links never imply a deleted repository. [Incremental scale contract](docs/INCREMENTAL_SCALE.md).
 
 ## 🧭 Our classification system
 

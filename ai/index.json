@@ -54,5 +54,11 @@
     "sindresorhus/awesome",
     "sindresorhus/awesome-nodejs"
   ],
-  "routing_note": "Read ai/verified-targets.json for 24 checked discovery IDs, ai/identities.json for 30 seed IDs."
+  "routing_note": "Read ai/verified-targets.json for 24 checked discovery IDs, ai/identities.json for 30 seed IDs.",
+  "owner_lookup": {
+    "manifest": "ai/owners/index.json",
+    "bucket": "ai/owners/{first_owner_character}/index.json",
+    "page": "up to 64 slugs, locate via first and last ranges",
+    "scope": "approved corpus, not live GitHub ownership"
+  }
 }
