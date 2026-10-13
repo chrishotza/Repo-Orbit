@@ -7,7 +7,7 @@ No third-party dependencies, no LLM calls, no README downloads.
 from __future__ import annotations
 
 import argparse
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 import json
 import os
 from pathlib import Path
@@ -20,7 +20,7 @@ from urllib.request import Request, urlopen
 from .agent import ROOT
 from .identity import canonical_slug, load as seed_identities
 from .refresh import _write_atomic
-from .verified import approved_targets, load as checked_targets
+from .verified import approved_provenance, approved_targets, load as checked_targets
 
 STAGE = ROOT / "data" / "snapshots" / "target_checks"
 API = "https://api.github.com"
@@ -100,7 +100,12 @@ def examine(slugs: list[str], fetcher, observed_on: str) -> dict:
     """Validate a small batch without mutating the authoritative corpus."""
     seeds, seed_names = seed_identities()
     checked, checked_names = checked_targets()
-    allowed = approved_targets()
+    source_map = approved_provenance()
+    allowed = set(source_map)
+    try:
+        date.fromisoformat(observed_on)
+    except (TypeError, ValueError) as exc:
+        raise TargetCheckError("invalid observation date") from exc
     if not isinstance(slugs, list) or not 1 <= len(slugs) <= MAX_BATCH:
         raise TargetCheckError("batch must contain 1..25 repositories")
     seen_slug = set()
@@ -147,6 +152,7 @@ def examine(slugs: list[str], fetcher, observed_on: str) -> dict:
             "verification": "repository_exists",
             "function_test": "not_run",
             "cost": "unknown",
+            "discovered_via": sorted(source_map[key]),
         })
     return {
         "schema_version": "0.1.0",
