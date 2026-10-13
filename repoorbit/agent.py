@@ -11,6 +11,8 @@ from pathlib import Path
 import re
 from typing import Any
 
+from .snapshots import approved_discoveries
+
 ROOT = Path(__file__).resolve().parents[1]
 WORD = re.compile(r"[a-z0-9]+", re.I)
 STOP = {"github", "com", "repo", "repository", "repositories", "the", "for", "and", "with"}
@@ -59,7 +61,7 @@ def _load() -> dict[str, dict[str, Any]]:
             "evidence_date": project["last_verified_at"],
             "cost": project["cost"], "working": project["functional_test"],
         }
-    for path in sorted((ROOT / "data" / "discoveries").glob("*.jsonl")):
+    for path in approved_discoveries():
         for line in path.read_text(encoding="utf-8").splitlines():
             if not line.strip():
                 continue
