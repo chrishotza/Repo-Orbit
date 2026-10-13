@@ -1,5 +1,5 @@
 {
-  "version": "0.6.0",
+  "version": "0.7.0",
   "purpose": "AI-first, evidence-aware GitHub discovery with bilingual task routing and minimal context",
   "start": "AGENTS.md",
   "transport": {
@@ -31,6 +31,10 @@
     "static_identity": {
       "manifest": "ai/identities.json",
       "scope": "30 individually GitHub-verified seed repository IDs"
+    },
+    "static_verified_targets": {
+      "manifest": "ai/verified-targets.json",
+      "scope": "24 independently checked catalog references, only repository-existence claims"
     }
   },
   "tools": {
@@ -64,8 +68,8 @@
     }
   },
   "record_flags": {
-    "v=exists": "GitHub path verified at seed time, no runtime validation",
-    "v=not_checked": "link extracted, target not checked",
+    "v=exists": "GitHub repository path existed when observed, still not proof of execution",
+    "v=not_checked": "Catalog link without an individual GitHub existence check",
     "role=reference": "not a confirmed repository"
   },
   "principles": [
@@ -75,7 +79,8 @@
     "never infer cost, execution, safety or exhaustive coverage",
     "no GitHub API or paid service required to answer offline",
     "read ai/status.json instead of traversing discovery snapshots for counts",
-    "only a matching numeric GitHub ID proves continuity across rename or transfer"
+    "only a matching numeric GitHub ID proves continuity across rename or transfer",
+    "a checked catalog reference keeps its original role and provenance; checked numeric ID is not functional validation"
   ],
   "provenance": {
     "approved_snapshot_registry": "data/feeds.json",
@@ -83,6 +88,8 @@
     "promotion": "guarded_weekly_draft_pr_only",
     "history": "previous snapshots remain committed but are not indexed twice",
     "identity_registry": "data/identities.jsonl",
-    "identity_watch": "weekly_read_only_artifact_no_auto_promotion"
+    "identity_watch": "weekly_read_only_artifact_no_auto_promotion",
+    "reference_id_registry": "data/verified_targets.jsonl",
+    "reference_check": "weekly_read_only_staging_max_12_per_run"
   }
 }
