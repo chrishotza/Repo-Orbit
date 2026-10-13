@@ -9,7 +9,7 @@ RepoOrbit is an open, evidence-first index for discovering GitHub projects and t
 
 ## AI-first access (the primary interface)
 
-**Agents: read [AGENTS.md](AGENTS.md) (short) or [agent.json](agent.json) (machine-readable). Do not ingest this README, 672-link discovery file, or upstream catalogs into context just to answer a query.**
+**Agents: read [AGENTS.md](AGENTS.md) (short) or [agent.json](agent.json) (machine-readable). Do not ingest this README, discovery JSONL snapshots, or upstream catalogs into context just to answer a query.**
 
 Three token-efficient access modes are shipped:
 
@@ -27,7 +27,7 @@ Three token-efficient access modes are shipped:
 
 \`search({"q":"python","limit":3})\` gives only up to 3 terse records rather than loading the underlying corpus. \`resolve({"repo":"Comfy-Org/ComfyUI"})\` returns an exact project record with provenance, uncertainty and existence date. Lexical search **is not semantic understanding** and does not verify execution, pricing, or source-code safety.
 
-The bilingual matcher currently supports **8 curated task intents**, not general semantic understanding. Unknown requests return no invented matches and can fall back to lexical search. The standalone static index represents **692 unique GitHub paths across all roles** in its current seed and discovery data, with 26 independently addressable alphabetic shards. It is a partial corpus, not a crawl of GitHub. It includes unverified references: a linked URL must not be promoted to a tested project.
+The bilingual matcher currently supports **8 curated task intents**, not general semantic understanding. Unknown requests return no invented matches and can fall back to lexical search. The standalone static index represents **1,215 unique GitHub paths across all roles** in its current seed and discovery data, with 26 independently addressable alphabetic shards. It is a partial corpus, not a crawl of GitHub. It includes unverified references: a linked URL must not be promoted to a tested project.
 
 See [AI protocol specification](docs/AI_PROTOCOL.md) and [static shard format](ai/index.json).
 
@@ -42,7 +42,7 @@ See [AI protocol specification](docs/AI_PROTOCOL.md) and [static shard format](a
 
 ## Maintenance (automated)
 
-GitHub Actions checks the corpus, discovery references, MCP protocol, and deterministic static index on every change. Developers can find optional reproducibility procedures in [CORPUS.md](docs/CORPUS.md), [AI_PROTOCOL.md](docs/AI_PROTOCOL.md), and [CONTRIBUTING.md](CONTRIBUTING.md). End users and agents do not need a shell or API credentials to read the static index.
+GitHub Actions checks the corpus, discovery references, MCP protocol, and deterministic static index on every change. A second scheduled workflow checks two explicitly authorized CC0 feeds daily, validates their current license and Git blob SHA, and stages an auditable diff report **without pushing it automatically**. Developers can find optional reproducibility procedures in [CORPUS.md](docs/CORPUS.md), [AI_PROTOCOL.md](docs/AI_PROTOCOL.md), and [CONTRIBUTING.md](CONTRIBUTING.md). End users and agents do not need a shell or API credentials to read the static index.
 
 ## Layout
 
@@ -78,9 +78,9 @@ docs/
 CONTRIBUTING.md              Rules for adding/reviewing records
 ```
 
-## First real discovery snapshot
+## Real provenance-linked discovery snapshots
 
-The corpus now records **672 distinct GitHub repository URLs** extracted from the [CC0-licensed Awesome index](https://github.com/sindresorhus/awesome) as of 2026-10-12. Each reference includes its upstream README line and content blob SHA. **These 672 targets are unverified references, not confirmed living projects or tested tools.** They are separate from the 8 individually verified project seeds. See `data/discoveries/awesome-2026-10-12.jsonl`.
+The corpus currently records **1,199 source-to-target references** from two independently checked CC0-licensed Awesome directories: 672 from `sindresorhus/awesome` and 527 from `sindresorhus/awesome-nodejs`. Four targets overlap across those two snapshots. This results in **1,215 unique GitHub paths** including the 22 catalog seeds and 8 individually existence-checked project seeds. **References are unverified URLs, not confirmed living projects or tested tools.** Every edge retains the source blob SHA and line number.
 
 ## Principles
 
