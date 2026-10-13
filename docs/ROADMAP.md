@@ -79,3 +79,11 @@ A feature requires documented inputs/outputs, tests, provenance preservation, fa
 - Added a weekly, draft-only GitHub Actions bot PR workflow. It never merges automatically and refuses to supersede a pending proposal.
 - Added adversarial offline promotion tests. Future promotion CI is verified independently, but automated PR creation has **not yet been observed** in a scheduled run.
 - Current approved counts are machine-readable in `ai/status.json`; fixed numbers in this document describe earlier audit snapshots only.
+
+## v0.6 immutable GitHub identity coverage
+
+- Verified numeric GitHub IDs for all 30 seed repository paths (22 catalogs, 8 projects); checked three inverse ID-only GitHub lookups.
+- Implemented identity-sidecar validation, numeric-ID resolution via the existing MCP `resolve` tool and a small `ai/identities.json` machine index.
+- Added read-only GitHub identity drift monitoring, distinguishing name changes, ownership transfers, unresolved URLs and ID collisions. Identity changes are **not** automatically merged.
+- Added negative tests and CI gates for the numeric registry, remote index and exact MCP lookup.
+- Still pending: verified IDs for reference-only paths, meaningful corpus-wide rename cases, actual successful scheduled identity-watch run, persistent reviewed alias promotion, and semantic task quality benchmarking.

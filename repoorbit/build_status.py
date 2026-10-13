@@ -8,6 +8,7 @@ from pathlib import Path
 import sys
 
 from .agent import ROOT, _load
+from .identity import load as load_verified_identities
 from .snapshots import approved_discoveries
 
 DEST = ROOT / "ai" / "status.json"
@@ -39,6 +40,7 @@ def build() -> dict:
         "unique_slugs": len(records),
         "catalog_seeds": len(sources),
         "project_seeds_existence_checked": len(projects),
+        "numeric_seed_ids_checked": len(load_verified_identities()[0]),
         "unverified_only": sum(x["v"] == "not_checked" for x in records.values()),
         "discovery_edges": sum(counts.values()),
         "shared_targets_across_feeds": sum(len(v) > 1 for v in by_target.values()),

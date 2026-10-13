@@ -4,14 +4,14 @@
 
 RepoOrbit is an open, evidence-first index for discovering GitHub projects and the catalogs that reference them. It aims to make finding useful software simple without confusing popularity with quality or source availability with free operation.
 
-> **Project status: corpus and agent tooling v0.5.** RepoOrbit includes two approved discovery feeds, four local MCP tools, compact machine indexes and reviewable bot proposals. It is not a full GitHub index, hosted search engine, or independently verified software installer.
+> **Project status: corpus and agent tooling v0.6.** RepoOrbit includes two approved discovery feeds, four local MCP tools, compact machine indexes and reviewable bot proposals. It is not a full GitHub index, hosted search engine, or independently verified software installer.
 
 
 ## AI-first access (the primary interface)
 
 **Agents: read [AGENTS.md](AGENTS.md) (short) or [agent.json](agent.json) (machine-readable). Do not ingest this README, discovery JSONL snapshots, or upstream catalogs into context just to answer a query.**
 
-Three token-efficient access modes are shipped:
+Three token-efficient access modes are shipped. Additionally, **30 individually checked GitHub numeric IDs** are available for exact lookup, regardless of changes to a repository's name:
 
 | Mode | Entry point | What is returned |
 |---|---|---|
@@ -29,7 +29,7 @@ Three token-efficient access modes are shipped:
 
 The bilingual matcher currently supports **8 curated task intents**, not general semantic understanding. Unknown requests return no invented matches and can fall back to lexical search. The most recent audited static index represented **1,215 unique GitHub paths across all roles** (2026-10-13). For the active, dynamically approved total, consult [ai/status.json](ai/status.json), with 26 independently addressable alphabetic shards. It is a partial corpus, not a crawl of GitHub. It includes unverified references: a linked URL must not be promoted to a tested project.
 
-See [AI protocol specification](docs/AI_PROTOCOL.md), [current corpus status](ai/status.json), and [static shard format](ai/index.json).
+See [stable GitHub identity rules](docs/IDENTITIES.md) and [AI protocol specification](docs/AI_PROTOCOL.md), [current corpus status](ai/status.json), and [static shard format](ai/index.json).
 
 ## What makes it different
 
@@ -57,6 +57,8 @@ repoorbit/
   agent.py                   Deterministic offline tools (bounded JSON)
   mcp.py                     MCP stdio server
   build_index.py             Reproducible static index generator
+  identity.py                Stable ID lookup and rename/transfer analysis
+  identity_watch.py          Read-only GitHub drift monitor
 data/
   sources.json               Verified catalog and discovery-source registry
   repositories.jsonl         Small, traceable starting set of project references
