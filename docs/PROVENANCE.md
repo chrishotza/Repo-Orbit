@@ -62,3 +62,9 @@ This is a working engineering policy, not legal advice.
 ## Current permitted reuse example
 
 For the first discovery snapshot, the upstream repository `sindresorhus/awesome` explicitly publishes a `CC0 1.0 Universal` license. We saved a *minimal index of repository URL references* (not README prose), together with the source repository identity, README line and blob SHA. The resulting 672 targets are **unverified**. Do not extend the same permission assumption to other sources without reviewing each source's terms and license independently.
+
+## Second explicitly reviewed CC0 directory (2026-10-13)
+
+The upstream `sindresorhus/awesome-nodejs` repository has a `license` file that explicitly declares CC0 1.0 Universal. RepoOrbit recorded only 527 GitHub path references from the README blob `329009f8d6a94007c3aa05a92b79317073b95001`, with their line numbers; none of the targets are assumed to exist, be free, or function. This permission review applies only to that directory's own material; linked repositories retain independent licenses.
+
+The two reviewed feeds can be **monitored read-only** using `.github/workflows/refresh-feeds.yml`; staged output is not automatically promoted to the public index.
