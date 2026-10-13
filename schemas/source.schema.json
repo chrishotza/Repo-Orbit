@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chrishotza/Repo-Orbit/blob/main/schemas/source.schema.json",
+  "title": "RepoOrbit discovery source v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "repository",
+    "url",
+    "type",
+    "topics",
+    "scope",
+    "source_class",
+    "verification",
+    "verified_at",
+    "reuse_mode",
+    "catalog_ingestion_enabled"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^github:[a-z0-9_.-]+/[a-z0-9_.-]+$"
+    },
+    "repository": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"
+    },
+    "url": {
+      "type": "string",
+      "pattern": "^https://github\\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"
+    },
+    "type": {
+      "enum": [
+        "meta_index",
+        "curated_catalog",
+        "collection"
+      ]
+    },
+    "topics": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9][a-z0-9-]*$"
+      }
+    },
+    "scope": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_class": {
+      "const": "github_repository"
+    },
+    "verification": {
+      "const": "repository_exists"
+    },
+    "verified_at": {
+      "type": "string",
+      "format": "date"
+    },
+    "reuse_mode": {
+      "const": "links_and_metadata_only"
+    },
+    "catalog_ingestion_enabled": {
+      "const": false
+    }
+  },
+  "description": "Identity and provenance contract. Unparsed upstream content must not be misrepresented as locally validated."
+}
