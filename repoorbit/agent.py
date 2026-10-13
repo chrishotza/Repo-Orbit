@@ -140,18 +140,35 @@ def search(q: str, limit: int = 5, offset: int = 0, role: str | None = None) -> 
 
 
 def resolve(repo: str) -> dict:
-    """Exact lookup by GitHub owner/repo or URL, no scanning by the agent."""
-    key = _canonical(repo)
+    """Exact seed lookup by slug, URL or verified numeric GitHub ID."""
+    if not isinstance(repo, str):
+        raise ValueError("repo must be a string")
+    from .identity import lookup as stable_lookup
+
+    ident = stable_lookup(repo)
+    if ident["found"]:
+        # The original approved seed slug survives a GitHub rename/transfer.
+        key = _canonical(ident["slug"])
+    else:
+        if repo.strip().startswith("id:") or repo.strip().isdecimal():
+            return {"found": False, "note": "numeric_id_not_in_verified_registry"}
+        key = _canonical(repo)
     row = _load().get(key)
     if row is None:
         return {"found": False, "r": key, "note": "not_in_seed_or_discoveries"}
     result = dict(row)
     result["found"] = True
     result["url"] = "https://github.com/" + row["r"]
+    if ident["found"]:
+        result["github_id"] = ident["github_id"]
+        result["identity_observed_on"] = ident["observed_on"]
+        if ident["canonical_slug"].casefold() != row["r"].casefold():
+            result["current_slug_when_checked"] = ident["canonical_slug"]
+            result["warning"] = "recorded_slug_may_have_been_renamed"
     if row["v"] == "not_checked":
         result["warning"] = "upstream_link_only_not_validated"
     elif row["role"] == "project":
-        result["warning"] = "existence_verified_not_function_or_cost"
+        result.setdefault("warning", "existence_verified_not_function_or_cost")
     return result
 
 
