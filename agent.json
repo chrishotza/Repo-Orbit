@@ -1,6 +1,6 @@
 {
-  "version": "0.2.0",
-  "purpose": "AI-first, evidence-aware GitHub project discovery",
+  "version": "0.3.0",
+  "purpose": "AI-first, evidence-aware GitHub discovery with bilingual task routing and minimal context",
   "start": "AGENTS.md",
   "transport": {
     "mcp_stdio": {
@@ -19,9 +19,22 @@
     "static_lexical": {
       "manifest": "ai/index.json",
       "term_route": "ai/terms/{first_lowercase_letter}.json"
+    },
+    "static_intent": {
+      "manifest": "ai/intent.json",
+      "scope": "8 curated EN/ES task intents, upstream documentation only"
     }
   },
   "tools": {
+    "recommend": {
+      "input": {
+        "q": "natural language task EN/ES",
+        "limit": "1..10 default 5",
+        "strict_free": "boolean default false"
+      },
+      "output": "{intents,n,items,more,free_requested,free_verified,warning,method}",
+      "semantics": "curated aliases + upstream README evidence; not independently tested"
+    },
     "search": {
       "input": {
         "q": "string",
@@ -48,9 +61,10 @@
     "role=reference": "not a confirmed repository"
   },
   "principles": [
-    "never infer cost, function or safety",
-    "lexical search only, not semantic",
-    "prefer small result sets",
-    "no GitHub API required for offline queries"
+    "prefer recommend for intentions and search for lexical names",
+    "unknown is not verified free; strict_free fails closed",
+    "request only necessary results; resolve exact evidence on demand",
+    "never infer cost, execution, safety or exhaustive coverage",
+    "no GitHub API or paid service required to answer offline"
   ]
 }
