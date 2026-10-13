@@ -39,11 +39,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
-            python -m repoorbit.audit_topics --limit 3
-          else
-            python -m repoorbit.audit_topics
-          fi
+          # Fail review if any source anchor/hash is invalid, not just the sample.
+          python -m repoorbit.audit_topics
       - name: Archive read-only historical evidence audit
         uses: actions/upload-artifact@v4
         with:
