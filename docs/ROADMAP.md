@@ -136,3 +136,11 @@ A feature requires documented inputs/outputs, tests, provenance preservation, fa
 - Bounded `owner_repos` MCP tool and reproducibility checks. The 40,000-slug owner-index stress test is SYNTHETIC, not additional corpus coverage.
 - Future bot feed proposals regenerate owner shards, lexical shards and status together before review; no automatic approval or merge.
 - Next: add more independently rights-reviewed catalogs, durable discovery checkpoints, numeric alias resolution and held-out EN/ES retrieval benchmarks.
+
+## v0.13 expansion: six individually CC0-reviewed sources
+
+- Added Awesome npm, Awesome Electron, Awesome Observables and Awesome TAP after checking their original GitHub repository IDs, current SPDX `CC0-1.0` metadata, license file text and README blob SHA.
+- Extracted 264 additional link edges; deduplicated across **six** approved catalogs, yielding 247 previously unknown canonical owner/repo paths. Total: **1,462 unique paths, 1,463 edges, 19 targets referenced by multiple catalogs**.
+- Four newly checked catalog identities bring seed GitHub numeric IDs to 34 and total checked numeric IDs to **58**. The other **1,404 paths are unverified references**. No new functionality or verified-free claims.
+- Regenerated low-context agent indexes, 29 owner buckets and 39 owner pages, 14 category shards + explicit unknown, 26 lexical shards, and proof of exact derivation.
+- Next: independent README evidence for selected unclassified references, rate-limited repeated ID verification, source relevance testing and stronger retrieval benchmarks.

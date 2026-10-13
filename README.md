@@ -23,9 +23,9 @@ Most repository lists tell you **where a link points**. RepoOrbit also tracks **
 
 | Indexed paths | GitHub IDs checked | Topical domains | Subjects assigned | Subjects unknown |
 |:---:|:---:|:---:|:---:|:---:|
-| **1,215** | **54** | **14** | **231** | **984** |
+| **1,462** | **58** | **14** | **309** | **1,153** |
 
-<sub>Snapshot: 2026-10-13. Of the 231 subject labels, 30 are editorial, 23 are supported by versioned README self-descriptions, and 178 remain lower-confidence filename hints. Counts are not claims of running/free software. The current machine-readable values are in [ai/status.json](ai/status.json).</sub>
+<sub>Snapshot: 2026-10-13. Of the 309 subject labels, 34 are editorial, 23 are supported by pinned upstream README descriptions, and 252 are lower-confidence lexical hints. Counts are not claims of running/free software. The current machine-readable values are in [ai/status.json](ai/status.json).</sub>
 
 ## ⚡ Built for agents, not long prompts
 
@@ -53,7 +53,7 @@ Most repository lists tell you **where a link points**. RepoOrbit also tracks **
 | [`ai/categories/ai-ml.json`](ai/categories/ai-ml.json) | One area, no other shards loaded |
 | [`ai/index.json`](ai/index.json) | Alphabetic lexical index manifest |
 | [`ai/intent.json`](ai/intent.json) | 8 curated bilingual task intents |
-| [`ai/identities.json`](ai/identities.json) | 30 verified seed numeric IDs |
+| [`ai/identities.json`](ai/identities.json) | 34 verified seed numeric IDs |
 | [`ai/verified-targets.json`](ai/verified-targets.json) | 24 additional checked reference IDs |
 | [`ai/status.json`](ai/status.json) | Tiny, reproducible coverage summary |
 | [`ai/owners/index.json`](ai/owners/index.json) | 622-byte owner router; fetch just one bucket and up to 64 slugs per page |
@@ -81,7 +81,7 @@ RepoOrbit uses an original controlled vocabulary with 14 domains, such as **AI/M
 
 | Evidence tier | Source of label | Interpretation |
 |---|---|---|
-| **Editorial** (`e`) | 30 individually checked seed repositories | An editorial subject, not proof of functionality |
+| **Editorial** (`e`) | 34 individually checked seed repositories | An editorial subject, not proof of functionality |
 | **README-backed** (`d`) | 23 versioned upstream README lines | Auditable self-description, not an execution test |
 | **Lexical hint** (`h`) | Whole words in a discovered repository's name | A suggestion, never a verified capability |
 | **Ambiguous** (`a`) | Competing equally specific keywords | Remains unclassified |
@@ -104,9 +104,13 @@ flowchart LR
 
 Source links are preserved with their original Git blob SHA, catalog identifier and line number. GitHub numeric identities help detect renames without confusing a fork or reused slug with the same project. New sources are rights-reviewed; monitored updates are staged and proposed through **reviewable draft pull requests**, never silently merged.
 
+## 🌍 Four additional CC0 catalogs, verified at the source
+
+We individually checked the upstream repositories and their CC0 1.0 license files before extracting GitHub **link references** from their pinned README blobs. New approved directories: **Awesome npm (64 references)**, **Awesome Electron (145)**, **Awesome Observables (13)** and **Awesome TAP (42)**. Combined with the two earlier feeds, that is **1,463 source links** and **1,462 unique approved repository paths** (including separately checked seed entries). This adds **247 distinct paths**; it does not verify that those linked projects exist, run or are completely free. Each link retains the original source, Git blob SHA and line. [License and source evidence](docs/FEED_EXPANSION.md).
+
 ## 🌱 Coverage, not hype
 
-**1,199 catalog reference edges** come from two explicitly reviewed CC0-licensed discovery directories, and deduplicate into a corpus of 1,215 paths together with the seed references. Most discovered references are still unchecked against GitHub. Only 54 stable IDs have independent repository-existence observations. **Zero** repositories have been independently marked both functionally tested and free to run by RepoOrbit.
+**1,463 catalog reference edges** come from six individually reviewed CC0-licensed discovery directories, and deduplicate into a corpus of 1,215 paths together with the seed references. Most discovered references are still unchecked against GitHub. Only 58 stable IDs have independent repository-existence observations. **Zero** repositories have been independently marked both functionally tested and free to run by RepoOrbit.
 
 Daily, read-only rotating review jobs now inspect different **bounded** pages of pending GitHub references; no automatic approvals or free/functional claims. [Empirical coverage and evidence age](docs/COVERAGE_FRESHNESS.md).
 
