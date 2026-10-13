@@ -1,0 +1,38 @@
+name: Rights-reviewed feed refresh
+
+on:
+  schedule:
+    # Daily at 04:17 UTC; GitHub Actions scheduled runs may start late.
+    - cron: '17 4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: repoorbit-feed-refresh
+  cancel-in-progress: false
+
+jobs:
+  stage:
+    name: Check two CC0 feeds and stage source-aware deltas
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check source registry, licensed feeds and baselines (offline)
+        run: python -m repoorbit.refresh --check
+      - name: Refresh into gitignored staging directory (read-only API)
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python -m repoorbit.refresh
+      - name: Upload staged diff report (no automatic changes to main)
+        uses: actions/upload-artifact@v4
+        with:
+          name: repoorbit-cc0-feed-report
+          path: data/snapshots/staged/
+          retention-days: 14
+          if-no-files-found: error
