@@ -1,0 +1,40 @@
+name: Numeric GitHub identity watch
+
+on:
+  schedule:
+    # Weekly at 05:09 UTC, independent of corpus PR proposals.
+    - cron: '9 5 * * 3'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: repoorbit-numeric-identity-watch
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    name: Check stable identity and slug changes (read-only)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate pinned numeric identities offline
+        run: |
+          python -m repoorbit.identity_watch --check
+          python -m repoorbit.build_identity_index
+      - name: Recheck approved seed slugs and compare GitHub IDs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python -m repoorbit.identity_watch --delay 0.4
+      - name: Upload evidence without changing the approved corpus
+        uses: actions/upload-artifact@v4
+        with:
+          name: repoorbit-stable-id-review
+          path: data/snapshots/identity_watch/
+          retention-days: 14
+          if-no-files-found: error
