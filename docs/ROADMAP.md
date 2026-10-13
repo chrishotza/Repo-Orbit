@@ -95,3 +95,11 @@ A feature requires documented inputs/outputs, tests, provenance preservation, fa
 - Read-only GitHub verification worker selects up to 25 unverified links in deterministic batches. Scheduled GitHub Actions checks up to 12 and stages evidence without modifying main.
 - Checked-target status is surfaced via exact MCP resolve, token-compact static index, and corpus status; original discovery roles and source hashes remain available.
 - Next acceptance gates: observe real live GitHub Actions check; review and promote staged batches without manual JSON handcrafting; introduce stable alias state and paginated progression for all references.
+
+## v0.8 bilingual subject classification and agent-first presentation
+
+- Designed 14 controlled bilingual topical subjects, plus explicit unclassified; 30 seed labels are editorial, 178 discovery slugs have low-trust lexical hints, 1,007 remain unclassified (13 ambiguous, 994 no specific terms).
+- Added `categories`, `classify`, and `browse` as bounded, offline AI/MCP entrypoints; generated 16 independently readable JSON shards covering 1,215 known paths exactly once.
+- Reworked GitHub README into an agent-first atlas with visible trust definitions and current audit counts.
+- Acceptance: official CI on Python 3.10 and 3.12; no model-token or semantic-understanding claims from byte savings.
+- Next gate: review upstream README evidence and improve actual topical coverage/precision without asserting untested capabilities.
