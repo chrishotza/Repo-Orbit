@@ -1,0 +1,8 @@
+# RepoOrbit
+
+> AI-first GitHub repository discovery. Do not ingest the full corpus to search it.
+
+- [Agent instructions](AGENTS.md)
+- [Machine manifest](agent.json)
+- [Compact remote index](ai/index.json)
+- [MCP protocol and evidence rules](docs/AI_PROTOCOL.md)
