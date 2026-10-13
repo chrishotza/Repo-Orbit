@@ -60,6 +60,7 @@ class RefreshTests(unittest.TestCase):
             self.assertEqual(delta["added"] + delta["unchanged"], 2)
             self.assertEqual(delta["removed"] + delta["unchanged"], delta["baseline_count"])
             self.assertIn("staging-only", delta["note"])
+            self.assertEqual(delta["comparison"], "approved_pinned_baseline_not_previous_daily_run")
 
     def test_bad_license_fails_all_sources_without_writes(self):
         feeds = refresh.load_feeds()
