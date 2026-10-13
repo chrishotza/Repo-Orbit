@@ -1,9 +1,9 @@
-# RepoOrbit agent entrypoint (read this, not the whole README)
+# RepoOrbit: agent-first entry (do not read the corpus)
 
-Use `agent.json` for routes and supported contracts. Use `repoorbit.mcp` for zero-network, local MCP tool calls (`search`, `resolve`, `stats`). MCP result size defaults to 5 records; request only what you need.
+Read `agent.json` for the machine contract. Route user tasks to `recommend` first; use `search` for exact lexical discovery, `resolve` for repository-level provenance, and `stats` for inventory. Request 1–5 results; avoid passing large datasets to the model.
 
-No need to read the full discovery JSONL (672 links) or upstream README documents. For remote/no-runtime access, use `ai/terms/<first-letter>.json` to narrow lexical references, then inspect the specific GitHub repository. Each shard has local `r` rows and `t` term-to-row indexes.
+With MCP: `repoorbit.mcp` is a **local stdio** server and needs no network at query time. Without a runtime: read `ai/intent.json` for eight EN/ES task intents, or `ai/index.json` and only the relevant `ai/terms/{letter}.json` for names.
 
-Evidence: `v=exists` confirms only GitHub repository existence when seeded. `v=not_checked` is merely a licensed upstream reference. All cost/function claims remain unknown unless independently evidenced. Never claim GitHub-wide coverage.
+Evidence: intent matches are **documented upstream capabilities**, not execution tests. `v=exists` means GitHub path existed when seeded; `v=not_checked` means a source linked it but the target was not checked. `free_requested` does **not** mean free verified. `strict_free=true` deliberately returns no results until independently checked pricing exists.
 
-Never mirror third-party code or list prose. Preserve `source_id`, `source_line`, and `source_blob_sha` when citing discoveries.
+Never infer zero-cost operation, security, availability or full GitHub coverage. Preserve source IDs, README blob hashes, line numbers, and observation dates. Do not mirror external README bodies by default.
