@@ -66,6 +66,25 @@ class IdentityWatchTests(unittest.TestCase):
             self.assertEqual(identity_watch.main(["--check"]), 0)
         self.assertEqual(json.loads(output.getvalue())["verified_seed_ids"], 30)
 
+    def test_sampled_watch_does_not_claim_non_sampled_repositories_are_gone(self):
+        invoked = []
+        def fake_fetch(slug):
+            invoked.append(slug)
+            row = identity.lookup(slug)
+            return {"github_id": row["github_id"], "canonical_slug": row["canonical_slug"]}
+        result = identity_watch.observe(fake_fetch, delay=0, limit=3)
+        self.assertEqual(len(invoked), 3)
+        self.assertEqual(result["registered"], 30)
+        self.assertEqual(result["resolved"], 3)
+        self.assertEqual(result["drift"]["not_checked_this_run"], 27)
+        self.assertIs(result["sampled"], True)
+
+    def test_invalid_sample_limits_fail_closed(self):
+        for limit in (-1, 31, True, "3"):
+            with self.subTest(limit=limit):
+                with self.assertRaises(ValueError):
+                    identity_watch.observe(lambda _: None, limit=limit)
+
     def test_negative_delay_rejected(self):
         with self.assertRaisesRegex(ValueError, "delay cannot be negative"):
             identity_watch.observe(lambda _: None, delay=-1)
