@@ -48,6 +48,19 @@ TOOLS = [
         },
     },
     {
+        "name": "owner_repos",
+        "description": "List only known repos for one GitHub owner, bounded to 20. Catalog membership and GitHub existence metadata do NOT prove software works or is free.",
+        "inputSchema": {
+            "type": "object", "required": ["owner"], "additionalProperties": False,
+            "properties": {
+                "owner": {"type": "string", "minLength": 1, "maxLength": 39},
+                "limit": {"type": "integer", "minimum": 1, "maximum": 20, "default": 5},
+                "offset": {"type": "integer", "minimum": 0, "maximum": 1000000, "default": 0},
+                "verified_only": {"type": "boolean", "default": False},
+            },
+        },
+    },
+    {
         "name": "evidence_age",
         "description": "Show UTC age of recorded GitHub-ID observation; stale means old metadata, NOT a broken project. Unverified catalog links abstain.",
         "inputSchema": {
