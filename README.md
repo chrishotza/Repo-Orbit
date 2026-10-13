@@ -4,7 +4,7 @@
 
 RepoOrbit is an open, evidence-first index for discovering GitHub projects and the catalogs that reference them. It aims to make finding useful software simple without confusing popularity with quality or source availability with free operation.
 
-> **Project status: foundation / corpus v0.1.** This repository currently contains a manually verified seed set and a local command-line corpus synchronizer. It is not yet a comprehensive GitHub index, hosted search engine, or functional software testing service.
+> **Project status: corpus and agent tooling v0.5.** RepoOrbit includes two approved discovery feeds, four local MCP tools, compact machine indexes and reviewable bot proposals. It is not a full GitHub index, hosted search engine, or independently verified software installer.
 
 
 ## AI-first access (the primary interface)
@@ -27,9 +27,9 @@ Three token-efficient access modes are shipped:
 
 \`search({"q":"python","limit":3})\` gives only up to 3 terse records rather than loading the underlying corpus. \`resolve({"repo":"Comfy-Org/ComfyUI"})\` returns an exact project record with provenance, uncertainty and existence date. Lexical search **is not semantic understanding** and does not verify execution, pricing, or source-code safety.
 
-The bilingual matcher currently supports **8 curated task intents**, not general semantic understanding. Unknown requests return no invented matches and can fall back to lexical search. The standalone static index represents **1,215 unique GitHub paths across all roles** in its current seed and discovery data, with 26 independently addressable alphabetic shards. It is a partial corpus, not a crawl of GitHub. It includes unverified references: a linked URL must not be promoted to a tested project.
+The bilingual matcher currently supports **8 curated task intents**, not general semantic understanding. Unknown requests return no invented matches and can fall back to lexical search. The most recent audited static index represented **1,215 unique GitHub paths across all roles** (2026-10-13). For the active, dynamically approved total, consult [ai/status.json](ai/status.json), with 26 independently addressable alphabetic shards. It is a partial corpus, not a crawl of GitHub. It includes unverified references: a linked URL must not be promoted to a tested project.
 
-See [AI protocol specification](docs/AI_PROTOCOL.md) and [static shard format](ai/index.json).
+See [AI protocol specification](docs/AI_PROTOCOL.md), [current corpus status](ai/status.json), and [static shard format](ai/index.json).
 
 ## What makes it different
 
@@ -42,7 +42,7 @@ See [AI protocol specification](docs/AI_PROTOCOL.md) and [static shard format](a
 
 ## Maintenance (automated)
 
-GitHub Actions checks the corpus, discovery references, MCP protocol, and deterministic static index on every change. A second scheduled workflow checks two explicitly authorized CC0 feeds daily, validates their current license and Git blob SHA, and stages an auditable diff report against the **last pinned approved baseline**, **without pushing it automatically**. It does not yet compare with the previous scheduled run. Developers can find optional reproducibility procedures in [CORPUS.md](docs/CORPUS.md), [AI_PROTOCOL.md](docs/AI_PROTOCOL.md), and [CONTRIBUTING.md](CONTRIBUTING.md). End users and agents do not need a shell or API credentials to read the static index.
+Both existing CI workflows now pass officially on Python 3.10 (corpus integrity also passes on 3.12). A daily scheduled workflow rechecks two allowlisted CC0 catalogs and publishes read-only staging artifacts. A separate weekly workflow can **propose draft PRs** for conservative, verified reference changes without merging automatically. Approved snapshots are versioned; historical snapshots do not inflate the active corpus. Developers can find optional reproducibility procedures in [CORPUS.md](docs/CORPUS.md), [AI_PROTOCOL.md](docs/AI_PROTOCOL.md), [promotion safeguards](docs/PROMOTION.md), and [CONTRIBUTING.md](CONTRIBUTING.md). End users and agents do not need a shell or API credentials to read the static index.
 
 ## Layout
 
@@ -80,7 +80,7 @@ CONTRIBUTING.md              Rules for adding/reviewing records
 
 ## Real provenance-linked discovery snapshots
 
-The corpus currently records **1,199 source-to-target references** from two independently checked CC0-licensed Awesome directories: 672 from `sindresorhus/awesome` and 527 from `sindresorhus/awesome-nodejs`. Four targets overlap across those two snapshots. This results in **1,215 unique GitHub paths** including the 22 catalog seeds and 8 individually existence-checked project seeds. **References are unverified URLs, not confirmed living projects or tested tools.** Every edge retains the source blob SHA and line number.
+The corpus currently records **1,199 source-to-target references** from two independently checked CC0-licensed Awesome directories: 672 from `sindresorhus/awesome` and 527 from `sindresorhus/awesome-nodejs`. Four targets overlap across those two snapshots. At the 2026-10-13 audit, this resulted in **1,215 unique GitHub paths** including 22 catalog seeds and 8 individually existence-checked project seeds. Subsequent approved totals are in [ai/status.json](ai/status.json). **References are unverified URLs, not confirmed living projects or tested tools.** Every edge retains the source blob SHA and line number.
 
 ## Principles
 
