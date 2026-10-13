@@ -22,11 +22,13 @@ Requires **Python 3.10+**, with no third-party Python packages.
 ```bash
 python3 scripts/corpus.py validate
 python3 scripts/corpus.py stats
+python3 scripts/discoveries.py validate
+python3 scripts/discoveries.py stats
 python3 scripts/corpus.py sync --limit 5 --output data/snapshots/latest.jsonl
 python3 -m unittest discover -s tests -v
 ```
 
-The first two commands run offline. `sync` accesses the **GitHub REST API**; set `GITHUB_TOKEN` to increase available request limits. The synchronizer refreshes repository metadata only; it does **not** copy the contents of third-party catalogs or verify that their projects work.
+Validation, statistics and unit tests run offline. `sync` accesses the **GitHub REST API**; set `GITHUB_TOKEN` to increase available request limits. The synchronizer refreshes repository metadata only; it does **not** copy the contents of third-party catalogs or verify that their projects work.
 
 ## Layout
 
@@ -34,20 +36,27 @@ The first two commands run offline. `sync` accesses the **GitHub REST API**; set
 data/
   sources.json               Verified catalog and discovery-source registry
   repositories.jsonl         Small, traceable starting set of project references
+  discoveries/              Unverified upstream references with provenance
   snapshots/                Generated enrichment output (not committed)
 schemas/
   source.schema.json         Source registry record contract
   repository.schema.json     Repository record contract
 scripts/
   corpus.py                  Offline validation, stats, on-demand metadata sync
+  discoveries.py             License-gated URL extraction and discovery validation
 tests/
   test_corpus.py             Corpus invariants and normalization checks
+  test_discoveries.py        Discovery edge provenance tests
 docs/
   CORPUS.md                  Data model, pipeline, quality and coverage definitions
   PROVENANCE.md              Attribution, licensing and claims policy
   ROADMAP.md                 Measurable implementation milestones
 CONTRIBUTING.md              Rules for adding/reviewing records
 ```
+
+## First real discovery snapshot
+
+The corpus now records **672 distinct GitHub repository URLs** extracted from the [CC0-licensed Awesome index](https://github.com/sindresorhus/awesome) as of 2026-10-12. Each reference includes its upstream README line and content blob SHA. **These 672 targets are unverified references, not confirmed living projects or tested tools.** They are separate from the 8 individually verified project seeds. See `data/discoveries/awesome-2026-10-12.jsonl`.
 
 ## Principles
 
