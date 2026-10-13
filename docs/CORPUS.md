@@ -127,3 +127,11 @@ Not a complete scrape of GitHub, a semantic search engine, a hosted UI, an autom
 - Registry flag `catalog_ingestion_enabled: false` still means **no scheduled upstream crawling is enabled**. This is a one-time provenance-preserving snapshot.
 
 The discovery snapshot is not counted in the verified project inventory and must not be used as an exhaustive repository count.
+
+## Bilingual task evidence (v0.3, 2026-10-13)
+
+The `data/intent_map.json` registry adds **eight explicitly curated task intents** (English and Spanish) and evidence links to **eight repository README snapshots**. Each project fact stores its actual upstream default README branch (`main` or `master`), README blob SHA, observation date, an original summary, and `cost: unknown` / `tested: false`.
+
+`repoorbit.recommend` only matches explicit normalized aliases. It deliberately abstains when it cannot identify a supported task, and it cannot infer verified free execution from a README. With `strict_free=true`, all unverified cost candidates are excluded. `ai/intent.json` is a deterministic, compact **derived routing manifest** that works for remote-only agents, not a separate source of truth.
+
+This new upstream-documentation evidence layer does **not** upgrade the projects' original `functional_test` fields. Reviewers must independently test installation and operating costs before assigning stronger status. Eight hand-selected task examples do not establish general natural-language recall.
