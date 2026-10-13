@@ -111,3 +111,11 @@ A feature requires documented inputs/outputs, tests, provenance preservation, fa
 - Added `readme_topic_evidence` as an explicit trust tier, static shard code `d`, source pointers in `classify`, a deterministic count and anti-tamper tests.
 - Added a read-only GitHub Git Blob SHA/line audit: PR checks 3 pinned blobs; weekly checks all 12. Run results must be observed before claiming end-to-end success.
 - Next priority: repeat with independently reviewed evidence for more unclassified references, measure held-out topic accuracy, improve multidimensional capability facets.
+
+## v0.10 automated review input and controlled bilingual routing
+
+- Reviewed 11 additional GitHub README source lines (now 23), with immutable blob hashes and identity checks, leaving 984 unclassified of 1,215 indexed paths. This is *documented subject*, not functional or cost validation.
+- Added `stage_readmes` to gather tiny, SHA-verified, short upstream source excerpts in read-only batches of up to 5, stored as **unreviewed staging**. It rejects duplicate IDs and obvious prompt injection. No classifier or PR auto-approval follows from that report.
+- Added `route_topic` as a bounded EN/ES controlled phrase router with explicit abstention for unsupported/ambiguous phrasing.
+- Added 32 reproducible bilingual phrase contract probes, including unknown and ambiguous cases; not a held-out semantic quality metric.
+- Next gate: complete live GitHub checks and stage report inspection, then define reviewed promotion PR logic and a genuinely independent multilingual human-labeled benchmark.
