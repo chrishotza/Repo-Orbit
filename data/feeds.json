@@ -1,0 +1,26 @@
+{
+  "schema_version": "0.1.0",
+  "policy": "allowlist_only_manual_rights_review_required",
+  "sources": [
+    {
+      "id": "github:sindresorhus/awesome",
+      "repository": "sindresorhus/awesome",
+      "readme_path": "readme.md",
+      "license_path": "license",
+      "license": "CC0-1.0",
+      "reviewed_at": "2026-10-13",
+      "enabled": true,
+      "baseline": "data/discoveries/awesome-2026-10-12.jsonl"
+    },
+    {
+      "id": "github:sindresorhus/awesome-nodejs",
+      "repository": "sindresorhus/awesome-nodejs",
+      "readme_path": "readme.md",
+      "license_path": "license",
+      "license": "CC0-1.0",
+      "reviewed_at": "2026-10-13",
+      "enabled": true,
+      "baseline": "data/discoveries/awesome-nodejs-2026-10-13.jsonl"
+    }
+  ]
+}
