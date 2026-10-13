@@ -29,7 +29,9 @@ def tokenize(text: str) -> tuple[str, ...]:
 
 def _canonical(text: str) -> str:
     value = text.strip().removeprefix("https://github.com/").rstrip("/")
-    if not re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", value):
+    if not re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", value) or any(
+        part in (".", "..") for part in value.split("/")
+    ):
         raise ValueError("expected a GitHub owner/repository path or URL")
     return value.casefold()
 
@@ -220,6 +222,21 @@ def call(tool: str, args: dict | None = None) -> dict:
             raise ValueError("unrecognized recommendation arguments")
         from .recommend import recommend
         return recommend(**args)
+    if tool == "categories":
+        if args:
+            raise ValueError("categories takes no arguments")
+        from .taxonomy import categories
+        return categories()
+    if tool == "classify":
+        if set(args) != {"repo"}:
+            raise ValueError("classify requires repo")
+        from .taxonomy import classify
+        return classify(**args)
+    if tool == "browse":
+        if set(args) - {"category", "limit", "offset", "verified_only", "source"}:
+            raise ValueError("unrecognized browse arguments")
+        from .taxonomy import browse
+        return browse(**args)
     if tool == "stats":
         if args:
             raise ValueError("stats does not take arguments")

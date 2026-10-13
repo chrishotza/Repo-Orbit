@@ -48,6 +48,33 @@ TOOLS = [
         },
     },
     {
+        "name": "categories",
+        "description": "List subject categories with exact corpus counts. Editorial/keyword hints, NOT validated capabilities.",
+        "inputSchema": {"type": "object", "additionalProperties": False},
+    },
+    {
+        "name": "classify",
+        "description": "Explain one repository subject label, whether editorial, lexical hint or unknown; not a functionality test.",
+        "inputSchema": {
+            "type": "object", "required": ["repo"], "additionalProperties": False,
+            "properties": {"repo": {"type": "string", "minLength": 3, "maxLength": 240}},
+        },
+    },
+    {
+        "name": "browse",
+        "description": "Bounded category navigation with explicit uncertain classification and existence filter.",
+        "inputSchema": {
+            "type": "object", "required": ["category"], "additionalProperties": False,
+            "properties": {
+                "category": {"type": "string", "minLength": 3, "maxLength": 60},
+                "limit": {"type": "integer", "minimum": 1, "maximum": 20, "default": 5},
+                "offset": {"type": "integer", "minimum": 0, "maximum": 10000, "default": 0},
+                "verified_only": {"type": "boolean", "default": False},
+                "source": {"type": "string", "maxLength": 120},
+            },
+        },
+    },
+    {
         "name": "stats",
         "description": "Compact inventory counts; never implies complete coverage of GitHub.",
         "inputSchema": {"type": "object", "additionalProperties": False},
@@ -73,7 +100,7 @@ def dispatch(message: dict) -> dict | None:
                 "protocolVersion": PROTOCOL_VERSION,
                 "capabilities": {"tools": {"listChanged": False}},
                 "serverInfo": {"name": "repoorbit", "version": __version__},
-                "instructions": "Call search with q; use resolve only for exact details. v=not_checked means a link, not a validated repo. No claims of free execution.",
+                "instructions": "Use categories/browse for topical navigation, classify for one slug, recommend for documented tasks, and resolve for exact evidence. Lexical subject hints are NOT working software. No free execution claims.",
             }
         }
     if method == "ping":

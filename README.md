@@ -1,104 +1,119 @@
-# RepoOrbit
+<div align="center">
 
-**One search. Every repository.**
+# 🪐 RepoOrbit
 
-RepoOrbit is an open, evidence-first index for discovering GitHub projects and the catalogs that reference them. It aims to make finding useful software simple without confusing popularity with quality or source availability with free operation.
+### A repository atlas made for AI agents
 
-> **Project status: corpus and agent tooling v0.7.** RepoOrbit includes two approved discovery feeds, four local MCP tools, compact machine indexes and reviewable bot proposals. It is not a full GitHub index, hosted search engine, or independently verified software installer.
+**Discover · Classify · Verify · Navigate**
+
+*Un atlas de repositorios diseñado para agentes de IA, sin desperdiciar contexto.*
+
+[![Corpus integrity](https://github.com/chrishotza/Repo-Orbit/actions/workflows/corpus.yml/badge.svg)](https://github.com/chrishotza/Repo-Orbit/actions/workflows/corpus.yml)
+[![Python application](https://github.com/chrishotza/Repo-Orbit/actions/workflows/python-app.yml/badge.svg)](https://github.com/chrishotza/Repo-Orbit/actions/workflows/python-app.yml)
+
+**[Agent contract](agent.json) · [AI instructions](AGENTS.md) · [Browse subjects](ai/categories/index.json) · [Evidence policy](docs/TAXONOMY.md) · [Current coverage](ai/status.json)**
+
+</div>
+
+---
+
+## A catalog that knows what it *doesn't* know
+
+Most repository lists tell you **where a link points**. RepoOrbit also tracks **who referenced it, what evidence exists, how it may be classified, and what remains unverified**. Its primary interface is machine-readable JSON and local MCP tools; this page is just an introduction.
+
+| Indexed paths | GitHub IDs checked | Topical domains | Subjects assigned | Subjects unknown |
+|:---:|:---:|:---:|:---:|:---:|
+| **1,215** | **54** | **14** | **208** | **1,007** |
+
+<sub>Snapshot: 2026-10-13. Of the 208 subject labels, 30 are explicit editorial labels and 178 are lower-confidence repository-name hints. Counts are not claims of running/free software. The current machine-readable values are in [ai/status.json](ai/status.json).</sub>
+
+## ⚡ Built for agents, not long prompts
+
+| Agent wants to… | Compact interface |
+|---|---|
+| Find an app by a documented EN/ES task | `recommend({"q":"generar videos con IA", "limit":3})` |
+| List available subject areas | `categories({})` |
+| Browse a domain | `browse({"category":"ai-ml","limit":5})` |
+| Ask why a repository has a subject label | `classify({"repo":"Comfy-Org/ComfyUI"})` |
+| Search names and limited topic tags | `search({"q":"python","limit":3})` |
+| Resolve exact evidence or numeric ID | `resolve({"repo":"id:589831718"})` |
+| Inspect coverage and uncertainty | `stats({})` |
+
+**No hosted service, paid API, embedding model or LLM is needed for these offline queries.** A host can launch the bundled Python MCP stdio server or an agent can read only the small static index it needs. LLM response tokens are not literally zero: bounded JSON simply avoids putting the corpus into context.
+
+### Read only what you need
+
+| Machine-readable entry | Purpose |
+|---|---|
+| [`agent.json`](agent.json) | Versioned agent protocol and tool manifest |
+| [`ai/categories/index.json`](ai/categories/index.json) | ~1.2 KB subject router; 14 areas + unclassified |
+| [`ai/categories/ai-ml.json`](ai/categories/ai-ml.json) | One area, no other shards loaded |
+| [`ai/index.json`](ai/index.json) | Alphabetic lexical index manifest |
+| [`ai/intent.json`](ai/intent.json) | 8 curated bilingual task intents |
+| [`ai/identities.json`](ai/identities.json) | 30 verified seed numeric IDs |
+| [`ai/verified-targets.json`](ai/verified-targets.json) | 24 additional checked reference IDs |
+| [`ai/status.json`](ai/status.json) | Tiny, reproducible coverage summary |
 
 
-## AI-first access (the primary interface)
+<details>
+<summary><strong>Advanced agent filter: browse by verified source context</strong></summary>
 
-**Agents: read [AGENTS.md](AGENTS.md) (short) or [agent.json](agent.json) (machine-readable). Do not ingest this README, discovery JSONL snapshots, or upstream catalogs into context just to answer a query.**
+An agent can pass `source: "github:sindresorhus/awesome-nodejs"` to `browse` while selecting any subject, including `unclassified`. That indicates a repository was **linked by that approved catalog**; it is not a verified Node.js-compatibility or execution claim. `classify` also exposes source IDs separately from topical hints.
 
-Three token-efficient access modes are shipped. Additionally, **54 individually checked GitHub numeric IDs** are available for exact lookup, regardless of changes to a repository's name:
+</details>
 
-| Mode | Entry point | What is returned |
+## 🧭 Our classification system
+
+RepoOrbit uses an original controlled vocabulary with 14 domains, such as **AI/ML**, **developer tools**, **security**, **cloud infrastructure**, **creative media**, **education**, **science** and **automation**. Every subject result includes the method used to derive it.
+
+| Evidence tier | Source of label | Interpretation |
 |---|---|---|
-| **Task intent (EN/ES, no LLM)** | `recommend` via MCP or `ai/intent.json` without a runtime | Short suggestions grounded in 8 reviewed README snapshots; costs and execution remain unknown |
-| **MCP, no network required** | \`python3 -m repoorbit.mcp\` as a configured stdio tool, not an interactive human workflow | Bounded \`search\`, exact \`resolve\`, compact \`stats\` |
-| **Static, remote-readable** | \`ai/index.json\` then only \`ai/terms/{letter}.json\` | One small per-letter lexical reference shard |
+| **Editorial** (`e`) | 30 individually checked seed repositories | A reviewable subject choice, not proof of functionality |
+| **Lexical hint** (`h`) | Whole words in a discovered repository's name | A suggestion, never a verified capability |
+| **Ambiguous** (`a`) | Competing equally specific keywords | Remains unclassified |
+| **Unknown** (`u`) | No defensible topical clue | Remains unclassified |
 
-**MCP host configuration** (set \`cwd\` to a checkout of this repository; the agent host starts this, not the human):
+**We prefer abstaining over hallucinating.** A GitHub link existing is not a benchmark, installation test, safety audit, license clearance or proof of free operation. [Read the classification methodology](docs/TAXONOMY.md).
 
-\`\`\`json
-{"mcpServers":{"repoorbit":{"command":"python3","args":["-m","repoorbit.mcp"],"cwd":"/path/to/Repo-Orbit"}}}
-\`\`\`
+## 🔎 Traceable from discovery to agent result
 
-\`search({"q":"python","limit":3})\` gives only up to 3 terse records rather than loading the underlying corpus. \`resolve({"repo":"Comfy-Org/ComfyUI"})\` returns an exact project record with provenance, uncertainty and existence date. Lexical search **is not semantic understanding** and does not verify execution, pricing, or source-code safety.
-
-The bilingual matcher currently supports **8 curated task intents**, not general semantic understanding. Unknown requests return no invented matches and can fall back to lexical search. The static lexical index still contains **1,215 unique GitHub paths across all roles** (2026-10-13). For the active, dynamically approved total, consult [ai/status.json](ai/status.json), with 26 independently addressable alphabetic shards. It is a partial corpus, not a crawl of GitHub. Only 24 discovered references have had their GitHub numeric identity checked; 1,161 reference-only paths remain unchecked. A verified ID proves neither software functionality nor free operation.
-
-See [checked reference evidence](docs/TARGET_VERIFICATION.md), [stable GitHub identity rules](docs/IDENTITIES.md) and [AI protocol specification](docs/AI_PROTOCOL.md), [current corpus status](ai/status.json), and [static shard format](ai/index.json).
-
-## What makes it different
-
-- **Find things by purpose**, not just by repository name (planned).
-- **Aggregate catalogs**, but preserve attribution and source-specific reuse policies.
-- **One canonical project record** with all discovered references and no accidental duplicates.
-- **Evidence over advertising**: a GitHub repository existing does not prove that its software runs, is safe, or costs nothing.
-- **Explain costs honestly**: unknown is not free. APIs, hardware, hosting, models, and licenses are separate dimensions.
-- **Zero mandatory paid services** for the core corpus maintenance scripts.
-
-## Maintenance (automated)
-
-Both existing CI workflows now pass officially on Python 3.10 (corpus integrity also passes on 3.12). A daily scheduled workflow rechecks two allowlisted CC0 catalogs and publishes read-only staging artifacts. A separate weekly workflow can **propose draft PRs** for conservative, verified reference changes without merging automatically. Approved snapshots are versioned; historical snapshots do not inflate the active corpus. Developers can find optional reproducibility procedures in [CORPUS.md](docs/CORPUS.md), [AI_PROTOCOL.md](docs/AI_PROTOCOL.md), [promotion safeguards](docs/PROMOTION.md), and [CONTRIBUTING.md](CONTRIBUTING.md). End users and agents do not need a shell or API credentials to read the static index.
-
-## Layout
-
-```text
-AGENTS.md                    Minimal context instructions for agent runtimes
-SKILL.md                     Agent skill entry point
-agent.json                   Machine-readable tool and route manifest
-ai/
-  index.json                 Static shard format and routing
-  terms/[a-z].json           Small self-contained lexical lookup shards
-repoorbit/
-  agent.py                   Deterministic offline tools (bounded JSON)
-  mcp.py                     MCP stdio server
-  build_index.py             Reproducible static index generator
-  identity.py                Stable ID lookup and rename/transfer analysis
-  identity_watch.py          Read-only GitHub drift monitor
-  verified.py                Checked discovery evidence registry
-  check_targets.py           Bounded, resumable staged GitHub checks
-data/
-  sources.json               Verified catalog and discovery-source registry
-  repositories.jsonl         Small, traceable starting set of project references
-  discoveries/              Unverified upstream references with provenance
-  snapshots/                Generated enrichment output (not committed)
-schemas/
-  source.schema.json         Source registry record contract
-  repository.schema.json     Repository record contract
-scripts/
-  corpus.py                  Offline validation, stats, on-demand metadata sync
-  discoveries.py             License-gated URL extraction and discovery validation
-tests/
-  test_corpus.py             Corpus invariants and normalization checks
-  test_discoveries.py        Discovery edge provenance tests
-docs/
-  CORPUS.md                  Data model, pipeline, quality and coverage definitions
-  PROVENANCE.md              Attribution, licensing and claims policy
-  ROADMAP.md                 Measurable implementation milestones
-CONTRIBUTING.md              Rules for adding/reviewing records
+```mermaid
+flowchart LR
+    A[Approved CC0 catalogs] --> B[Source and line evidence]
+    B --> C[Canonical repo paths]
+    C --> D[Checked GitHub IDs]
+    C --> E[Editorial subjects or lexical hints]
+    D --> F[Compact static indexes]
+    E --> F
+    F --> G[Local MCP and AI readers]
 ```
 
-## Real provenance-linked discovery snapshots
+Source links are preserved with their original Git blob SHA, catalog identifier and line number. GitHub numeric identities help detect renames without confusing a fork or reused slug with the same project. New sources are rights-reviewed; monitored updates are staged and proposed through **reviewable draft pull requests**, never silently merged.
 
-The corpus currently records **1,199 source-to-target references** from two independently checked CC0-licensed Awesome directories: 672 from `sindresorhus/awesome` and 527 from `sindresorhus/awesome-nodejs`. Four targets overlap across those two snapshots. At the 2026-10-13 audit, this resulted in **1,215 unique GitHub paths** including 22 catalog seeds and 8 individually existence-checked project seeds. Subsequent approved totals are in [ai/status.json](ai/status.json). **References are unverified URLs, not confirmed living projects or tested tools.** Every edge retains the source blob SHA and line number.
+## 🌱 Coverage, not hype
 
-## Principles
+**1,199 catalog reference edges** come from two explicitly reviewed CC0-licensed discovery directories, and deduplicate into a corpus of 1,215 paths together with the seed references. Most discovered references are still unchecked against GitHub. Only 54 stable IDs have independent repository-existence observations. **Zero** repositories have been independently marked both functionally tested and free to run by RepoOrbit.
 
-1. **Never fabricate metrics or validation.** A missing measurement remains `null` or `unknown`.
-2. **Preserve evidence.** Every seed reference has a source, verification date, and confidence state.
-3. **Favor reproducible ingestion.** Canonical identities, validation, stable sorting, and auditable diffs.
-4. **Respect creators.** Prefer links and API metadata; never bulk-mirror README text or code without checking rights and applicable platform terms.
-5. **Prefer discoverability over gatekeeping.** Do not hide projects merely for low star counts; expose user-controlled filters.
-6. **Keep search approachable.** End-user experience should eventually fit into one simple search field.
+Track engineering gates in [Roadmap](docs/ROADMAP.md), [Source provenance](docs/PROVENANCE.md), [ID verification](docs/TARGET_VERIFICATION.md), and [CI results](https://github.com/chrishotza/Repo-Orbit/actions).
 
-## Current limitations
+## 🤖 Integration
 
-The initial seed set is not an exhaustive census. `repository_exists` means only that the repository path was confirmed when seeded; it is **not** a test of installation, execution, security, maintainership, cost, or license compatibility. Catalog ingestion, semantic search, UI, and automated installation tests are later milestones.
+An MCP-compatible agent host can use this entry in its own configuration (the host launches the server, not the end user):
 
-See [corpus specification](docs/CORPUS.md), [provenance policy](docs/PROVENANCE.md), and [roadmap](docs/ROADMAP.md).
+```json
+{"mcpServers":{"repoorbit":{"command":"python3","args":["-m","repoorbit.mcp"],"cwd":"/path/to/Repo-Orbit"}}}
+```
 
-**Licensing:** Project code and original dataset licensing are pending a maintainer decision. Do not assume that publicly visible content from this or any upstream project is automatically licensed for redistribution.
+Agent-only readers with no process execution can start at [`agent.json`](agent.json), then fetch [`ai/categories/index.json`](ai/categories/index.json) and **only their chosen category shard**. No terminal tutorial or full-corpus prompt is necessary.
+
+---
+
+<div align="center">
+
+**Evidence before confidence. Small responses before giant prompts.**
+
+[Agent navigation](AGENTS.md) · [Taxonomy](docs/TAXONOMY.md) · [Contribute](CONTRIBUTING.md)
+
+<sub>RepoOrbit publishes original metadata and pointers, not mirrored third-party source code. Upstream repository licenses remain independent. RepoOrbit's own project-wide license has not yet been selected by its maintainer.</sub>
+
+</div>

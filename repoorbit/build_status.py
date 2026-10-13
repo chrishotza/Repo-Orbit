@@ -11,6 +11,7 @@ from .agent import ROOT, _load
 from .identity import load as load_verified_identities
 from .verified import status as checked_reference_status
 from .snapshots import approved_discoveries
+from .taxonomy import categories as taxonomy_categories
 
 DEST = ROOT / "ai" / "status.json"
 SOURCES = ROOT / "data" / "sources.json"
@@ -34,11 +35,16 @@ def build() -> dict:
             by_target[edge["target_id"]].add(edge["source_id"])
             observed_dates.append(edge["observed_at"])
     records = _load()
+    taxonomy = taxonomy_categories()
+    unclassified = next(x["n"] for x in taxonomy["categories"] if x["id"] == "unclassified")
     return {
         "v": 1,
         "as_of": max(observed_dates),
         "scope": "partial_repository_reference_index",
         "unique_slugs": len(records),
+        "taxonomy_domains": len(taxonomy["categories"]) - 1,
+        "subject_labeled": len(records) - unclassified,
+        "subject_unclassified": unclassified,
         "catalog_seeds": len(sources),
         "project_seeds_existence_checked": len(projects),
         "numeric_seed_ids_checked": len(load_verified_identities()[0]),

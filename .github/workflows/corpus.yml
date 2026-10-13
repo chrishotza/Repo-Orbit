@@ -40,6 +40,8 @@ jobs:
         run: python -m repoorbit.check_targets --check --limit 3
       - name: Verify checked-reference AI manifest
         run: python -m repoorbit.build_verified_index
+      - name: Verify 16 deterministic topic shards
+        run: python -m repoorbit.build_taxonomy_index
       - name: Verify machine-readable corpus status
         run: python -m repoorbit.build_status
       - name: Verify AI term index reproducibility
