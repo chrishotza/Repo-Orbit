@@ -7,12 +7,13 @@
     "comfy-org/comfyui": {
       "repo": "Comfy-Org/ComfyUI",
       "why": "Workflows visuales para medios generativos, incluidos video e imagen",
-      "readme_url": "https://github.com/Comfy-Org/ComfyUI/blob/main/README.md",
+      "readme_url": "https://github.com/Comfy-Org/ComfyUI/blob/master/README.md",
       "readme_blob_sha": "a6b57ecfe996f8adaf42436afbe753f6f8a5f62c",
       "observed_at": "2026-10-13",
       "evidence_type": "upstream_documentation",
       "cost": "unknown",
-      "tested": false
+      "tested": false,
+      "readme_branch": "master"
     },
     "ollama/ollama": {
       "repo": "ollama/ollama",
@@ -22,7 +23,8 @@
       "observed_at": "2026-10-13",
       "evidence_type": "upstream_documentation",
       "cost": "unknown",
-      "tested": false
+      "tested": false,
+      "readme_branch": "main"
     },
     "open-webui/open-webui": {
       "repo": "open-webui/open-webui",
@@ -32,27 +34,30 @@
       "observed_at": "2026-10-13",
       "evidence_type": "upstream_documentation",
       "cost": "unknown",
-      "tested": false
+      "tested": false,
+      "readme_branch": "main"
     },
     "ggml-org/llama.cpp": {
       "repo": "ggml-org/llama.cpp",
       "why": "Inferencia local de LLM en diferentes arquitecturas",
-      "readme_url": "https://github.com/ggml-org/llama.cpp/blob/main/README.md",
+      "readme_url": "https://github.com/ggml-org/llama.cpp/blob/master/README.md",
       "readme_blob_sha": "a524b3d6a8dafe1b913e8aef2e41b3bed5ae2c02",
       "observed_at": "2026-10-13",
       "evidence_type": "upstream_documentation",
       "cost": "unknown",
-      "tested": false
+      "tested": false,
+      "readme_branch": "master"
     },
     "n8n-io/n8n": {
       "repo": "n8n-io/n8n",
       "why": "Automatización visual y flujos de trabajo con integraciones",
-      "readme_url": "https://github.com/n8n-io/n8n/blob/main/README.md",
+      "readme_url": "https://github.com/n8n-io/n8n/blob/master/README.md",
       "readme_blob_sha": "21909fae00cbad4f18af84d2948752445051a915",
       "observed_at": "2026-10-13",
       "evidence_type": "upstream_documentation",
       "cost": "unknown",
-      "tested": false
+      "tested": false,
+      "readme_branch": "master"
     },
     "langgenius/dify": {
       "repo": "langgenius/dify",
@@ -62,7 +67,8 @@
       "observed_at": "2026-10-13",
       "evidence_type": "upstream_documentation",
       "cost": "unknown",
-      "tested": false
+      "tested": false,
+      "readme_branch": "main"
     },
     "gradio-app/gradio": {
       "repo": "gradio-app/gradio",
@@ -72,7 +78,8 @@
       "observed_at": "2026-10-13",
       "evidence_type": "upstream_documentation",
       "cost": "unknown",
-      "tested": false
+      "tested": false,
+      "readme_branch": "main"
     },
     "vllm-project/vllm": {
       "repo": "vllm-project/vllm",
@@ -82,7 +89,8 @@
       "observed_at": "2026-10-13",
       "evidence_type": "upstream_documentation",
       "cost": "unknown",
-      "tested": false
+      "tested": false,
+      "readme_branch": "main"
     }
   },
   "intents": [
