@@ -222,6 +222,11 @@ def call(tool: str, args: dict | None = None) -> dict:
             raise ValueError("unrecognized recommendation arguments")
         from .recommend import recommend
         return recommend(**args)
+    if tool == "evidence_age":
+        if set(args) != {"repo"}:
+            raise ValueError("evidence_age requires repo")
+        from .freshness import inspect
+        return inspect(**args)
     if tool == "route_topic":
         if set(args) != {"q"}:
             raise ValueError("route_topic requires q")

@@ -78,7 +78,7 @@ class AgentTests(unittest.TestCase):
         initialize = mcp.dispatch({"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {}})
         self.assertEqual(initialize["result"]["serverInfo"]["name"], "repoorbit")
         tools = mcp.dispatch({"jsonrpc": "2.0", "id": 2, "method": "tools/list"})["result"]["tools"]
-        self.assertEqual({x["name"] for x in tools}, {"search", "resolve", "recommend", "stats", "categories", "classify", "browse", "route_topic"})
+        self.assertEqual({x["name"] for x in tools}, {"search", "resolve", "recommend", "stats", "categories", "classify", "browse", "route_topic", "evidence_age"})
 
     def test_mcp_call_returns_compact_json(self):
         result = mcp.dispatch({"jsonrpc": "2.0", "id": 5, "method": "tools/call",

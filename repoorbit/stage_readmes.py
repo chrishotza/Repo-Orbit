@@ -17,6 +17,7 @@ from urllib.parse import quote, urlsplit
 from urllib.request import Request, urlopen
 
 from .agent import ROOT
+from .coverage_plan import plan
 from .check_targets import fetch as fetch_repo, pending
 from .identity import canonical_slug, load as seed_ids
 from .refresh import _blob_sha, _write_atomic
@@ -180,7 +181,10 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Stage GitHub README source evidence")
     parser.add_argument("--check", action="store_true")
     parser.add_argument("--limit", type=int, default=3)
-    parser.add_argument("--after", type=str)
+    choice = parser.add_mutually_exclusive_group()
+    choice.add_argument("--after", type=str)
+    choice.add_argument("--cycle-date", type=str,
+                        help="UTC date selecting rotating page of pending items")
     parser.add_argument("--output-dir", type=Path, default=STAGING)
     args = parser.parse_args(argv)
     try:
@@ -190,10 +194,13 @@ def main(argv: list[str] | None = None) -> int:
         if args.after:
             cursor = canonical_slug(args.after)
             queue = [slug for slug in queue if slug > cursor]
-        slugs = queue[:args.limit]
+        page = plan(queue, args.limit, args.cycle_date)
+        slugs = page["items"]
         if args.check:
             print(json.dumps({"pending": len(pending_review()),
-                              "selected": len(slugs), "network": False}))
+                              "selected": len(slugs),
+                              "page_index": page["page_index"], "pages": page["pages"],
+                              "network": False}))
             return 0
         if not slugs:
             print(json.dumps({"status": "empty", "requested": 0}))
@@ -205,11 +212,14 @@ def main(argv: list[str] | None = None) -> int:
         report = stage_batch(slugs, lambda slug: fetch_repo(slug, token),
                              lambda slug: _request_readme(slug, token))
         report["observed_at"] = datetime.now(timezone.utc).isoformat()
+        report["coverage_page"] = {k: v for k, v in page.items() if k != "items"}
         _write_atomic(out / "report.json", json.dumps(report, ensure_ascii=False, indent=2) + "\n")
         print(json.dumps({"status": report["status"], "requested": report["requested"],
                           "readmes": report["readmes"],
                           "unresolved": len(report["unresolved"]),
-                          "next_cursor": report["next_cursor"]}, separators=(",", ":")))
+                          "next_cursor": report["next_cursor"],
+                          "page_index": page["page_index"], "pages": page["pages"],
+                          "queue_total": page["queue_total"]}, separators=(",", ":")))
         return 0
     except (ReviewError, ValueError, OSError) as exc:
         print("ERROR: " + str(exc), file=sys.stderr)

@@ -2,8 +2,8 @@ name: Check discovered reference IDs
 
 on:
   schedule:
-    # Weekly, UTC. Stages a bounded batch; does not change the approved corpus.
-    - cron: '21 6 * * 4'
+    # Daily UTC; each date selects a different pending page. No corpus writes.
+    - cron: '21 6 * * *'
   workflow_dispatch:
   pull_request:
     paths:
@@ -34,6 +34,7 @@ jobs:
       - name: Validate verified records and agent index (offline)
         run: |
           python -m repoorbit.check_targets --check --limit 3
+          python -m repoorbit.check_targets --check --limit 25 --cycle-date "$(date -u +%F)"
           python -m repoorbit.build_verified_index
       - name: Sample or stage GitHub ID checks
         env:
@@ -42,7 +43,7 @@ jobs:
           if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
             python -m repoorbit.check_targets --limit 3 --delay 0.1
           else
-            python -m repoorbit.check_targets --limit 12 --delay 0.4
+            python -m repoorbit.check_targets --limit 25 --delay 0.4 --cycle-date "$(date -u +%F)"
           fi
       - name: Upload staged report without publishing unreviewed records
         uses: actions/upload-artifact@v4

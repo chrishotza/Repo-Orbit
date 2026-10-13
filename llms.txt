@@ -18,3 +18,5 @@
 - [Versioned README subject evidence](docs/README_EVIDENCE.md)
 - [Untrusted README candidate pipeline](docs/REVIEW_PIPELINE.md)
 - [Bilingual routing contract and limits](docs/TOPIC_ROUTING_EVAL.md)
+- [Evidence observation dates](ai/evidence-dates.json)
+- [Daily coverage and evidence freshness](docs/COVERAGE_FRESHNESS.md)

@@ -18,6 +18,7 @@ from urllib.parse import quote, urlsplit
 from urllib.request import Request, urlopen
 
 from .agent import ROOT
+from .coverage_plan import plan
 from .identity import canonical_slug, load as seed_identities
 from .refresh import _write_atomic
 from .verified import approved_provenance, approved_targets, load as checked_targets
@@ -171,7 +172,11 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Small, rights-provenanced GitHub target batch check")
     parser.add_argument("--check", action="store_true", help="Validate approved reference queue offline")
     parser.add_argument("--limit", type=int, default=10)
-    parser.add_argument("--after", type=str, default=None, help="Continue after an alphabetically sorted slug")
+    choice = parser.add_mutually_exclusive_group()
+    choice.add_argument("--after", type=str, default=None,
+                        help="Manually continue after a sorted slug")
+    choice.add_argument("--cycle-date", type=str, default=None,
+                        help="Select rotating UTC-day page (YYYY-MM-DD)")
     parser.add_argument("--delay", type=float, default=0.4)
     parser.add_argument("--output-dir", type=Path, default=STAGE)
     args = parser.parse_args(argv)
@@ -184,9 +189,12 @@ def main(argv: list[str] | None = None) -> int:
         if args.after is not None:
             cursor = canonical_slug(args.after)
             todo = [name for name in todo if name > cursor]
-        selection = todo[:args.limit]
+        page = plan(todo, args.limit, args.cycle_date)
+        selection = page["items"]
         if args.check:
-            print(json.dumps({"pending": len(pending()), "next_selection": len(selection), "network": False}))
+            print(json.dumps({"pending": len(pending()), "next_selection": len(selection),
+                              "page_index": page["page_index"], "pages": page["pages"],
+                              "network": False}))
             return 0
         if not selection:
             print(json.dumps({"status": "no_pending_targets", "checked": 0}))
@@ -201,6 +209,7 @@ def main(argv: list[str] | None = None) -> int:
             return result
         result = examine(selection, api, datetime.now(timezone.utc).date().isoformat())
         result["next_cursor"] = selection[-1]
+        result["coverage_page"] = {k: v for k, v in page.items() if k != "items"}
         output = args.output_dir.resolve()
         _write_atomic(output / "report.json", json.dumps(result, ensure_ascii=False, indent=2) + "\n")
         _write_atomic(
@@ -213,6 +222,8 @@ def main(argv: list[str] | None = None) -> int:
             "checked": result["checked"],
             "unresolved": result["unresolved"],
             "next_cursor": result["next_cursor"],
+            "page_index": page["page_index"], "pages": page["pages"],
+            "queue_total": page["queue_total"],
         }, separators=(",", ":")))
         return 0
     except (TargetCheckError, ValueError, OSError) as exc:

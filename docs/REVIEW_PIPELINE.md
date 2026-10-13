@@ -17,9 +17,9 @@ A batch contains at most five targets. Duplicate slugs, repeated numeric GitHub 
 
 ## Workflow contract
 
-`.github/workflows/stage-readmes.yml` has `contents: read` permission, executes a two-target sample on PRs and at most five candidates on its weekly schedule, and uploads an artifact for inspection. It cannot push commits or merge pull requests.
+`.github/workflows/stage-readmes.yml` has `contents: read` permission, executes a two-target sample on PRs and at most five candidates on its daily schedule, and uploads an artifact for inspection. It cannot push commits or merge pull requests.
 
-The deterministic pending queue supports an `after` cursor, but currently no persisted weekly cursor or automatic reviewed promotion exists. Repeated scheduled runs can revisit the same targets; a later iteration must persist state safely before claiming continuous coverage.
+The deterministic pending queue supports an `after` cursor, but currently no persisted historical-failure retry cursor or automatic reviewed promotion exists. Scheduled runs select different UTC calendar pages, but changes to the queue or missed runs can still revisit or skip targets; a later iteration must persist state safely before claiming continuous coverage.
 
 The source README may contain adversarial LLM instructions. One previously reviewed repository is deliberately **not** promoted as a documentary topic in this batch because it contains such text. This is a decision about trusting evidence, not about suppressing links from the raw index.
 
@@ -28,3 +28,7 @@ The source README may contain adversarial LLM instructions. One previously revie
 Future promotion requires independent review of the candidate's original README, the exact Git SHA and source line; rights checks, stable numeric ID resolution, a reviewed controlled topic, tests, regenerated deterministic indices and a normal reviewed PR. Repository existence, topical self-description, functionality, security and cost are **separate dimensions**.
 
 The read-only collector's actual operation must be confirmed from a completed Actions artifact before describing it as live-validated.
+
+## v0.11 bounded daily rotation
+
+The scheduled candidate review runs **daily**, at most five pending repository READMEs per run, with a date-selected queue page. It remains read-only; the resulting staged artifact includes its page index, queue count, scope and date. A fixed 1,161-item queue has 233 pages, representing attempts only. Reproducible status: [COVERAGE_FRESHNESS.md](COVERAGE_FRESHNESS.md).

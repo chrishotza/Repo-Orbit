@@ -48,6 +48,12 @@ jobs:
         run: python -m repoorbit.stage_readmes --check --limit 2
       - name: Verify 16 deterministic topic shards
         run: python -m repoorbit.build_taxonomy_index
+      - name: Verify compact historical evidence-date index
+        run: python -m repoorbit.build_evidence_dates
+      - name: Exercise deterministic rotating plan without network
+        run: |
+          python -m repoorbit.check_targets --check --limit 25 --cycle-date 2026-10-14
+          python -m repoorbit.stage_readmes --check --limit 5 --cycle-date 2026-10-14
       - name: Verify machine-readable corpus status
         run: python -m repoorbit.build_status
       - name: Verify AI term index reproducibility
