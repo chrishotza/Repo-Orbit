@@ -4,7 +4,7 @@
 
 1. **AGENTS.md** (short instructions, no corpus).
 2. **agent.json** (machine contract and entrypoints).
-3. Invoke the three MCP tools as needed. Only request additional evidence for a specific result.
+3. Invoke the four MCP tools as needed. Only request additional evidence for a specific result.
 4. If no executable tools exist, fetch **ai/index.json** and the *one* matching \`ai/terms/{letter}.json\` static shard. Do not read the 672-reference JSONL just to search by a word.
 
 No step assumes a chat assistant can read a local terminal. An MCP host handles process startup. A web-only AI can navigate the static JSON files without human commands or authentication.
@@ -14,6 +14,8 @@ No step assumes a chat assistant can read a local terminal. An MCP host handles 
 MCP protocol version: \`2025-06-18\`. Standard JSON-RPC 2.0 over newline-delimited stdio messages. Python 3.10+ standard library only. The server does **not** call GitHub or any external service during queries.
 
 Available tools:
+
+- `recommend(q, limit=5, strict_free=false)`: bilingual (EN/ES) curated task matching with upstream README fingerprints. This is **not** independently executed or priced. Setting `strict_free=true` returns no projects until genuine free-execution evidence is available.
 
 - \`search(q, limit=5, offset=0, role=null)\`: deterministic lexical search (max 20 records/request), stable ordering. \`n\` is the number of in-corpus matches; \`more\` signals pagination.
 - \`resolve(repo)\`: exact lookup by \`owner/repo\` or \`https://github.com/owner/repo\`. Returns any recorded upstream source pointers and checked/unchecked status.
@@ -47,6 +49,14 @@ Queries are simple lexical ranking on repository slugs and verified seed topic l
 - No paid LLM or embedding endpoint is required.
 - Actual token count depends on the receiving model's tokenizer, host serialization, and selected results. **Zero tokens are impossible when an LLM has to read a response.** Reducing payload bytes is the measurable objective.
 
+## Bilingual intent route (v0.3)
+
+Read `ai/intent.json` only if the agent host cannot call MCP. This compact static manifest holds 8 reviewed task IDs, English/Spanish aliases and canonical candidate slugs. Alias matching normalizes accents, lowercases, and matches whole phrases (not arbitrary substrings). The evidence registry `data/intent_map.json` links each candidate to an upstream README, its checked blob SHA, the observation date and a short original summary. `ev=readme@<prefix>` in tool results is a short fingerprint, not proof of execution.
+
+**Failure behavior matters**: if no explicit alias matches, `recommend` returns zero candidates; it does not pretend to know every possible task. If a query asks for free usage, it returns relevant documented candidates with `cost=unknown` and a warning. In strict mode it returns none. Neither mode claims licensing approval or reproducible results.
+
+For a query such as `Quiero generar videos con IA gratis`, the task router identifies `generate-video` and may suggest `Comfy-Org/ComfyUI` with `cost_not_verified` (not a guarantee that a requested video generation setup will run at zero cost). A model should still ask for specifics only when the task cannot be met using the documented limitations.
+
 ## Static indexed discovery without local execution
 
 If an agent cannot launch MCP but can fetch files, read \`ai/index.json\` first.
@@ -63,7 +73,7 @@ The example is a shape demonstration, not real corpus data.
 
 ### Source and update policy
 
-Index shards are deterministically built from \`data/sources.json\`, \`data/repositories.jsonl\`, and \`data/discoveries/*.jsonl\`. The CI suite rejects stale shard contents after corpus changes. The source lists remain the authoritative evidence; static indexes are derived and may be rebuilt, never hand-edited.
+Intent aliases are deterministically built into `ai/intent.json` from the reviewed task registry; a separate CI check detects stale manifests. Index shards are deterministically built from \`data/sources.json\`, \`data/repositories.jsonl\`, and \`data/discoveries/*.jsonl\`. The CI suite rejects stale shard contents after corpus changes. The source lists remain the authoritative evidence; static indexes are derived and may be rebuilt, never hand-edited.
 
 ## Performance measurement plan
 
