@@ -1,0 +1,219 @@
+{
+  "schema_version": "0.1.0",
+  "observed_at": "2026-10-13",
+  "status": "manually_curated_from_upstream_readmes_not_runtime_verified",
+  "notes": "Matching an intent is a suggestion supported by upstream documentation, not proof of task success or no-cost operation.",
+  "repositories": {
+    "comfy-org/comfyui": {
+      "repo": "Comfy-Org/ComfyUI",
+      "why": "Workflows visuales para medios generativos, incluidos video e imagen",
+      "readme_url": "https://github.com/Comfy-Org/ComfyUI/blob/main/README.md",
+      "readme_blob_sha": "a6b57ecfe996f8adaf42436afbe753f6f8a5f62c",
+      "observed_at": "2026-10-13",
+      "evidence_type": "upstream_documentation",
+      "cost": "unknown",
+      "tested": false
+    },
+    "ollama/ollama": {
+      "repo": "ollama/ollama",
+      "why": "Ejecuta e integra modelos abiertos mediante una API local",
+      "readme_url": "https://github.com/ollama/ollama/blob/main/README.md",
+      "readme_blob_sha": "800d1fccaeba49d0a4ce65b754da58b799084cbb",
+      "observed_at": "2026-10-13",
+      "evidence_type": "upstream_documentation",
+      "cost": "unknown",
+      "tested": false
+    },
+    "open-webui/open-webui": {
+      "repo": "open-webui/open-webui",
+      "why": "Interfaz de chat para modelos locales o APIs compatibles",
+      "readme_url": "https://github.com/open-webui/open-webui/blob/main/README.md",
+      "readme_blob_sha": "ab0fdd1345cc7b25f4146db15ac8b8047c625f58",
+      "observed_at": "2026-10-13",
+      "evidence_type": "upstream_documentation",
+      "cost": "unknown",
+      "tested": false
+    },
+    "ggml-org/llama.cpp": {
+      "repo": "ggml-org/llama.cpp",
+      "why": "Inferencia local de LLM en diferentes arquitecturas",
+      "readme_url": "https://github.com/ggml-org/llama.cpp/blob/main/README.md",
+      "readme_blob_sha": "a524b3d6a8dafe1b913e8aef2e41b3bed5ae2c02",
+      "observed_at": "2026-10-13",
+      "evidence_type": "upstream_documentation",
+      "cost": "unknown",
+      "tested": false
+    },
+    "n8n-io/n8n": {
+      "repo": "n8n-io/n8n",
+      "why": "Automatización visual y flujos de trabajo con integraciones",
+      "readme_url": "https://github.com/n8n-io/n8n/blob/main/README.md",
+      "readme_blob_sha": "21909fae00cbad4f18af84d2948752445051a915",
+      "observed_at": "2026-10-13",
+      "evidence_type": "upstream_documentation",
+      "cost": "unknown",
+      "tested": false
+    },
+    "langgenius/dify": {
+      "repo": "langgenius/dify",
+      "why": "Construcción de aplicaciones LLM, agentes y flujos RAG",
+      "readme_url": "https://github.com/langgenius/dify/blob/main/README.md",
+      "readme_blob_sha": "e8572f93797ee113302a7c2e29be02ea31153119",
+      "observed_at": "2026-10-13",
+      "evidence_type": "upstream_documentation",
+      "cost": "unknown",
+      "tested": false
+    },
+    "gradio-app/gradio": {
+      "repo": "gradio-app/gradio",
+      "why": "Interfaces web interactivas para funciones y modelos de Python",
+      "readme_url": "https://github.com/gradio-app/gradio/blob/main/README.md",
+      "readme_blob_sha": "0742c33aa8adf835c5161f617befa60ab6692ce3",
+      "observed_at": "2026-10-13",
+      "evidence_type": "upstream_documentation",
+      "cost": "unknown",
+      "tested": false
+    },
+    "vllm-project/vllm": {
+      "repo": "vllm-project/vllm",
+      "why": "Servidor de inferencia para modelos de lenguaje",
+      "readme_url": "https://github.com/vllm-project/vllm/blob/main/README.md",
+      "readme_blob_sha": "ff92fface4421933f1056f53d736c0840eac4728",
+      "observed_at": "2026-10-13",
+      "evidence_type": "upstream_documentation",
+      "cost": "unknown",
+      "tested": false
+    }
+  },
+  "intents": [
+    {
+      "id": "generate-video",
+      "aliases": [
+        "generar videos",
+        "generar video",
+        "crear videos con ia",
+        "crear video con ia",
+        "generacion de videos",
+        "video generativo",
+        "video generation",
+        "generate video",
+        "generate videos",
+        "text to video"
+      ],
+      "repositories": [
+        "Comfy-Org/ComfyUI"
+      ]
+    },
+    {
+      "id": "generate-images",
+      "aliases": [
+        "generar imagenes",
+        "generar imagen",
+        "crear imagenes con ia",
+        "generacion de imagenes",
+        "image generation",
+        "generate images"
+      ],
+      "repositories": [
+        "Comfy-Org/ComfyUI"
+      ]
+    },
+    {
+      "id": "local-llm",
+      "aliases": [
+        "modelo de lenguaje local",
+        "modelos de lenguaje locales",
+        "modelos locales",
+        "modelo local",
+        "llm local",
+        "run local llm",
+        "offline llm",
+        "correr modelos localmente",
+        "ejecutar modelos locales",
+        "local inference"
+      ],
+      "repositories": [
+        "ollama/ollama",
+        "ggml-org/llama.cpp"
+      ]
+    },
+    {
+      "id": "chat-interface",
+      "aliases": [
+        "interfaz para chat",
+        "chat con modelos locales",
+        "chat con ia local",
+        "interfaz de chat",
+        "chat ui",
+        "chat with local llm",
+        "llm chat interface"
+      ],
+      "repositories": [
+        "open-webui/open-webui"
+      ]
+    },
+    {
+      "id": "automate-workflows",
+      "aliases": [
+        "automatizar tareas",
+        "automatizaciones",
+        "automatizar procesos",
+        "flujos de trabajo",
+        "workflow automation",
+        "automate tasks",
+        "ai workflows",
+        "orquestar agentes"
+      ],
+      "repositories": [
+        "n8n-io/n8n"
+      ]
+    },
+    {
+      "id": "ai-apps",
+      "aliases": [
+        "crear aplicaciones de ia",
+        "crear apps con ia",
+        "aplicaciones con llm",
+        "crear agentes de ia",
+        "build ai apps",
+        "llm applications",
+        "rag pipeline",
+        "aplicaciones rag"
+      ],
+      "repositories": [
+        "langgenius/dify",
+        "gradio-app/gradio"
+      ]
+    },
+    {
+      "id": "python-interfaces",
+      "aliases": [
+        "interfaces en python",
+        "interfaz en python",
+        "interfaz con python",
+        "python web ui",
+        "python interface",
+        "demo con python"
+      ],
+      "repositories": [
+        "gradio-app/gradio"
+      ]
+    },
+    {
+      "id": "serve-llm",
+      "aliases": [
+        "servidor de modelos",
+        "servidor para llm",
+        "servir modelos",
+        "servir modelos llm",
+        "llm serving",
+        "model serving",
+        "inference server"
+      ],
+      "repositories": [
+        "vllm-project/vllm",
+        "ggml-org/llama.cpp"
+      ]
+    }
+  ]
+}
