@@ -83,6 +83,17 @@ def classify_record(row: dict, data: dict | None = None) -> dict:
             "matched": [],
             "format_hint": "known_catalog" if row["role"] == "catalog" else "known_project",
         }
+    # A reviewed immutable README statement outranks filename keywords.
+    # It still describes a self-reported subject, not demonstrated behavior.
+    from .topic_evidence import load as reviewed_topics
+    fact = reviewed_topics().get(key)
+    if fact is not None:
+        return {
+            "category": fact["category"],
+            "basis": "readme_topic_evidence",
+            "matched": [fact["summary"]],
+            "format_hint": "unknown",
+        }
     # Avoid interpreting owner names as the subject of a project.
     repo_name = slug.split("/", 1)[-1]
     words = " " + normalize(repo_name) + " "
@@ -154,9 +165,12 @@ def classify(repo: str) -> dict:
     if row is None:
         return {"found": False, "status": "not_in_corpus"}
     result = classify_record(row)
+    from .topic_evidence import load as reviewed_topics, evidence_pointer
+    evidence = reviewed_topics().get(key)
     return {
         "found": True, "r": row["r"], "role": row["role"], "v": row["v"],
         **result,
+        **({"readme_evidence": evidence_pointer(evidence)} if evidence else {}),
         "source_catalogs": sorted({x["s"] for x in (row.get("source") or [])}),
         "notice": "subject_label_not_functional_or_cost_verification",
     }
