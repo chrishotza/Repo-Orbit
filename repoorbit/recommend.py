@@ -60,7 +60,10 @@ def _registry() -> dict:
             raise ValueError("upstream evidence missing blob identifier")
         if fact.get("cost") != "unknown" or fact.get("tested") is not False:
             raise ValueError("intent map must not claim independent cost or execution verification")
-        if fact.get("readme_url") != f"https://github.com/{fact['repo']}/blob/main/README.md":
+        branch = fact.get("readme_branch")
+        if branch not in ("main", "master"):
+            raise ValueError("upstream README branch missing or unsupported")
+        if fact.get("readme_url") != f"https://github.com/{fact['repo']}/blob/{branch}/README.md":
             raise ValueError("untrusted or inconsistent evidence URL")
     return data
 
