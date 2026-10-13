@@ -119,3 +119,12 @@ A feature requires documented inputs/outputs, tests, provenance preservation, fa
 - Added `route_topic` as a bounded EN/ES controlled phrase router with explicit abstention for unsupported/ambiguous phrasing.
 - Added 32 reproducible bilingual phrase contract probes, including unknown and ambiguous cases; not a held-out semantic quality metric.
 - Next gate: complete live GitHub checks and stage report inspection, then define reviewed promotion PR logic and a genuinely independent multilingual human-labeled benchmark.
+
+## v0.11 rotating evidence coverage and freshness
+
+- Replaced the repeating first-page scheduled checks with deterministic UTC-day rotating windows, bounded at 25 metadata checks and 5 README candidates per day. The review workflow remains read-only and never auto-promotes.
+- For a stable queue of 1,161 currently unchecked slugs: 47 identity pages and 233 README review pages. These are theoretical attempted-coverage windows, not confirmed success; actual GitHub API budgets, missed runs and changing inputs remain limitations.
+- Built `evidence_age` agent/MCP lookup for checked numeric IDs: actual observed-on date, UTC age, archived-when-checked and separate README self-description source SHA/date. Unchecked links carry no invented last-checked date.
+- Added 370-byte `ai/evidence-dates.json` for reproducible historical evidence-date counts, distinct from live repository activity.
+- Added synthetic 250,000-slug planner regression; this **does not** represent 250,000 indexed repositories or measured GitHub throughput.
+- Next: durable source partitions, re-observation checkpoints, rights-filtered update PR generation and truly independent accuracy evaluation.
