@@ -1,5 +1,5 @@
 {
-  "version": "0.3.0",
+  "version": "0.4.0",
   "purpose": "AI-first, evidence-aware GitHub discovery with bilingual task routing and minimal context",
   "start": "AGENTS.md",
   "transport": {
@@ -23,6 +23,10 @@
     "static_intent": {
       "manifest": "ai/intent.json",
       "scope": "8 curated EN/ES task intents, upstream documentation only"
+    },
+    "static_status": {
+      "manifest": "ai/status.json",
+      "bytes_approx": 527
     }
   },
   "tools": {
@@ -65,6 +69,7 @@
     "unknown is not verified free; strict_free fails closed",
     "request only necessary results; resolve exact evidence on demand",
     "never infer cost, execution, safety or exhaustive coverage",
-    "no GitHub API or paid service required to answer offline"
+    "no GitHub API or paid service required to answer offline",
+    "read ai/status.json instead of traversing discovery snapshots for counts"
   ]
 }
