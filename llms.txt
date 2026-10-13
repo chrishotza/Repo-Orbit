@@ -16,3 +16,5 @@
 - [Bilingual subject categories](ai/categories/index.json)
 - [Category evidence policy](docs/TAXONOMY.md)
 - [Versioned README subject evidence](docs/README_EVIDENCE.md)
+- [Untrusted README candidate pipeline](docs/REVIEW_PIPELINE.md)
+- [Bilingual routing contract and limits](docs/TOPIC_ROUTING_EVAL.md)
