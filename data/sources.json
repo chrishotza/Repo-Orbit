@@ -1,0 +1,359 @@
+{
+  "schema_version": "0.1.0",
+  "generated_at": "2026-10-12",
+  "description": "Manually selected discovery roots verified to exist on GitHub. Not a parsed or audited catalog.",
+  "sources": [
+    {
+      "id": "github:sindresorhus/awesome",
+      "repository": "sindresorhus/awesome",
+      "url": "https://github.com/sindresorhus/awesome",
+      "type": "meta_index",
+      "topics": [
+        "cross-domain",
+        "awesome"
+      ],
+      "scope": "Directory of topic-specific awesome lists",
+      "source_class": "github_repository",
+      "verification": "repository_exists",
+      "verified_at": "2026-10-12",
+      "reuse_mode": "links_and_metadata_only",
+      "catalog_ingestion_enabled": false
+    },
+    {
+      "id": "github:jnv/lists",
+      "repository": "jnv/lists",
+      "url": "https://github.com/jnv/lists",
+      "type": "meta_index",
+      "topics": [
+        "cross-domain",
+        "lists"
+      ],
+      "scope": "Directory of lists, including nested list directories",
+      "source_class": "github_repository",
+      "verification": "repository_exists",
+      "verified_at": "2026-10-12",
+      "reuse_mode": "links_and_metadata_only",
+      "catalog_ingestion_enabled": false
+    },
+    {
+      "id": "github:awesome-selfhosted/awesome-selfhosted",
+      "repository": "awesome-selfhosted/awesome-selfhosted",
+      "url": "https://github.com/awesome-selfhosted/awesome-selfhosted",
+      "type": "curated_catalog",
+      "topics": [
+        "self-hosted",
+        "software"
+      ],
+      "scope": "Self-hosted software",
+      "source_class": "github_repository",
+      "verification": "repository_exists",
+      "verified_at": "2026-10-12",
+      "reuse_mode": "links_and_metadata_only",
+      "catalog_ingestion_enabled": false
+    },
+    {
+      "id": "github:vinta/awesome-python",
+      "repository": "vinta/awesome-python",
+      "url": "https://github.com/vinta/awesome-python",
+      "type": "curated_catalog",
+      "topics": [
+        "python",
+        "libraries"
+      ],
+      "scope": "Python libraries and resources",
+      "source_class": "github_repository",
+      "verification": "repository_exists",
+      "verified_at": "2026-10-12",
+      "reuse_mode": "links_and_metadata_only",
+      "catalog_ingestion_enabled": false
+    },
+    {
+      "id": "github:public-apis/public-apis",
+      "repository": "public-apis/public-apis",
+      "url": "https://github.com/public-apis/public-apis",
+      "type": "curated_catalog",
+      "topics": [
+        "apis",
+        "developer-tools"
+      ],
+      "scope": "Public API references",
+      "source_class": "github_repository",
+      "verification": "repository_exists",
+      "verified_at": "2026-10-12",
+      "reuse_mode": "links_and_metadata_only",
+      "catalog_ingestion_enabled": false
+    },
+    {
+      "id": "github:punkpeye/awesome-mcp-servers",
+      "repository": "punkpeye/awesome-mcp-servers",
+      "url": "https://github.com/punkpeye/awesome-mcp-servers",
+      "type": "curated_catalog",
+      "topics": [
+        "ai",
+        "mcp"
+      ],
+      "scope": "MCP server discovery",
+      "source_class": "github_repository",
+      "verification": "repository_exists",
+      "verified_at": "2026-10-12",
+      "reuse_mode": "links_and_metadata_only",
+      "catalog_ingestion_enabled": false
+    },
+    {
+      "id": "github:avelino/awesome-go",
+      "repository": "avelino/awesome-go",
+      "url": "https://github.com/avelino/awesome-go",
+      "type": "curated_catalog",
+      "topics": [
+        "go",
+        "libraries"
+      ],
+      "scope": "Go libraries and tools",
+      "source_class": "github_repository",
+      "verification": "repository_exists",
+      "verified_at": "2026-10-12",
+      "reuse_mode": "links_and_metadata_only",
+      "catalog_ingestion_enabled": false
+    },
+    {
+      "id": "github:rust-unofficial/awesome-rust",
+      "repository": "rust-unofficial/awesome-rust",
+      "url": "https://github.com/rust-unofficial/awesome-rust",
+      "type": "curated_catalog",
+      "topics": [
+        "rust",
+        "libraries"
+      ],
+      "scope": "Rust tools and libraries",
+      "source_class": "github_repository",
+      "verification": "repository_exists",
+      "verified_at": "2026-10-12",
+      "reuse_mode": "links_and_metadata_only",
+      "catalog_ingestion_enabled": false
+    },
+    {
+      "id": "github:fffaraz/awesome-cpp",
+      "repository": "fffaraz/awesome-cpp",
+      "url": "https://github.com/fffaraz/awesome-cpp",
+      "type": "curated_catalog",
+      "topics": [
+        "cpp",
+        "libraries"
+      ],
+      "scope": "C and C++ resources",
+      "source_class": "github_repository",
+      "verification": "repository_exists",
+      "verified_at": "2026-10-12",
+      "reuse_mode": "links_and_metadata_only",
+      "catalog_ingestion_enabled": false
+    },
+    {
+      "id": "github:trimstray/the-book-of-secret-knowledge",
+      "repository": "trimstray/the-book-of-secret-knowledge",
+      "url": "https://github.com/trimstray/the-book-of-secret-knowledge",
+      "type": "collection",
+      "topics": [
+        "engineering",
+        "operations"
+      ],
+      "scope": "Technical knowledge and tools",
+      "source_class": "github_repository",
+      "verification": "repository_exists",
+      "verified_at": "2026-10-12",
+      "reuse_mode": "links_and_metadata_only",
+      "catalog_ingestion_enabled": false
+    },
+    {
+      "id": "github:ebookfoundation/free-programming-books",
+      "repository": "EbookFoundation/free-programming-books",
+      "url": "https://github.com/EbookFoundation/free-programming-books",
+      "type": "collection",
+      "topics": [
+        "education",
+        "books"
+      ],
+      "scope": "Programming learning resources",
+      "source_class": "github_repository",
+      "verification": "repository_exists",
+      "verified_at": "2026-10-12",
+      "reuse_mode": "links_and_metadata_only",
+      "catalog_ingestion_enabled": false
+    },
+    {
+      "id": "github:practical-tutorials/project-based-learning",
+      "repository": "practical-tutorials/project-based-learning",
+      "url": "https://github.com/practical-tutorials/project-based-learning",
+      "type": "collection",
+      "topics": [
+        "education",
+        "projects"
+      ],
+      "scope": "Project-based learning resources",
+      "source_class": "github_repository",
+      "verification": "repository_exists",
+      "verified_at": "2026-10-12",
+      "reuse_mode": "links_and_metadata_only",
+      "catalog_ingestion_enabled": false
+    },
+    {
+      "id": "github:ripienaar/free-for-dev",
+      "repository": "ripienaar/free-for-dev",
+      "url": "https://github.com/ripienaar/free-for-dev",
+      "type": "curated_catalog",
+      "topics": [
+        "developer-tools",
+        "pricing"
+      ],
+      "scope": "Services with free developer tiers; individual limits change",
+      "source_class": "github_repository",
+      "verification": "repository_exists",
+      "verified_at": "2026-10-12",
+      "reuse_mode": "links_and_metadata_only",
+      "catalog_ingestion_enabled": false
+    },
+    {
+      "id": "github:docker/awesome-compose",
+      "repository": "docker/awesome-compose",
+      "url": "https://github.com/docker/awesome-compose",
+      "type": "collection",
+      "topics": [
+        "self-hosted",
+        "containers"
+      ],
+      "scope": "Compose example applications",
+      "source_class": "github_repository",
+      "verification": "repository_exists",
+      "verified_at": "2026-10-12",
+      "reuse_mode": "links_and_metadata_only",
+      "catalog_ingestion_enabled": false
+    },
+    {
+      "id": "github:codecrafters-io/build-your-own-x",
+      "repository": "codecrafters-io/build-your-own-x",
+      "url": "https://github.com/codecrafters-io/build-your-own-x",
+      "type": "collection",
+      "topics": [
+        "education",
+        "projects"
+      ],
+      "scope": "Build-it-yourself project tutorials",
+      "source_class": "github_repository",
+      "verification": "repository_exists",
+      "verified_at": "2026-10-12",
+      "reuse_mode": "links_and_metadata_only",
+      "catalog_ingestion_enabled": false
+    },
+    {
+      "id": "github:thealgorithms/python",
+      "repository": "TheAlgorithms/Python",
+      "url": "https://github.com/TheAlgorithms/Python",
+      "type": "collection",
+      "topics": [
+        "python",
+        "education"
+      ],
+      "scope": "Algorithms implemented in Python",
+      "source_class": "github_repository",
+      "verification": "repository_exists",
+      "verified_at": "2026-10-12",
+      "reuse_mode": "links_and_metadata_only",
+      "catalog_ingestion_enabled": false
+    },
+    {
+      "id": "github:jaywcjlove/awesome-mac",
+      "repository": "jaywcjlove/awesome-mac",
+      "url": "https://github.com/jaywcjlove/awesome-mac",
+      "type": "curated_catalog",
+      "topics": [
+        "macos",
+        "software"
+      ],
+      "scope": "macOS software discovery",
+      "source_class": "github_repository",
+      "verification": "repository_exists",
+      "verified_at": "2026-10-12",
+      "reuse_mode": "links_and_metadata_only",
+      "catalog_ingestion_enabled": false
+    },
+    {
+      "id": "github:microsoft/ai-for-beginners",
+      "repository": "microsoft/AI-For-Beginners",
+      "url": "https://github.com/microsoft/AI-For-Beginners",
+      "type": "collection",
+      "topics": [
+        "ai",
+        "education"
+      ],
+      "scope": "Introductory AI learning resources",
+      "source_class": "github_repository",
+      "verification": "repository_exists",
+      "verified_at": "2026-10-12",
+      "reuse_mode": "links_and_metadata_only",
+      "catalog_ingestion_enabled": false
+    },
+    {
+      "id": "github:mlabonne/llm-course",
+      "repository": "mlabonne/llm-course",
+      "url": "https://github.com/mlabonne/llm-course",
+      "type": "collection",
+      "topics": [
+        "ai",
+        "education"
+      ],
+      "scope": "LLM learning roadmap",
+      "source_class": "github_repository",
+      "verification": "repository_exists",
+      "verified_at": "2026-10-12",
+      "reuse_mode": "links_and_metadata_only",
+      "catalog_ingestion_enabled": false
+    },
+    {
+      "id": "github:sindresorhus/awesome-nodejs",
+      "repository": "sindresorhus/awesome-nodejs",
+      "url": "https://github.com/sindresorhus/awesome-nodejs",
+      "type": "curated_catalog",
+      "topics": [
+        "nodejs",
+        "libraries"
+      ],
+      "scope": "Node.js packages and resources",
+      "source_class": "github_repository",
+      "verification": "repository_exists",
+      "verified_at": "2026-10-12",
+      "reuse_mode": "links_and_metadata_only",
+      "catalog_ingestion_enabled": false
+    },
+    {
+      "id": "github:awesome-foss/awesome-sysadmin",
+      "repository": "awesome-foss/awesome-sysadmin",
+      "url": "https://github.com/awesome-foss/awesome-sysadmin",
+      "type": "curated_catalog",
+      "topics": [
+        "sysadmin",
+        "self-hosted"
+      ],
+      "scope": "Systems administration software",
+      "source_class": "github_repository",
+      "verification": "repository_exists",
+      "verified_at": "2026-10-12",
+      "reuse_mode": "links_and_metadata_only",
+      "catalog_ingestion_enabled": false
+    },
+    {
+      "id": "github:papers-we-love/papers-we-love",
+      "repository": "papers-we-love/papers-we-love",
+      "url": "https://github.com/papers-we-love/papers-we-love",
+      "type": "collection",
+      "topics": [
+        "research",
+        "papers"
+      ],
+      "scope": "Computer science paper collections",
+      "source_class": "github_repository",
+      "verification": "repository_exists",
+      "verified_at": "2026-10-12",
+      "reuse_mode": "links_and_metadata_only",
+      "catalog_ingestion_enabled": false
+    }
+  ]
+}
