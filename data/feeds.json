@@ -21,6 +21,46 @@
       "reviewed_at": "2026-10-13",
       "enabled": true,
       "baseline": "data/discoveries/awesome-nodejs-2026-10-13.jsonl"
+    },
+    {
+      "id": "github:sindresorhus/awesome-npm",
+      "repository": "sindresorhus/awesome-npm",
+      "readme_path": "readme.md",
+      "license_path": "license",
+      "license": "CC0-1.0",
+      "reviewed_at": "2026-10-13",
+      "enabled": true,
+      "baseline": "data/discoveries/awesome-npm-2026-10-13.jsonl"
+    },
+    {
+      "id": "github:sindresorhus/awesome-electron",
+      "repository": "sindresorhus/awesome-electron",
+      "readme_path": "readme.md",
+      "license_path": "license",
+      "license": "CC0-1.0",
+      "reviewed_at": "2026-10-13",
+      "enabled": true,
+      "baseline": "data/discoveries/awesome-electron-2026-10-13.jsonl"
+    },
+    {
+      "id": "github:sindresorhus/awesome-observables",
+      "repository": "sindresorhus/awesome-observables",
+      "readme_path": "readme.md",
+      "license_path": "license",
+      "license": "CC0-1.0",
+      "reviewed_at": "2026-10-13",
+      "enabled": true,
+      "baseline": "data/discoveries/awesome-observables-2026-10-13.jsonl"
+    },
+    {
+      "id": "github:sindresorhus/awesome-tap",
+      "repository": "sindresorhus/awesome-tap",
+      "readme_path": "readme.md",
+      "license_path": "license",
+      "license": "CC0-1.0",
+      "reviewed_at": "2026-10-13",
+      "enabled": true,
+      "baseline": "data/discoveries/awesome-tap-2026-10-13.jsonl"
     }
   ]
 }
