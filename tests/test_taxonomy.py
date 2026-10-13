@@ -11,7 +11,7 @@ class TaxonomyTests(unittest.TestCase):
     def test_registry_is_bilingual_and_editorial_seeds_are_bounded(self):
         rules = taxonomy.registry()
         self.assertEqual(len(rules["categories"]), 14)
-        self.assertEqual(len(rules["seed_subjects"]), 34))
+        self.assertEqual(len(rules["seed_subjects"]), 34)
         self.assertTrue(all(c["en"] and c["es"] for c in rules["categories"]))
 
     def test_every_known_repository_is_counted_exactly_once(self):
