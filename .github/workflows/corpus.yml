@@ -26,5 +26,9 @@ jobs:
         run: python scripts/corpus.py validate
       - name: Offline corpus statistics
         run: python scripts/corpus.py stats
+      - name: Discovery edge validation
+        run: python scripts/discoveries.py validate
+      - name: Discovery edge counts
+        run: python scripts/discoveries.py stats
       - name: Unit tests
         run: python -m unittest discover -s tests -v
