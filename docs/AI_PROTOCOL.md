@@ -5,7 +5,7 @@
 1. **AGENTS.md** (short instructions, no corpus).
 2. **agent.json** (machine contract and entrypoints).
 3. Invoke the four MCP tools as needed. Only request additional evidence for a specific result.
-4. If no executable tools exist, fetch **ai/index.json** and the *one* matching \`ai/terms/{letter}.json\` static shard. Do not read the 672-reference JSONL just to search by a word.
+4. If no executable tools exist, fetch **ai/index.json** and the *one* matching \`ai/terms/{letter}.json\` static shard. Do not read the discovery JSONL snapshots just to search by a word.
 
 No step assumes a chat assistant can read a local terminal. An MCP host handles process startup. A web-only AI can navigate the static JSON files without human commands or authentication.
 
@@ -96,3 +96,7 @@ Verification performed: all 26 published static shards were checked against a fr
 ## Future evolution
 
 Semantic aliases, curated capability evidence and incremental catalog ingestion can be added as **additional evidence-bearing layers**, never silently to the lexical field. Any hosted HTTP/MCP endpoint would require deployment and security review; **no hosted endpoint is claimed in v0.2**.
+
+## Multi-source index growth
+
+The search corpus now contains 1,215 unique GitHub slugs drawn from 1,199 discovery edges plus 30 individually checked catalog/project seeds. The 26 lexical shards were rebuilt from both CC0 snapshots. A separate rights-gated scheduled workflow stages upstream changes but does not publish unreviewed data to search or silently mark references as functional software. The 299,786-byte comparison above is **historical measurement of the first 672-link snapshot**, not the combined two-source corpus size.
