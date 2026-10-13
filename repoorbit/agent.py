@@ -233,7 +233,7 @@ def call(tool: str, args: dict | None = None) -> dict:
         from .taxonomy import classify
         return classify(**args)
     if tool == "browse":
-        if set(args) - {"category", "limit", "offset", "verified_only"}:
+        if set(args) - {"category", "limit", "offset", "verified_only", "source"}:
             raise ValueError("unrecognized browse arguments")
         from .taxonomy import browse
         return browse(**args)
