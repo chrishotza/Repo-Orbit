@@ -20,22 +20,27 @@ ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = ROOT / "data" / "verified_targets.jsonl"
 
 
-def approved_targets() -> set[str]:
-    """Exactly the slugs referred to in approved source snapshots."""
-    result: set[str] = set()
+def approved_provenance() -> dict[str, set[str]]:
+    """Preserve which approved CC0 sources cited each target."""
+    result: dict[str, set[str]] = {}
     for path in approved_discoveries():
         for line in path.read_text(encoding="utf-8").splitlines():
             if line.strip():
                 edge = json.loads(line)
-                result.add(canonical_slug(edge["target_full_name"]))
+                result.setdefault(canonical_slug(edge["target_full_name"]), set()).add(edge["source_id"])
     return result
+
+
+def approved_targets() -> set[str]:
+    return set(approved_provenance())
 
 
 @lru_cache(maxsize=1)
 def load() -> tuple[dict[int, dict[str, Any]], dict[str, int]]:
     """Reject collisions, missing evidence or fabricated stronger claims."""
     seeded_ids, seeded_aliases = load_seed_ids()
-    allowed = approved_targets()
+    provenance = approved_provenance()
+    allowed = set(provenance)
     by_id: dict[int, dict[str, Any]] = {}
     by_slug: dict[str, int] = {}
     last_id = 0
@@ -76,9 +81,9 @@ def load() -> tuple[dict[int, dict[str, Any]], dict[str, int]]:
         date.fromisoformat(observed)
         cited = row.get("discovered_via")
         if not isinstance(cited, list) or not cited or not all(
-            isinstance(s, str) and s.startswith("github:") for s in cited
-        ):
-            raise ValueError("verified target requires catalog provenance")
+            isinstance(s, str) and s in provenance[original] for s in cited
+        ) or len(cited) != len(set(cited)):
+            raise ValueError("verified target requires exact approved catalog provenance")
         by_id[ident] = row
     return by_id, by_slug
 
