@@ -4,14 +4,14 @@
 
 RepoOrbit is an open, evidence-first index for discovering GitHub projects and the catalogs that reference them. It aims to make finding useful software simple without confusing popularity with quality or source availability with free operation.
 
-> **Project status: corpus and agent tooling v0.6.** RepoOrbit includes two approved discovery feeds, four local MCP tools, compact machine indexes and reviewable bot proposals. It is not a full GitHub index, hosted search engine, or independently verified software installer.
+> **Project status: corpus and agent tooling v0.7.** RepoOrbit includes two approved discovery feeds, four local MCP tools, compact machine indexes and reviewable bot proposals. It is not a full GitHub index, hosted search engine, or independently verified software installer.
 
 
 ## AI-first access (the primary interface)
 
 **Agents: read [AGENTS.md](AGENTS.md) (short) or [agent.json](agent.json) (machine-readable). Do not ingest this README, discovery JSONL snapshots, or upstream catalogs into context just to answer a query.**
 
-Three token-efficient access modes are shipped. Additionally, **30 individually checked GitHub numeric IDs** are available for exact lookup, regardless of changes to a repository's name:
+Three token-efficient access modes are shipped. Additionally, **54 individually checked GitHub numeric IDs** are available for exact lookup, regardless of changes to a repository's name:
 
 | Mode | Entry point | What is returned |
 |---|---|---|
@@ -27,9 +27,9 @@ Three token-efficient access modes are shipped. Additionally, **30 individually 
 
 \`search({"q":"python","limit":3})\` gives only up to 3 terse records rather than loading the underlying corpus. \`resolve({"repo":"Comfy-Org/ComfyUI"})\` returns an exact project record with provenance, uncertainty and existence date. Lexical search **is not semantic understanding** and does not verify execution, pricing, or source-code safety.
 
-The bilingual matcher currently supports **8 curated task intents**, not general semantic understanding. Unknown requests return no invented matches and can fall back to lexical search. The most recent audited static index represented **1,215 unique GitHub paths across all roles** (2026-10-13). For the active, dynamically approved total, consult [ai/status.json](ai/status.json), with 26 independently addressable alphabetic shards. It is a partial corpus, not a crawl of GitHub. It includes unverified references: a linked URL must not be promoted to a tested project.
+The bilingual matcher currently supports **8 curated task intents**, not general semantic understanding. Unknown requests return no invented matches and can fall back to lexical search. The static lexical index still contains **1,215 unique GitHub paths across all roles** (2026-10-13). For the active, dynamically approved total, consult [ai/status.json](ai/status.json), with 26 independently addressable alphabetic shards. It is a partial corpus, not a crawl of GitHub. Only 24 discovered references have had their GitHub numeric identity checked; 1,161 reference-only paths remain unchecked. A verified ID proves neither software functionality nor free operation.
 
-See [stable GitHub identity rules](docs/IDENTITIES.md) and [AI protocol specification](docs/AI_PROTOCOL.md), [current corpus status](ai/status.json), and [static shard format](ai/index.json).
+See [checked reference evidence](docs/TARGET_VERIFICATION.md), [stable GitHub identity rules](docs/IDENTITIES.md) and [AI protocol specification](docs/AI_PROTOCOL.md), [current corpus status](ai/status.json), and [static shard format](ai/index.json).
 
 ## What makes it different
 
@@ -59,6 +59,8 @@ repoorbit/
   build_index.py             Reproducible static index generator
   identity.py                Stable ID lookup and rename/transfer analysis
   identity_watch.py          Read-only GitHub drift monitor
+  verified.py                Checked discovery evidence registry
+  check_targets.py           Bounded, resumable staged GitHub checks
 data/
   sources.json               Verified catalog and discovery-source registry
   repositories.jsonl         Small, traceable starting set of project references
