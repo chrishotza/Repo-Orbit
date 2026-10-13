@@ -1,6 +1,6 @@
 """Rights-gated, incremental discovery refresh. Stages artifacts; never auto-pushes.
 
-A GitHub Actions job can invoke this tool. It only contacts two explicitly
+A GitHub Actions job can invoke this tool. It only contacts explicitly
 allowlisted CC0 sources, verifies each Git blob SHA and current CC0 license,
 calculates deltas against its pinned approved baseline, and writes a staged report. Standard lib only.
 """
