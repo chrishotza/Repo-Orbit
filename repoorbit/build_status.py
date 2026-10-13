@@ -13,6 +13,7 @@ from .verified import status as checked_reference_status
 from .snapshots import approved_discoveries
 from .taxonomy import categories as taxonomy_categories
 from .topic_evidence import stats as reviewed_topic_stats
+from .build_owner_index import build as build_owner_index
 
 DEST = ROOT / "ai" / "status.json"
 SOURCES = ROOT / "data" / "sources.json"
@@ -36,6 +37,7 @@ def build() -> dict:
             by_target[edge["target_id"]].add(edge["source_id"])
             observed_dates.append(edge["observed_at"])
     records = _load()
+    owner_router = build_owner_index()["index.json"]
     taxonomy = taxonomy_categories()
     unclassified = next(x["n"] for x in taxonomy["categories"] if x["id"] == "unclassified")
     return {
@@ -43,6 +45,8 @@ def build() -> dict:
         "as_of": max(observed_dates),
         "scope": "partial_repository_reference_index",
         "unique_slugs": len(records),
+        "owner_buckets": len(owner_router["groups"]),
+        "owner_pages": sum(x[2] for x in owner_router["groups"]),
         "taxonomy_domains": len(taxonomy["categories"]) - 1,
         "subject_labeled": len(records) - unclassified,
         "subject_unclassified": unclassified,
