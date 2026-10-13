@@ -14,7 +14,7 @@ from pathlib import Path
 import re
 import sys
 
-from . import agent, build_index, build_status, refresh, snapshots
+from . import agent, build_index, build_owner_index, build_status, incremental_delta, refresh, snapshots
 
 SLUG = re.compile(r"^github:[a-z0-9_.-]+/[a-z0-9_.-]+$")
 SHA = re.compile(r"^[0-9a-f]{40}$")
@@ -76,7 +76,7 @@ def plan_promotions(feeds: list[dict], staged: Path) -> list[dict]:
         report = json.loads(report_file.read_text(encoding="utf-8"))
     except (OSError, ValueError) as exc:
         raise PromotionError("missing or invalid refresh report") from exc
-    if report.get("status") != "staged_unreviewed_no_auto_commit" or report.get("schema_version") != "0.1.0":
+    if report.get("status") != "staged_unreviewed_no_auto_commit" or report.get("schema_version") != "0.2.0":
         raise PromotionError("unexpected staged refresh schema/status")
     reported = report.get("results")
     if not isinstance(reported, list) or len(reported) != len(feeds):
@@ -85,6 +85,7 @@ def plan_promotions(feeds: list[dict], staged: Path) -> list[dict]:
     if len(by_id) != len(feeds):
         raise PromotionError("duplicate or missing source reports")
     changes = []
+    proposed = []
     for feed in feeds:
         result = by_id.get(feed["id"])
         if result is None:
@@ -100,6 +101,7 @@ def plan_promotions(feeds: list[dict], staged: Path) -> list[dict]:
         if result.get("source_license") != "CC0-1.0" or result.get("baseline") != feed["baseline"]:
             raise PromotionError("unexpected source license or pinned baseline")
         rows = _parse_rows(staged / expected_name, feed, sha)
+        proposed.append((feed, rows, {"source_id": feed["id"]}))
         old = refresh._baseline_ids(feed)
         new = {e["target_id"] for e in rows}
         added, removed, unchanged = len(new - old), len(old - new), len(new & old)
@@ -125,6 +127,21 @@ def plan_promotions(feeds: list[dict], staged: Path) -> list[dict]:
             "source_id": feed["id"], "path": new_path, "rows": rows,
             "added": added, "removed": removed, "previous": feed["baseline"],
         })
+    try:
+        staged_global = json.loads((staged / "global-delta.json").read_text(encoding="utf-8"))
+    except (ValueError, OSError) as exc:
+        raise PromotionError("missing or invalid global source delta") from exc
+    expected_global = incremental_delta.compare(proposed)
+    if staged_global != expected_global:
+        raise PromotionError("global source delta differs from independently reconstructed source evidence")
+    expected_summary = {
+        "report": "global-delta.json",
+        "counts": expected_global["counts"],
+        "baseline_unique_paths": expected_global["baseline_unique_paths"],
+        "proposed_unique_paths": expected_global["proposed_unique_paths"],
+    }
+    if report.get("global_delta") != expected_summary:
+        raise PromotionError("global source delta summary mismatch")
     return changes
 
 
@@ -146,6 +163,7 @@ def apply(changes: list[dict]) -> dict:
     # The agent model caches the old registry for this process; clear before generating.
     agent._load.cache_clear()
     build_index.main(["--write"])
+    build_owner_index.main(["--write"])
     build_status.main(["--write"])
     return {
         "status": "prepared_for_review",
