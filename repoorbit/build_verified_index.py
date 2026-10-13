@@ -20,7 +20,7 @@ def build() -> dict:
         "n": len(rows),
         "r": [
             [row["github_id"], row["requested_slug"],
-             row["canonical_slug"] if row["canonical_slug"].casefold() != row["requested_slug"].casefold() else "",
+             row["canonical_slug"] if row["canonical_slug"] != row["requested_slug"] else "",
              1 if row["archived"] else 0]
             for row in rows
         ],
