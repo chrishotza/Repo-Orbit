@@ -22,7 +22,7 @@ concurrency:
 
 jobs:
   stage:
-    name: Check two CC0 feeds and stage source-aware deltas
+    name: Check six reviewed CC0 feeds and stage source-aware deltas
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
