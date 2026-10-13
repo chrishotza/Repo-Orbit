@@ -1,0 +1,124 @@
+{
+  "v": 1,
+  "scope": "curated_bilingual_topic_aliases",
+  "notice": "Phrase navigation only; not semantic language understanding or functional project validation.",
+  "aliases": {
+    "ai-ml": [
+      "inteligencia artificial",
+      "aprendizaje automatico",
+      "machine learning",
+      "language models",
+      "modelos de lenguaje",
+      "modelos generativos",
+      "agentes de ia"
+    ],
+    "developer-tools": [
+      "herramientas de desarrollo",
+      "programacion",
+      "coding libraries",
+      "development libraries",
+      "compiladores",
+      "compilers",
+      "sdk"
+    ],
+    "web-apps": [
+      "desarrollo web",
+      "aplicaciones web",
+      "sitios web",
+      "web frameworks",
+      "frontend development",
+      "web applications"
+    ],
+    "data-storage": [
+      "bases de datos",
+      "almacenamiento de datos",
+      "database management",
+      "data storage",
+      "data pipelines",
+      "gestion de datos"
+    ],
+    "security": [
+      "ciberseguridad",
+      "seguridad informatica",
+      "security tools",
+      "penetration testing",
+      "proteccion de datos",
+      "computer security"
+    ],
+    "cloud-devops": [
+      "infraestructura cloud",
+      "cloud infrastructure",
+      "devops",
+      "contenedores",
+      "kubernetes",
+      "server administration",
+      "administracion de servidores"
+    ],
+    "automation": [
+      "automatizacion de tareas",
+      "flujos de trabajo",
+      "task automation",
+      "workflow automation",
+      "job scheduling",
+      "orquestacion"
+    ],
+    "education": [
+      "aprender programacion",
+      "tutoriales",
+      "programming tutorials",
+      "learning resources",
+      "cursos",
+      "courses",
+      "educacion"
+    ],
+    "creative-media": [
+      "creacion de video",
+      "edicion de audio",
+      "image editing",
+      "generacion de imagenes",
+      "video production",
+      "animacion",
+      "multimedia"
+    ],
+    "science": [
+      "investigacion cientifica",
+      "scientific research",
+      "computacion cientifica",
+      "bioinformatica",
+      "research papers",
+      "ciencia"
+    ],
+    "mobile-desktop": [
+      "aplicaciones moviles",
+      "mobile applications",
+      "android",
+      "ios development",
+      "desktop apps",
+      "escritorio"
+    ],
+    "blockchain": [
+      "blockchain",
+      "criptomonedas",
+      "smart contracts",
+      "contratos inteligentes",
+      "ethereum",
+      "web3"
+    ],
+    "games": [
+      "desarrollo de videojuegos",
+      "game development",
+      "videojuegos",
+      "game engines",
+      "simulaciones",
+      "game programming"
+    ],
+    "iot-hardware": [
+      "electronica",
+      "hardware",
+      "internet de las cosas",
+      "embedded systems",
+      "robotica",
+      "microcontroladores"
+    ]
+  }
+}

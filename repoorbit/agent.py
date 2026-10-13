@@ -222,6 +222,11 @@ def call(tool: str, args: dict | None = None) -> dict:
             raise ValueError("unrecognized recommendation arguments")
         from .recommend import recommend
         return recommend(**args)
+    if tool == "route_topic":
+        if set(args) != {"q"}:
+            raise ValueError("route_topic requires q")
+        from .route_topic import route_topic
+        return route_topic(**args)
     if tool == "categories":
         if args:
             raise ValueError("categories takes no arguments")

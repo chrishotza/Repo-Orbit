@@ -58,7 +58,7 @@ class TaxonomyTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             taxonomy.browse("ai-ml", source=123)
     def test_no_topic_evidence_must_abstain(self):
-        example = taxonomy.classify("bestiejs/benchmark.js")
+        example = taxonomy.classify("0xnr/awesome-bigdata")
         self.assertTrue(example["found"])
         self.assertEqual(example["category"], "unclassified")
         self.assertEqual(example["basis"], "no_subject_evidence")

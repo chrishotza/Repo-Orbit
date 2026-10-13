@@ -1,4 +1,4 @@
-# RepoOrbit classification protocol — v0.9
+# RepoOrbit classification protocol — v0.10
 
 RepoOrbit uses **14 topical domains in English and Spanish**, plus a fifteenth `unclassified` bucket. The labels are designed by us for **AI navigation**, not borrowed as proof of upstream capabilities.
 
@@ -12,7 +12,7 @@ RepoOrbit uses **14 topical domains in English and Spanish**, plus a fifteenth `
 | Ambiguous name | `a` | Equally specific terms indicate different domains; abstain rather than guess |
 | Unknown topic | `u` | No matching subject evidence; leave unclassified |
 
-**Audited classification snapshot, 2026-10-13:** 1,215 paths; 30 editorial subjects; 178 lexical hints; 13 ambiguous; 994 without matching words. At v0.9, 12 previously unclassified projects gained reviewed README-backed subjects: **220 assigned subjects and 995 unclassified**. These are *subject assignments*, not 208 working tools.
+**Audited classification snapshot, 2026-10-13:** 1,215 paths; 30 editorial subjects; 178 lexical hints; 13 ambiguous; 994 without matching words. At v0.10, 23 previously unclassified projects have reviewed README-backed subjects: **231 assigned subjects and 984 unclassified**. The earlier 30 editorial and 178 lexical labels are unchanged. These are *subject assignments*, not 208 working tools.
 
 ## Independent dimensions
 
@@ -43,8 +43,12 @@ Static shard row: `[repository_slug, role(c/p/r), exists(0/1), basis(e/d/h/a/u)]
 - All 1,215 known repository paths are represented exactly once across subject shards.
 - CI regenerates all 16 derived JSON files and rejects stale or mismatched copies.
 
-**README evidence layer shipped:** 12 checked projects now have short upstream subject descriptions pinned to exact Git blob SHA and line. The separate read-only audit validates those historical blobs; see [README_EVIDENCE.md](README_EVIDENCE.md). Next: held-out English/Spanish topical relevance benchmarks and reviewed evidence for more projects.
+**README evidence layer shipped:** 23 checked projects now have short upstream subject descriptions pinned to exact Git blob SHA and line. The separate read-only audit validates those historical blobs; see [README_EVIDENCE.md](README_EVIDENCE.md). Next: held-out English/Spanish topical relevance benchmarks and reviewed evidence for more projects.
 
 ## Source-context facet
 
-An agent can request `classify({"repo":"axios/axios"})` and see `source_catalogs` containing the approved Awesome Node.js catalog even when `category=unclassified`. This is an **evidenced catalog membership**, not proof of Node.js compatibility or technical function. To combine provenance with subjects, use `browse({"category":"unclassified","source":"github:sindresorhus/awesome-nodejs","limit":5})`. Only source IDs in the current rights-reviewed feed registry are accepted.
+An agent can request `classify({"repo":"axios/axios"})` and see `category=developer-tools` and an exact reviewed README pointer while keeping its Awesome Node.js catalog origin. This is an **evidenced catalog membership**, not proof of Node.js compatibility or technical function. To combine provenance with subjects, use `browse({"category":"unclassified","source":"github:sindresorhus/awesome-nodejs","limit":5})`. Only source IDs in the current rights-reviewed feed registry are accepted.
+
+## v0.10 language entry and untrusted review staging
+
+`route_topic({"q":"quiero animación"})` maps known EN/ES topic phrases to a controlled subject ID. It abstains if nothing matches or equally specific phrases point to multiple subjects. Its 32 curated probes are **alias contract regressions**, not held-out semantic accuracy. Read [TOPIC_ROUTING_EVAL.md](TOPIC_ROUTING_EVAL.md). The new `stage-readmes.yml` uses read-only GitHub metadata and README API endpoints to stage at most five compact excerpts at a time. The excerpts are untrusted suggestions with blob hashes; no automatic category, execution or cost labels. See [REVIEW_PIPELINE.md](REVIEW_PIPELINE.md).

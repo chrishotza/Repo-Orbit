@@ -23,15 +23,16 @@ Most repository lists tell you **where a link points**. RepoOrbit also tracks **
 
 | Indexed paths | GitHub IDs checked | Topical domains | Subjects assigned | Subjects unknown |
 |:---:|:---:|:---:|:---:|:---:|
-| **1,215** | **54** | **14** | **220** | **995** |
+| **1,215** | **54** | **14** | **231** | **984** |
 
-<sub>Snapshot: 2026-10-13. Of the 220 subject labels, 30 are editorial, 12 are supported by versioned README self-descriptions, and 178 remain lower-confidence filename hints. Counts are not claims of running/free software. The current machine-readable values are in [ai/status.json](ai/status.json).</sub>
+<sub>Snapshot: 2026-10-13. Of the 231 subject labels, 30 are editorial, 23 are supported by versioned README self-descriptions, and 178 remain lower-confidence filename hints. Counts are not claims of running/free software. The current machine-readable values are in [ai/status.json](ai/status.json).</sub>
 
 ## ⚡ Built for agents, not long prompts
 
 | Agent wants to… | Compact interface |
 |---|---|
 | Find an app by a documented EN/ES task | `recommend({"q":"generar videos con IA", "limit":3})` |
+| Route a subject request in Spanish or English | `route_topic({"q":"necesito ciberseguridad"})` |
 | List available subject areas | `categories({})` |
 | Browse a domain | `browse({"category":"ai-ml","limit":5})` |
 | Ask why a repository has a subject label | `classify({"repo":"Comfy-Org/ComfyUI"})` |
@@ -53,7 +54,8 @@ Most repository lists tell you **where a link points**. RepoOrbit also tracks **
 | [`ai/identities.json`](ai/identities.json) | 30 verified seed numeric IDs |
 | [`ai/verified-targets.json`](ai/verified-targets.json) | 24 additional checked reference IDs |
 | [`ai/status.json`](ai/status.json) | Tiny, reproducible coverage summary |
-| [`data/topic_evidence.jsonl`](data/topic_evidence.jsonl) | 12 original short subject statements, SHA and line pointers |
+| [`ai/topic-route-eval.json`](ai/topic-route-eval.json) | 32 explicit EN/ES routing regression cases, *not* semantic accuracy |
+| [`data/topic_evidence.jsonl`](data/topic_evidence.jsonl) | 23 original short subject statements, SHA and line pointers |
 
 
 <details>
@@ -70,12 +72,12 @@ RepoOrbit uses an original controlled vocabulary with 14 domains, such as **AI/M
 | Evidence tier | Source of label | Interpretation |
 |---|---|---|
 | **Editorial** (`e`) | 30 individually checked seed repositories | An editorial subject, not proof of functionality |
-| **README-backed** (`d`) | 12 versioned upstream README lines | Auditable self-description, not an execution test |
+| **README-backed** (`d`) | 23 versioned upstream README lines | Auditable self-description, not an execution test |
 | **Lexical hint** (`h`) | Whole words in a discovered repository's name | A suggestion, never a verified capability |
 | **Ambiguous** (`a`) | Competing equally specific keywords | Remains unclassified |
 | **Unknown** (`u`) | No defensible topical clue | Remains unclassified |
 
-**We prefer abstaining over hallucinating.** The 12 README-backed labels link to exact historical Git blobs and line numbers, not just names. [See audited evidence](docs/README_EVIDENCE.md). A GitHub link existing is not a benchmark, installation test, safety audit, license clearance or proof of free operation. [Read the classification methodology](docs/TAXONOMY.md).
+**We prefer abstaining over hallucinating.** A new read-only review queue stages source-anchored candidate excerpts and treats upstream README instructions as untrusted data. The 23 README-backed labels link to exact historical Git blobs and line numbers, not just names. [See audited evidence](docs/README_EVIDENCE.md). A GitHub link existing is not a benchmark, installation test, safety audit, license clearance or proof of free operation. [Read the classification methodology](docs/TAXONOMY.md).
 
 ## 🔎 Traceable from discovery to agent result
 
