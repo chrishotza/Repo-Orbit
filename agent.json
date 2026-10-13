@@ -1,5 +1,5 @@
 {
-  "version": "0.5.0",
+  "version": "0.6.0",
   "purpose": "AI-first, evidence-aware GitHub discovery with bilingual task routing and minimal context",
   "start": "AGENTS.md",
   "transport": {
@@ -27,6 +27,10 @@
     "static_status": {
       "manifest": "ai/status.json",
       "bytes_approx": 527
+    },
+    "static_identity": {
+      "manifest": "ai/identities.json",
+      "scope": "30 individually GitHub-verified seed repository IDs"
     }
   },
   "tools": {
@@ -50,7 +54,7 @@
     },
     "resolve": {
       "input": {
-        "repo": "owner/name"
+        "repo": "owner/name | https://github.com/owner/name | id:<positive_integer>"
       },
       "output": "exact record and provenance"
     },
@@ -70,12 +74,15 @@
     "request only necessary results; resolve exact evidence on demand",
     "never infer cost, execution, safety or exhaustive coverage",
     "no GitHub API or paid service required to answer offline",
-    "read ai/status.json instead of traversing discovery snapshots for counts"
+    "read ai/status.json instead of traversing discovery snapshots for counts",
+    "only a matching numeric GitHub ID proves continuity across rename or transfer"
   ],
   "provenance": {
     "approved_snapshot_registry": "data/feeds.json",
     "refresh_policy": "read_only_daily_monitoring",
     "promotion": "guarded_weekly_draft_pr_only",
-    "history": "previous snapshots remain committed but are not indexed twice"
+    "history": "previous snapshots remain committed but are not indexed twice",
+    "identity_registry": "data/identities.jsonl",
+    "identity_watch": "weekly_read_only_artifact_no_auto_promotion"
   }
 }
