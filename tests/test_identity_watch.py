@@ -15,10 +15,10 @@ class IdentityWatchTests(unittest.TestCase):
             row = identity.lookup(slug)
             return {"github_id": row["github_id"], "canonical_slug": row["canonical_slug"]}
         result = identity_watch.observe(fake_fetch, delay=0)
-        self.assertEqual(result["registered"], 30)
-        self.assertEqual(result["resolved"], 30)
+        self.assertEqual(result["registered"], 34)
+        self.assertEqual(result["resolved"], 34)
         self.assertEqual(result["unresolved"], [])
-        self.assertEqual(result["drift"]["unchanged"], 30)
+        self.assertEqual(result["drift"]["unchanged"], 34)
         self.assertEqual(result["drift"]["missing_ids"], [])
 
     def test_rename_detected_only_with_unchanged_numeric_id(self):
@@ -49,7 +49,7 @@ class IdentityWatchTests(unittest.TestCase):
                 return None
             return {"github_id": row["github_id"], "canonical_slug": row["canonical_slug"]}
         result = identity_watch.observe(fake_fetch)
-        self.assertEqual(result["resolved"], 29)
+        self.assertEqual(result["resolved"], 33)
         self.assertEqual(len(result["unresolved"]), 1)
         self.assertEqual(result["drift"]["not_checked_this_run"], 1)
 
@@ -64,7 +64,7 @@ class IdentityWatchTests(unittest.TestCase):
         output = io.StringIO()
         with patch("sys.stdout", output):
             self.assertEqual(identity_watch.main(["--check"]), 0)
-        self.assertEqual(json.loads(output.getvalue())["verified_seed_ids"], 30)
+        self.assertEqual(json.loads(output.getvalue())["verified_seed_ids"], 34)
 
     def test_sampled_watch_does_not_claim_non_sampled_repositories_are_gone(self):
         invoked = []
@@ -74,7 +74,7 @@ class IdentityWatchTests(unittest.TestCase):
             return {"github_id": row["github_id"], "canonical_slug": row["canonical_slug"]}
         result = identity_watch.observe(fake_fetch, delay=0, limit=3)
         self.assertEqual(len(invoked), 3)
-        self.assertEqual(result["registered"], 30)
+        self.assertEqual(result["registered"], 34)
         self.assertEqual(result["resolved"], 3)
         self.assertEqual(result["drift"]["not_checked_this_run"], 27)
         self.assertIs(result["sampled"], True)
