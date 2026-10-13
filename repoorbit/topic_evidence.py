@@ -77,13 +77,19 @@ def load() -> dict[str, dict]:
 
 def evidence_pointer(row: dict) -> dict:
     """Compact immutable, self-contained pointer to the reviewed README line."""
+    from .verified import load as verified_load
+    upstream = verified_load()[0][row["github_id"]]
     return {
         "sha": row["readme_blob_sha"],
         "line": row["line"],
         "path": row["readme_path"],
-        "url": (
+        "blob_api": (
+            "https://api.github.com/repos/" + row["repo"]
+            + "/git/blobs/" + row["readme_blob_sha"]
+        ),
+        "readme_url": (
             "https://github.com/" + row["repo"] + "/blob/"
-            + row["readme_blob_sha"] + "/" + row["readme_path"]
+            + upstream["default_branch"] + "/" + row["readme_path"]
             + "#L" + str(row["line"])
         ),
         "observed": row["observed_on"],
