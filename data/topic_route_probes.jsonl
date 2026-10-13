@@ -23,7 +23,7 @@
 {"id":"chain-es","lang":"es","q":"Estoy aprendiendo contratos inteligentes","expected":"blockchain","scope":"curated_phrase_contract_regression"}
 {"id":"chain-en","lang":"en","q":"Look for smart contracts and tools","expected":"blockchain","scope":"curated_phrase_contract_regression"}
 {"id":"game-es","lang":"es","q":"Me gustaría explorar desarrollo de videojuegos","expected":"games","scope":"curated_phrase_contract_regression"}
-{"id":"game-en","lang":"en","q":"Help me find game development libraries","expected":"games","scope":"curated_phrase_contract_regression"}
+{"id":"game-en","lang":"en","q":"Please show resources about game programming","expected":"games","scope":"curated_phrase_contract_regression"}
 {"id":"iot-es","lang":"es","q":"Busco recursos de electrónica","expected":"iot-hardware","scope":"curated_phrase_contract_regression"}
 {"id":"iot-en","lang":"en","q":"What embedded systems examples exist?","expected":"iot-hardware","scope":"curated_phrase_contract_regression"}
 {"id":"unknown-es","lang":"es","q":"¿Qué herramientas raras hay para pasar el rato?","expected":null,"scope":"curated_phrase_contract_regression"}
