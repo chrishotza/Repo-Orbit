@@ -11,3 +11,5 @@ Never infer zero-cost operation, security, availability or full GitHub coverage.
 Daily licensed-feed monitoring remains read-only. A separate weekly automation may create **draft PRs only**, using immutable historical snapshots, approval pointers, index regeneration and strict churn limits; no automatic merge. Read `ai/status.json` for the current approved count rather than reusing an older hardcoded count. Never equate discovery references with verified working tools.
 
 When only corpus size or verification status is needed, fetch `ai/status.json` (about 527 bytes) instead of a large registry. Its counts are derived from the authoritative snapshots and checked in CI.
+
+For exact seed resolution, prefer stable numeric IDs when known: `resolve({"repo":"id:589831718"})`. The 30 checked numeric IDs are indexed in `ai/identities.json`; the remaining catalog references have no ID verification. A rename is only recognized by an unchanged GitHub numeric ID. Identity monitoring is read-only and never automatically promotes a reference.
