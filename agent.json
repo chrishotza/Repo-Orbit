@@ -1,6 +1,6 @@
 {
-  "version": "0.7.0",
-  "purpose": "AI-first, evidence-aware GitHub discovery with bilingual task routing and minimal context",
+  "version": "0.8.0",
+  "purpose": "Bilingual AI-first GitHub repository atlas: lexical discovery, explicit subject hints and source-verifiable metadata with minimal context",
   "start": "AGENTS.md",
   "transport": {
     "mcp_stdio": {
@@ -35,6 +35,11 @@
     "static_verified_targets": {
       "manifest": "ai/verified-targets.json",
       "scope": "24 independently checked catalog references, only repository-existence claims"
+    },
+    "static_taxonomy": {
+      "manifest": "ai/categories/index.json",
+      "route": "ai/categories/{category_id}.json",
+      "scope": "14 domains + explicit unclassified, all 1215 paths, no functional promises"
     }
   },
   "tools": {
@@ -65,6 +70,28 @@
     "stats": {
       "input": {},
       "output": "counts only"
+    },
+    "categories": {
+      "input": {},
+      "output": "{v,categories:[{id,en,es,n}],total,policy}",
+      "semantics": "bilingual subject directory, counts exact"
+    },
+    "classify": {
+      "input": {
+        "repo": "owner/name or GitHub URL"
+      },
+      "output": "{found,r,role,v,category,basis,matched,format_hint,notice}",
+      "semantics": "editorial seed label, lexical hint or unclassified"
+    },
+    "browse": {
+      "input": {
+        "category": "taxonomy id",
+        "limit": "1..20 default 5",
+        "offset": "0..10000",
+        "verified_only": "boolean default false"
+      },
+      "output": "{category,n,offset,items,more,notice}",
+      "semantics": "bounded subject navigation; verified_only means existence, never working software"
     }
   },
   "record_flags": {
@@ -80,7 +107,9 @@
     "no GitHub API or paid service required to answer offline",
     "read ai/status.json instead of traversing discovery snapshots for counts",
     "only a matching numeric GitHub ID proves continuity across rename or transfer",
-    "a checked catalog reference keeps its original role and provenance; checked numeric ID is not functional validation"
+    "a checked catalog reference keeps its original role and provenance; checked numeric ID is not functional validation",
+    "use categories and browse for topical exploration; unclassified is an honest valid result",
+    "editorial_seed_subject differs from slug_keyword_hint; subject labels are never capability tests"
   ],
   "provenance": {
     "approved_snapshot_registry": "data/feeds.json",
@@ -90,6 +119,7 @@
     "identity_registry": "data/identities.jsonl",
     "identity_watch": "weekly_read_only_artifact_no_auto_promotion",
     "reference_id_registry": "data/verified_targets.jsonl",
-    "reference_check": "weekly_read_only_staging_max_12_per_run"
+    "reference_check": "weekly_read_only_staging_max_12_per_run",
+    "subject_taxonomy": "data/taxonomy.json"
   }
 }
