@@ -26,7 +26,7 @@
     },
     "static_status": {
       "manifest": "ai/status.json",
-      "bytes_approx": 527
+      "bytes_approx": 925
     },
     "static_identity": {
       "manifest": "ai/identities.json",
