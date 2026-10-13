@@ -32,6 +32,10 @@ jobs:
         run: python scripts/discoveries.py stats
       - name: Verify allowed licensed feeds and snapshot baselines
         run: python -m repoorbit.refresh --check
+      - name: Verify GitHub numeric identity registry offline
+        run: python -m repoorbit.identity_watch --check
+      - name: Verify compact numeric identity index reproducibility
+        run: python -m repoorbit.build_identity_index
       - name: Verify machine-readable corpus status
         run: python -m repoorbit.build_status
       - name: Verify AI term index reproducibility
@@ -40,7 +44,7 @@ jobs:
         run: python -m repoorbit.build_intent_index
       - name: MCP stdio smoke test
         run: |
-          printf '%s\n' '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{}}' '{"jsonrpc":"2.0","id":2,"method":"tools/list"}' '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"search","arguments":{"q":"mcp","limit":2}}}' '{"jsonrpc":"2.0","id":4,"method":"tools/call","params":{"name":"recommend","arguments":{"q":"generar videos gratis","limit":1}}}' | python -m repoorbit.mcp > /tmp/repoorbit-mcp.jsonl
-          python -c 'import json; r=[json.loads(x) for x in open("/tmp/repoorbit-mcp.jsonl")]; assert len(r)==4 and len(r[2]["result"]["content"])==1 and json.loads(r[3]["result"]["content"][0]["text"])["warning"]=="cost_not_verified"'
+          printf '%s\n' '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{}}' '{"jsonrpc":"2.0","id":2,"method":"tools/list"}' '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"search","arguments":{"q":"mcp","limit":2}}}' '{"jsonrpc":"2.0","id":4,"method":"tools/call","params":{"name":"recommend","arguments":{"q":"generar videos gratis","limit":1}}}' '{"jsonrpc":"2.0","id":5,"method":"tools/call","params":{"name":"resolve","arguments":{"repo":"id:589831718"}}}' | python -m repoorbit.mcp > /tmp/repoorbit-mcp.jsonl
+          python -c 'import json; r=[json.loads(x) for x in open("/tmp/repoorbit-mcp.jsonl")]; assert len(r)==5 and len(r[2]["result"]["content"])==1 and json.loads(r[3]["result"]["content"][0]["text"])["warning"]=="cost_not_verified" and json.loads(r[4]["result"]["content"][0]["text"])["github_id"]==589831718'
       - name: Unit tests
         run: python -m unittest discover -s tests -v
