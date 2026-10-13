@@ -29,7 +29,7 @@ TOOLS = [
     },
     {
         "name": "resolve",
-        "description": "Exact repository lookup with source evidence and explicit validation status.",
+        "description": "Exact repository lookup by slug, GitHub URL, or verified numeric ID (id:589831718); includes evidence without function/cost claims.",
         "inputSchema": {
             "type": "object", "required": ["repo"], "additionalProperties": False,
             "properties": {"repo": {"type": "string", "minLength": 3, "maxLength": 240}},
