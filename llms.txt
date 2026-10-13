@@ -4,6 +4,7 @@
 
 - [Agent contract](agent.json)
 - [Quick agent instructions](AGENTS.md)
+- [Compact corpus statistics](ai/status.json)
 - [Bilingual task-to-project map](ai/intent.json)
 - [Compact lexical index](ai/index.json)
 - [Evidence and MCP protocol](docs/AI_PROTOCOL.md)
