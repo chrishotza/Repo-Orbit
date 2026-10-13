@@ -88,7 +88,8 @@
         "category": "taxonomy id",
         "limit": "1..20 default 5",
         "offset": "0..10000",
-        "verified_only": "boolean default false"
+        "verified_only": "boolean default false",
+        "source": "approved CC0 source ID optional, e.g. github:sindresorhus/awesome-nodejs"
       },
       "output": "{category,n,offset,items,more,notice}",
       "semantics": "bounded subject navigation; verified_only means existence, never working software"
@@ -109,7 +110,8 @@
     "only a matching numeric GitHub ID proves continuity across rename or transfer",
     "a checked catalog reference keeps its original role and provenance; checked numeric ID is not functional validation",
     "use categories and browse for topical exploration; unclassified is an honest valid result",
-    "editorial_seed_subject differs from slug_keyword_hint; subject labels are never capability tests"
+    "editorial_seed_subject differs from slug_keyword_hint; subject labels are never capability tests",
+    "source catalog membership is directly traceable context, not a proven topical capability"
   ],
   "provenance": {
     "approved_snapshot_registry": "data/feeds.json",
