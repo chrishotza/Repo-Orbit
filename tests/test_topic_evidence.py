@@ -11,8 +11,8 @@ from repoorbit.refresh import _blob_sha
 class TopicEvidenceTests(unittest.TestCase):
     def test_twelve_reviewed_readmes_link_to_previously_checked_ids(self):
         data = topic_evidence.load()
-        self.assertEqual(len(data), 12)
-        self.assertEqual(len({x["github_id"] for x in data.values()}), 12)
+        self.assertEqual(len(data), 23)
+        self.assertEqual(len({x["github_id"] for x in data.values()}), 23)
         self.assertTrue(all(len(x["readme_blob_sha"]) == 40 for x in data.values()))
         self.assertTrue(all(x["execution_test"] == "not_run" and x["cost"] == "unknown"
                             for x in data.values()))
@@ -43,8 +43,8 @@ class TopicEvidenceTests(unittest.TestCase):
         self.assertIn("HTTP", info["summary"])
 
     def test_unknown_reference_still_abstains(self):
-        item = taxonomy.classify("bestiejs/benchmark.js")
-        self.assertEqual(item["category"], "unclassified")
+        item = taxonomy.classify("0pandadev/awesome-windows")
+        self.assertEqual(item["basis"], "slug_keyword_hint")
         self.assertNotIn("readme_evidence", item)
 
     def test_preexisting_editorial_seed_has_precedence(self):
@@ -57,12 +57,12 @@ class TopicEvidenceTests(unittest.TestCase):
         reviewed = [(bucket, r) for bucket, content in docs.items()
                     if bucket != "index.json"
                     for r in content["r"] if r[3] == "d"]
-        self.assertEqual(len(reviewed), 12)
+        self.assertEqual(len(reviewed), 23)
         for slug, fact in topic_evidence.load().items():
             self.assertIn((fact["category"] + ".json",
                            next(row for row in docs[fact["category"] + ".json"]["r"]
                                 if row[0].casefold() == slug)), reviewed)
-        self.assertEqual(len(docs["unclassified.json"]["r"]), 995)
+        self.assertEqual(len(docs["unclassified.json"]["r"]), 984)
         self.assertEqual(sum(len(v["r"]) for k,v in docs.items() if k != "index.json"), 1215)
 
     def test_readme_labels_have_no_faked_security_or_cost(self):
