@@ -68,3 +68,5 @@ A feature requires documented inputs/outputs, tests, provenance preservation, fa
 - Added a read-only scheduled GitHub Actions workflow that emits artifacts. It does **not** auto-push unreviewed data.
 - Added offline regression cases for deduplication, license rejection, empty-source rejection and delta arithmetic.
 - Next gate: obtain/inspect real green CI, perform an actual scheduled/dispatch refresh and review deltas; then build a safe promotion PR mechanism with numeric GitHub-ID reconciliation.
+
+**Baseline limitation:** current daily monitoring compares against the approved pinned snapshot, not the previous workflow run. Add persistent timestamped reviewed state or auto-generated promotion pull requests before calling it a true last-run incremental feed.
