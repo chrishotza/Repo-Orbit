@@ -21,10 +21,18 @@ Goal: **the simplest trustworthy interface for discovering useful repositories**
 - \`repoorbit.build_index\` supports deterministic regeneration and CI staleness checking.
 - Automated Python tests cover MCP shape, provenance, bounded output, and generated index integrity. Remote CI success has not yet been independently confirmed.
 
+### v0.3 bilingual routing shipped
+
+- Reviewed eight upstream README snapshots, recorded exact Git blob fingerprints and default branches.
+- Added eight conservative task intents in Spanish and English with no model/API dependency.
+- Added the bounded `recommend` MCP tool and a 1.9 KB remote-readable `ai/intent.json` manifest.
+- Added regression tests for supported task matching, missing intents, false-free assertions and strict-free abstention.
+- Added deterministic intent-manifest CI verification. **Remote CI outcome remains unconfirmed** until we can inspect an actual workflow result.
+
 ### Next acceptance gate
 
 1. Observe green GitHub Actions results on both configured Python versions, repairing any failures.
-2. Benchmark more than one natural-language request, including Spanish, zero-result and synonyms, with relevance evaluation rather than token/byte savings alone.
+2. Build a held-out multilingual task evaluation set (not copied from the curated aliases), measure precision/recall and explicit abstention, and fix high-impact gaps before scaling.
 3. Introduce evidence-based capabilities; only then add query-expansion or semantic retrieval without falsely implying support.
 4. Make upstream discovery incremental and rights-aware, with stable GitHub numeric IDs and cached rate-limited refresh.
 5. Keep the machine manifest compact, stable and versioned as the corpus grows.
