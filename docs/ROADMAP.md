@@ -19,7 +19,7 @@ Goal: **the simplest trustworthy interface for discovering useful repositories**
 - \`repoorbit.mcp\` exposes those functions as local MCP stdio tools; **not** a hosted MCP endpoint.
 - \`ai/index.json\` and \`ai/terms/[a-z].json\` are 26 self-contained remote-readable lexical shards, generated from the 1,215 unique paths currently known across all roles.
 - \`repoorbit.build_index\` supports deterministic regeneration and CI staleness checking.
-- Automated Python tests cover MCP shape, provenance, bounded output, and generated index integrity. Remote CI success has not yet been independently confirmed.
+- Automated Python tests cover MCP shape, provenance, bounded output, and generated index integrity. Both workflows were officially observed passing on 2026-10-13, after fixing pytest packaging/imports.
 
 ### v0.3 bilingual routing shipped
 
@@ -27,7 +27,7 @@ Goal: **the simplest trustworthy interface for discovering useful repositories**
 - Added eight conservative task intents in Spanish and English with no model/API dependency.
 - Added the bounded `recommend` MCP tool and a 1.9 KB remote-readable `ai/intent.json` manifest.
 - Added regression tests for supported task matching, missing intents, false-free assertions and strict-free abstention.
-- Added deterministic intent-manifest CI verification. **Remote CI outcome remains unconfirmed** until we can inspect an actual workflow result.
+- Added deterministic intent-manifest CI verification. **Remote CI was observed passing** on 2026-10-13; future bot PR runs must be checked separately.
 
 ### Next acceptance gate
 
@@ -70,3 +70,12 @@ A feature requires documented inputs/outputs, tests, provenance preservation, fa
 - Next gate: obtain/inspect real green CI, perform an actual scheduled/dispatch refresh and review deltas; then build a safe promotion PR mechanism with numeric GitHub-ID reconciliation.
 
 **Baseline limitation:** current daily monitoring compares against the approved pinned snapshot, not the previous workflow run. Add persistent timestamped reviewed state or auto-generated promotion pull requests before calling it a true last-run incremental feed.
+
+## v0.5 approved-snapshot history and draft proposal automation
+
+- Fixed the failing Python application CI by declaring a package build and installing it before pytest; the official Python 3.10 and corpus Python 3.10/3.12 runs are green.
+- Added `repoorbit.snapshots` as the sole approved-snapshot pointer reader. Historical snapshots remain in Git, but are no longer indexed as current duplicate records.
+- Added `repoorbit.promote` with staged-report consistency checks, immutable versioned snapshots, churn limits, and automatic index regeneration.
+- Added a weekly, draft-only GitHub Actions bot PR workflow. It never merges automatically and refuses to supersede a pending proposal.
+- Added adversarial offline promotion tests. Future promotion CI is verified independently, but automated PR creation has **not yet been observed** in a scheduled run.
+- Current approved counts are machine-readable in `ai/status.json`; fixed numbers in this document describe earlier audit snapshots only.
