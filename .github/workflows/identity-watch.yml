@@ -5,6 +5,13 @@ on:
     # Weekly at 05:09 UTC, independent of corpus PR proposals.
     - cron: '9 5 * * 3'
   workflow_dispatch:
+  pull_request:
+    paths:
+      - 'repoorbit/identity.py'
+      - 'repoorbit/identity_watch.py'
+      - 'data/identities.jsonl'
+      - 'ai/identities.json'
+      - '.github/workflows/identity-watch.yml'
 
 permissions:
   contents: read
@@ -30,7 +37,12 @@ jobs:
       - name: Recheck approved seed slugs and compare GitHub IDs
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: python -m repoorbit.identity_watch --delay 0.4
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
+            python -m repoorbit.identity_watch --limit 3 --delay 0.1
+          else
+            python -m repoorbit.identity_watch --delay 0.4
+          fi
       - name: Upload evidence without changing the approved corpus
         uses: actions/upload-artifact@v4
         with:
