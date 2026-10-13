@@ -1,0 +1,17 @@
+# Generated metadata is derived and should not be confused with verified seed input
+data/snapshots/
+# Local secrets and settings
+.env
+.env.*
+!.env.example
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+# Editor / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
