@@ -158,3 +158,7 @@ On 2026-10-13, the 22 catalog and 8 project seed repositories were independently
 ## v0.9 documentary topical claims
 
 `data/topic_evidence.jsonl` contains 12 manual reviews of self-descriptions in exact upstream README Git blobs. Each row has a checked GitHub numeric ID, a controlled category, the README path, 40-hex Git blob SHA, exact line and a short text anchor, plus `cost=unknown` and `execution_test=not_run`. The category renderer gives this `basis=readme_topic_evidence`, different from a lexical filename guess. A read-only scheduled audit re-fetches original Git blobs, validates the hash and line anchor, and publishes evidence artifacts. This is documentary provenance, **not** runtime, security, legal, pricing or maintenance verification. [Details](README_EVIDENCE.md).
+
+## v0.10 documentary evidence growth and read-only staging
+
+README review evidence increased from 12 to **23** individually pinned upstream Git blobs. Source-only staged candidates may be collected in batches of at most 5 through the GitHub API; they include original source-catalog identifiers, stable target IDs, SHA, short excerpts and observation dates. They do **not** update `data/topic_evidence.jsonl` or mark projects as functional/free. The machine corpus remains 1,215 canonical slugs. Consult `ai/status.json` for the current topical counts. See [REVIEW_PIPELINE.md](REVIEW_PIPELINE.md).
