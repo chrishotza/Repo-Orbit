@@ -222,6 +222,11 @@ def call(tool: str, args: dict | None = None) -> dict:
             raise ValueError("unrecognized recommendation arguments")
         from .recommend import recommend
         return recommend(**args)
+    if tool == "owner_repos":
+        if set(args) - {"owner", "limit", "offset", "verified_only"}:
+            raise ValueError("unrecognized owner_repos arguments")
+        from .owner_lookup import owner_repos
+        return owner_repos(**args)
     if tool == "evidence_age":
         if set(args) != {"repo"}:
             raise ValueError("evidence_age requires repo")

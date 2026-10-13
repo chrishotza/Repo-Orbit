@@ -108,3 +108,7 @@ The existing `resolve` MCP tool also accepts `id:<positive_integer>`, such as `i
 ## v0.7 checked catalog references
 
 The separate `ai/verified-targets.json` file contains 24 checked discovery references and is deliberately distinct from 30 seed ID entries in `ai/identities.json`. `resolve({"repo":"id:23088740"})` retrieves a previously unchecked catalog reference that now has independent GitHub-ID evidence; it keeps its `role=reference` and its original source pointers. `v=exists` means existence metadata only, not an executable or free result. The 26 lexical shards contain updated existence flags with no increase in repository count. See [TARGET_VERIFICATION.md](TARGET_VERIFICATION.md).
+
+## v0.12 owner-route precision and global source deduplication
+
+`owner_repos({"owner":"sindresorhus","limit":5})` lists only approved paths for that owner, not everything live on GitHub. Remote-only clients use `ai/owners/index.json` (622 bytes), then `ai/owners/{initial}/index.json` and select a bounded page by first/last slug ranges. Current corpus: 29 buckets, 35 pages, each <=64 paths and <=16 KiB. Cross-feed duplicates retain each source/hash/line in a staged global delta. See [INCREMENTAL_SCALE.md](INCREMENTAL_SCALE.md).

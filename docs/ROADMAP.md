@@ -128,3 +128,11 @@ A feature requires documented inputs/outputs, tests, provenance preservation, fa
 - Added 370-byte `ai/evidence-dates.json` for reproducible historical evidence-date counts, distinct from live repository activity.
 - Added synthetic 250,000-slug planner regression; this **does not** represent 250,000 indexed repositories or measured GitHub throughput.
 - Next: durable source partitions, re-observation checkpoints, rights-filtered update PR generation and truly independent accuracy evaluation.
+
+## v0.12 global source deltas and owner-sharded AI routing
+
+- Deduplicate new paths across every rights-reviewed source while preserving each source blob SHA, line and membership changes. Source removals do not mean deleted repos. Global differences are staged and independently checked before draft proposals.
+- Deterministic `ai/owners/` routing: 622-byte root, 29 owner groups and 35 bounded leaf pages for the 1,215 approved paths. All 54 checked numeric identities stay distinct from unchecked catalog references.
+- Bounded `owner_repos` MCP tool and reproducibility checks. The 40,000-slug owner-index stress test is SYNTHETIC, not additional corpus coverage.
+- Future bot feed proposals regenerate owner shards, lexical shards and status together before review; no automatic approval or merge.
+- Next: add more independently rights-reviewed catalogs, durable discovery checkpoints, numeric alias resolution and held-out EN/ES retrieval benchmarks.

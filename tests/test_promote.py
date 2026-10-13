@@ -6,14 +6,15 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from repoorbit import promote, refresh
+from repoorbit import incremental_delta, promote, refresh
 
 
 def prepare_fixture(root: Path, *, mutate: str = "none") -> Path:
     feeds = refresh.load_feeds()
     staged = root / "staged"
     staged.mkdir()
-    report = {"schema_version": "0.1.0", "status": "staged_unreviewed_no_auto_commit", "results": []}
+    report = {"schema_version": "0.2.0", "status": "staged_unreviewed_no_auto_commit", "results": []}
+    planned = []
     for i, feed in enumerate(feeds):
         rows = [json.loads(x) for x in (refresh.ROOT / feed["baseline"]).read_text().splitlines()]
         old = {x["target_id"] for x in rows}
@@ -29,6 +30,7 @@ def prepare_fixture(root: Path, *, mutate: str = "none") -> Path:
         path = feed["repository"].replace("/", "-").casefold() + ".jsonl"
         (staged / path).write_text("".join(json.dumps(e) + "\n" for e in rows))
         ids = {e["target_id"] for e in rows}
+        planned.append((feed, rows, {"source_id": feed["id"]}))
         report["results"].append({
             "source_id": feed["id"],
             "source_license": "CC0-1.0",
@@ -41,6 +43,14 @@ def prepare_fixture(root: Path, *, mutate: str = "none") -> Path:
             "removed": len(old - ids),
             "unchanged": len(ids & old),
         })
+    global_report = incremental_delta.compare(planned)
+    (staged / "global-delta.json").write_text(incremental_delta.encode(global_report))
+    report["global_delta"] = {
+        "report": "global-delta.json",
+        "counts": global_report["counts"],
+        "baseline_unique_paths": global_report["baseline_unique_paths"],
+        "proposed_unique_paths": global_report["proposed_unique_paths"],
+    }
     (staged / "report.json").write_text(json.dumps(report))
     return staged
 
@@ -60,6 +70,28 @@ class PromotionTests(unittest.TestCase):
             self.assertEqual(changes[0]["removed"], 0)
             self.assertIn("sindresorhus-awesome-", changes[0]["path"])
             self.assertNotIn("/staged/", changes[0]["path"])
+
+    def test_global_source_delta_tampering_blocks_promotion(self):
+        with tempfile.TemporaryDirectory() as folder:
+            stage = prepare_fixture(Path(folder), mutate="added")
+            global_path = stage / "global-delta.json"
+            doc = json.loads(global_path.read_text())
+            doc["counts"]["new_unverified_paths"] += 99
+            global_path.write_text(json.dumps(doc))
+            with self.assertRaisesRegex(promote.PromotionError,
+                                        "global source delta differs"):
+                promote.plan_promotions(refresh.load_feeds(), stage)
+
+    def test_global_summary_tampering_blocks_promotion(self):
+        with tempfile.TemporaryDirectory() as folder:
+            stage = prepare_fixture(Path(folder), mutate="added")
+            report_path = stage / "report.json"
+            doc = json.loads(report_path.read_text())
+            doc["global_delta"]["proposed_unique_paths"] += 1
+            report_path.write_text(json.dumps(doc))
+            with self.assertRaisesRegex(promote.PromotionError,
+                                        "global source delta summary mismatch"):
+                promote.plan_promotions(refresh.load_feeds(), stage)
 
     def test_rejects_bulk_removal(self):
         with tempfile.TemporaryDirectory() as folder:
