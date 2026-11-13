@@ -74,6 +74,26 @@ class AgentTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             agent.call("search", {"q": "mcp", "hidden": True})
 
+    def test_empty_nonobject_arguments_are_rejected_not_coerced(self):
+        for invalid in ([], "", 0, False):
+            with self.subTest(invalid=invalid):
+                with self.assertRaisesRegex(ValueError, "arguments must be an object"):
+                    agent.call("stats", invalid)
+                response = mcp.dispatch({
+                    "jsonrpc": "2.0", "id": 7, "method": "tools/call",
+                    "params": {"name": "stats", "arguments": invalid},
+                })
+                self.assertTrue(response["result"]["isError"])
+
+    def test_nonobject_jsonrpc_params_are_rejected(self):
+        for invalid in ([], "", 0, False):
+            with self.subTest(invalid=invalid):
+                result = mcp.dispatch({
+                    "jsonrpc": "2.0", "id": 8, "method": "tools/list",
+                    "params": invalid,
+                })
+                self.assertEqual(result["error"]["code"], -32602)
+
     def test_mcp_initialize_and_list(self):
         initialize = mcp.dispatch({"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {}})
         self.assertEqual(initialize["result"]["serverInfo"]["name"], "repoorbit")
