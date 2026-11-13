@@ -6,6 +6,7 @@ A fork has a different ID, even when its name/content resembles another repo.
 """
 from __future__ import annotations
 
+from datetime import date
 from functools import lru_cache
 import json
 from pathlib import Path
@@ -58,6 +59,11 @@ def load() -> tuple[dict[int, dict[str, Any]], dict[str, int]]:
         observed = row.get("observed_on")
         if not isinstance(observed, str) or not DATE.fullmatch(observed):
             raise ValueError(f"identity line {line_no}: invalid observation date")
+        try:
+            if date.fromisoformat(observed).isoformat() != observed:
+                raise ValueError("noncanonical observation date")
+        except ValueError:
+            raise ValueError(f"identity line {line_no}: invalid observation date") from None
         for field in ("slug", "canonical_slug"):
             key = canonical_slug(row.get(field))
             if key in aliases and aliases[key] != ident:
@@ -117,6 +123,8 @@ def reconcile(observations: list[dict]) -> dict:
         if not isinstance(row, dict) or type(row.get("github_id")) is not int:
             raise ValueError("malformed identity observation")
         ident = row["github_id"]
+        if not 1 <= ident <= 999_999_999_999_999:
+            raise ValueError("invalid observed numeric GitHub ID")
         slug = row.get("canonical_slug")
         name = canonical_slug(slug)
         if ident in seen_ids:
