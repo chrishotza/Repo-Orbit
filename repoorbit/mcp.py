@@ -118,6 +118,13 @@ def dispatch(message: dict) -> dict | None:
     if "id" not in message:
         return None
     req_id = message["id"]
+    # JSON-RPC request IDs are string, number or null, never containers,
+    # booleans, NaN or infinities. Reject invalid IDs without echoing them.
+    from math import isfinite
+    if (type(req_id) not in (str, int, float, type(None))
+            or (type(req_id) is float and not isfinite(req_id))):
+        return {"jsonrpc": "2.0", "id": None,
+                "error": {"code": -32600, "message": "Invalid Request"}}
     method = message.get("method")
     params = message.get("params")
     if params is None:
