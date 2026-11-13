@@ -61,6 +61,36 @@ class StableIdentityTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     identity.lookup(invalid)
 
+    def test_reconcile_rejects_impossible_or_non_numeric_github_ids(self):
+        for bad in (0, -1, 10**16, True, False, 1.5, "42"):
+            with self.subTest(github_id=repr(bad)):
+                with self.assertRaisesRegex(ValueError, "identity observation|numeric GitHub ID"):
+                    identity.reconcile([{
+                        "github_id": bad, "canonical_slug": "synthetic/repository"
+                    }])
+
+    def test_identity_registry_rejects_invalid_calendar_dates(self):
+        from pathlib import Path
+        from tempfile import TemporaryDirectory
+        from unittest.mock import patch
+
+        original = identity.REGISTRY.read_text(encoding="utf-8").splitlines()
+        for bad_date in ("2026-02-31", "2026-13-01", "2026-00-01",
+                         "2025-02-29", "2026-11-31"):
+            with self.subTest(observed_on=bad_date), TemporaryDirectory() as folder:
+                mutated = json.loads(original[0])
+                mutated["observed_on"] = bad_date
+                fake = Path(folder) / "identities.jsonl"
+                fake.write_text(json.dumps(mutated) + "\n" + "\n".join(original[1:]) + "\n",
+                                encoding="utf-8")
+                try:
+                    with patch.object(identity, "REGISTRY", fake):
+                        identity.load.cache_clear()
+                        with self.assertRaisesRegex(ValueError, "invalid observation date"):
+                            identity.load()
+                finally:
+                    identity.load.cache_clear()
+
     def test_id_remains_same_when_name_changes(self):
         info = identity.reconcile([{
             "github_id": 589831718,
