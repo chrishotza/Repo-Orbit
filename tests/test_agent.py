@@ -94,6 +94,24 @@ class AgentTests(unittest.TestCase):
                 })
                 self.assertEqual(result["error"]["code"], -32602)
 
+    def test_mcp_rejects_invalid_jsonrpc_request_ids(self):
+        for invalid_id in ([], {}, True, False, float("nan"), float("inf"), -float("inf")):
+            with self.subTest(id=repr(invalid_id)):
+                result = mcp.dispatch({
+                    "jsonrpc": "2.0", "id": invalid_id,
+                    "method": "tools/list",
+                })
+                self.assertIsNone(result["id"])
+                self.assertEqual(result["error"]["code"], -32600)
+        for valid_id in ("client-a", 7, 3.5, None):
+            with self.subTest(valid_id=valid_id):
+                result = mcp.dispatch({
+                    "jsonrpc": "2.0", "id": valid_id,
+                    "method": "tools/list",
+                })
+                self.assertEqual(result["id"], valid_id)
+                self.assertIn("result", result)
+
     def test_mcp_initialize_and_list(self):
         initialize = mcp.dispatch({"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {}})
         self.assertEqual(initialize["result"]["serverInfo"]["name"], "repoorbit")
