@@ -206,7 +206,8 @@ def stats() -> dict:
 
 def call(tool: str, args: dict | None = None) -> dict:
     """Pure function entry point for other agent integrations."""
-    args = args or {}
+    if args is None:
+        args = {}
     if not isinstance(args, dict):
         raise ValueError("arguments must be an object")
     if tool == "search":
