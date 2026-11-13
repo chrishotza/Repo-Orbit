@@ -119,7 +119,9 @@ def dispatch(message: dict) -> dict | None:
         return None
     req_id = message["id"]
     method = message.get("method")
-    params = message.get("params") or {}
+    params = message.get("params")
+    if params is None:
+        params = {}
     if not isinstance(params, dict):
         return {"jsonrpc": "2.0", "id": req_id, "error": {"code": -32602, "message": "Invalid params"}}
     if method == "initialize":
@@ -138,7 +140,9 @@ def dispatch(message: dict) -> dict | None:
         return {"jsonrpc": "2.0", "id": req_id, "result": {"tools": TOOLS}}
     if method == "tools/call":
         name = params.get("name")
-        arguments = params.get("arguments") or {}
+        arguments = params.get("arguments")
+        if arguments is None:
+            arguments = {}
         try:
             result = call(name, arguments)
             return {
