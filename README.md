@@ -126,6 +126,13 @@ An MCP-compatible agent host can use this entry in its own configuration (the ho
 
 Agent-only readers with no process execution can start at [`agent.json`](agent.json), then fetch [`ai/categories/index.json`](ai/categories/index.json) and **only their chosen category shard**. No terminal tutorial or full-corpus prompt is necessary.
 
+The local MCP stdio transport accepts one UTF-8 JSON-RPC object per line. Input
+lines exceeding **64 KiB** are rejected and drained without terminating the
+server; the next request can still run. Duplicate JSON object keys and the
+non-standard `NaN`/`Infinity` constants are rejected. Error responses do not
+echo malformed request values. These are transport-safety checks, not claims
+that external repository metadata or third-party projects are safe.
+
 ---
 
 <div align="center">
