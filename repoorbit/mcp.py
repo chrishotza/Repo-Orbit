@@ -164,16 +164,58 @@ def dispatch(message: dict) -> dict | None:
     return {"jsonrpc": "2.0", "id": req_id, "error": {"code": -32601, "message": "Method not found"}}
 
 
+MAX_RPC_LINE_BYTES = 64 * 1024
+
+
+def _reject_json_constant(value: str) -> None:
+    # json.loads accepts NaN and Infinity by default; neither is valid JSON.
+    raise ValueError("non-standard JSON constant")
+
+
+def _unique_json_object(pairs: list[tuple[str, object]]) -> dict:
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError("duplicate JSON object key")
+        result[key] = value
+    return result
+
+
+def _bounded_requests(stream):
+    """Discard oversize messages in bounded chunks, then resume at next line."""
+    while True:
+        line = stream.readline(MAX_RPC_LINE_BYTES + 1)
+        if not line:
+            return
+        if len(line) > MAX_RPC_LINE_BYTES:
+            while line and not line.endswith(b"\n"):
+                line = stream.readline(MAX_RPC_LINE_BYTES + 1)
+            yield None
+        else:
+            yield line
+
+
 def main() -> None:
-    for line in sys.stdin:
-        try:
-            payload = json.loads(line)
-            response = dispatch(payload)
-        except (TypeError, ValueError, RecursionError) as exc:
+    for line in _bounded_requests(sys.stdin.buffer):
+        if line is None:
             response = {
                 "jsonrpc": "2.0", "id": None,
-                "error": {"code": -32700, "message": "Parse error: " + str(exc)[:100]},
+                "error": {"code": -32600, "message": "Request too large"},
             }
+        else:
+            try:
+                payload = json.loads(
+                    line.decode("utf-8"),
+                    parse_constant=_reject_json_constant,
+                    object_pairs_hook=_unique_json_object,
+                )
+                response = dispatch(payload)
+            except (TypeError, ValueError, RecursionError):
+                # Never reflect untrusted input or values in protocol errors.
+                response = {
+                    "jsonrpc": "2.0", "id": None,
+                    "error": {"code": -32700, "message": "Parse error"},
+                }
         if response is not None:
             print(json.dumps(response, ensure_ascii=False, separators=(",", ":")), flush=True)
 
